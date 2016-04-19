@@ -1,0 +1,11 @@
+{
+    "Main": {
+        "name": {
+            "type": "Text",
+            "fieldset": "Category name",
+            "config": {
+                "label": "Name"
+            }
+        }
+    }
+}

@@ -1,0 +1,122 @@
+{
+    "Main": {
+        "name": {
+            "type": "Text",
+            "fieldset": "Artist name",
+            "config": {
+                "label": "Name"
+            }
+        },
+        "email": {
+            "type": "Text",
+            "fieldset": "Artist email",
+            "config": {
+                "label": "Email"
+            }
+        },
+        "website": {
+            "type": "Text",
+            "fieldset": "Artist website",
+            "config": {
+                "label": "Website"
+            }
+        },
+        "description": {
+            "type": "StructuredText",
+            "fieldset": "Artist description",
+            "config": {
+                "placeholder": "Enter artist description...",
+                "multi": "heading1,heading2,heading3,heading4,heading5,heading6,paragraph,strong,em,hyperlink,ulist,olist"
+            }
+        },
+        "agency": {
+            "type": "Link",
+            "fieldset": "Agency",
+            "config": {
+                "select": "document",
+                "customtypes": [ "agency" ],
+                "placeholder": "Add agency..."
+            }
+        },
+        "categories": {
+            "type": "Group",
+            "fieldset": "Categories",
+            "config": {
+                "fields": {
+                    "category": {
+                        "type": "Link",
+                        "fieldset": "Categories",
+                        "config": {
+                            "select": "document",
+                            "customtypes": [ "category" ],
+                            "placeholder": "Add category..."
+                        }
+                    }
+                },
+                "repeat": true
+            }
+        },
+        "types": {
+            "type": "Group",
+            "fieldset": "Types",
+            "config": {
+                "fields": {
+                    "type": {
+                        "type": "Link",
+                        "fieldset": "Types",
+                        "config": {
+                            "select": "document",
+                            "customtypes": [ "type" ],
+                            "placeholder": "Add type..."
+                        }
+                    }
+                },
+                "repeat": true
+            }
+        },
+        "region": {
+            "type": "Link",
+            "fieldset": "Region",
+            "config": {
+                "select": "document",
+                "customtypes": [ "region" ],
+                "placeholder": "Add region..."
+            }
+        },
+        "city": {
+            "type": "Link",
+            "fieldset": "City",
+            "config": {
+                "select": "document",
+                "customtypes": [
+                    "city"
+                ],
+                "placeholder": "Add city..."
+            }
+        },
+        "featureImage": {
+            "type": "Image",
+            "fieldset": "Feature image",
+            "config": {
+                "placeholder": "Add image..."
+            }
+        },
+        "gallery": {
+            "type": "Group",
+            "fieldset": "Gallery",
+            "config": {
+                "fields": {
+                    "image": {
+                        "type": "Link",
+                        "fieldset": "Image",
+                        "config": {
+                            "select": "media",
+                            "placeholder": "Add image..."
+                        }
+                    }
+                },
+                "repeat": true
+            }
+        }
+    }
+}

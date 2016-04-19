@@ -1,0 +1,11 @@
+{
+    "Main": {
+        "name": {
+            "type": "Text",
+            "fieldset": "Region name",
+            "config": {
+                "label": "Name"
+            }
+        }
+    }
+}
