@@ -16,6 +16,5 @@ npm-debug.log
 config.js
 db
 build
-js_libs
 static
-#json
+greensock-js

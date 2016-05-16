@@ -1,47 +1,91 @@
 var path = require( "path" );
+var autoprefixer = require( "autoprefixer" );
+var sassLoaders = [
+    "file-loader?name=../css/[name].css",
+    "postcss-loader",
+    "sass-loader?sourceMap"
+];
 
 
 
 module.exports = {
+    devtool: "source-map",
+
+
     resolve: {
-        root: [
-            __dirname,
-            path.join( __dirname, "js_libs" ),
-            path.join( __dirname, "js_libs", "greensock-js", "src", "uncompressed" ),
-            path.join( __dirname, "js_libs", "greensock-js", "src", "uncompressed", "plugins" )
+        root: path.resolve( __dirname ),
+        packageMains: [
+            "webpack",
+            "browserify",
+            "web",
+            "hobo",
+            "main"
         ]
-/*
-        alias: {
-            TweenLite: path.join( __dirname, "js_libs/greensock-js/src/uncompressed/TweenLite.js" ),
-            CSSPlugin: path.join( __dirname, "js_libs/greensock-js/src/uncompressed/plugins/CSSPlugin.js" )
-        }
-*/
     },
 
 
     entry: {
-        app: "./source/js/app.js"
+        "app": path.resolve( __dirname, "source/js/app.js" )
     },
 
 
     output: {
-        path: "./static/js/",
-        filename: "app.js"
+        path: path.resolve( __dirname, "static/js" ),
+        filename: "[name].js"
     },
 
 
     module: {
-        loaders: [
+        preLoaders: [
+            // ESLint
             {
                 test: /source\/js\/.*\.js$/,
-                exclude: /node_modules|js_libs/,
-                loader: "babel-loader"
+                exclude: /node_modules/,
+                loader: "eslint-loader"
+            }
+        ],
+
+
+        loaders: [
+            // Babel
+            {
+                test: /source\/js\/.*\.js$/,
+                exclude: /node_modules/,
+                loader: "babel",
+                query: {
+                    presets: [
+                        "es2015"
+                    ]
+                }
             },
 
+            // Expose
             {
                 test: /(hobo|hobo.build)\.js$/,
                 loader: "expose?hobo"
+            },
+
+            // Sass
+            {
+                test: /\.scss$/,
+                loader: sassLoaders.join( "!" )
             }
+        ]
+    },
+
+
+    postcss: [
+        autoprefixer({
+            browsers: [
+                "last 2 versions"
+            ]
+        })
+    ],
+
+
+    sassLoader: {
+        includePaths: [
+            path.resolve( __dirname, "source/sass" )
         ]
     }
 };

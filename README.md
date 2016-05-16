@@ -1,4 +1,4 @@
-index.la
-========
+your-project-info
+=================
 
-> A really cool thing we're making :-)
+> Help others get up and running on this project!

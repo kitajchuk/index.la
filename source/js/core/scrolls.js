@@ -37,9 +37,6 @@ const scrolls = {
 
         this.topout();
 
-        dom.html.removeClass( "is-clipped" );
-        dom.body.removeClass( "is-clipped" );
-
         log( "scrolls initialized" );
     },
 
@@ -190,7 +187,7 @@ const suppressEvents = function ( scrollPos ) {
  *
  */
 const onScrollerUp = function () {
-    if ( !scrolls.isScrollInRange() ) {
+    if ( !scrolls.isScrollInRange() || detect.isStandalone() ) {
         return;
     }
 
@@ -211,7 +208,7 @@ const onScrollerUp = function () {
  *
  */
 const onScrollerDown = function () {
-    if ( !scrolls.isScrollInRange() ) {
+    if ( !scrolls.isScrollInRange() || detect.isStandalone() ) {
         return;
     }
 
@@ -232,7 +229,7 @@ const onScrollerDown = function () {
  *
  */
 const onScroller = function () {
-    if ( !scrolls.isScrollInRange() ) {
+    if ( !scrolls.isScrollInRange() || detect.isStandalone() ) {
         return;
     }
 

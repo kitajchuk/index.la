@@ -1,8 +1,16 @@
+/**
+ *
+ * Inlcude global stylesheet.
+ *
+ */
+require( "../sass/screen.scss" );
+
+
 import router from "./router";
 import nav from "./menus/nav";
-import drags from "./drags";
 import * as core from "./core";
 import intro from "./menus/intro";
+import drags from "./drags";
 
 
 /**
@@ -14,11 +22,11 @@ import intro from "./menus/intro";
  */
 class App {
     constructor () {
-        this.core = core;
         this.nav = nav;
-        this.drags = drags;
+        this.core = core;
         this.intro = intro;
         this.router = router;
+        this.drags = drags;
 
         this.initEvents();
         this.initModules();
@@ -36,9 +44,11 @@ class App {
      */
     initModules () {
         this.core.detect.init( this );
-        //this.core.resizes.init( this );
-        this.nav.init( this );
+        this.core.resizes.init( this );
+        this.core.scrolls.init( this );
         this.router.init( this );
+        this.nav.init( this );
+
         this.analytics = new this.core.Analytics();
     }
 
@@ -91,3 +101,9 @@ class App {
  * Expose
 *******************************************************************************/
 window.app = new App();
+
+
+/******************************************************************************
+ * Export
+*******************************************************************************/
+export default window.app;

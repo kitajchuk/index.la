@@ -1,4 +1,4 @@
-import $ from "js_libs/hobo/dist/hobo.build";
+import $ from "properjs-hobo";
 import PageController from "properjs-pagecontroller";
 import * as core from "./core";
 import cover from "./cover";
@@ -18,14 +18,13 @@ const router = {
      *
      * @public
      * @method init
-     * @param {App} app instanceof App
      * @memberof router
      * @description Initialize the router module.
      *
      */
-    init ( app ) {
-        this.app = app;
+    init () {
         this.state = {};
+        this.status = 200;
         this.pageDuration = core.util.getTransitionDuration( core.dom.page[ 0 ] );
         this.bindEmptyHashLinks();
         this.initPageController();
@@ -175,17 +174,32 @@ const router = {
      *
      * @public
      * @method initPage
-     * @param {string} html The responseText to parse out
+     * @param {object} data The PageController data object
      * @memberof router
      * @description Cache the initial page load.
      *
      */
-    initPage ( html ) {
-        const cache = this.parseDoc( html );
-
-        this.cachePage( cache.$object, cache.response );
-
+    initPage ( data ) {
         nav.padPage();
+
+        this.status = data.status;
+
+        if ( this.status === 404 ) {
+            this.handle404();
+        }
+    },
+
+
+    /**
+     *
+     * @public
+     * @method handle404
+     * @memberof router
+     * @description Handle `Page Not Found` for Router.
+     *
+     */
+    handle404 () {
+        // Handle 404s here...
     },
 
 
@@ -207,27 +221,10 @@ const router = {
         doc = $( doc );
 
         return {
-            $object: doc,
-            response: doc.find( ".js-page" )[ 0 ].innerHTML
+            $doc: doc,
+            $page: doc.find( ".js-page" ),
+            pageHtml: doc.find( ".js-page" )[ 0 ].innerHTML
         };
-    },
-
-
-    /**
-     *
-     * @public
-     * @method cachePage
-     * @param {Hobo} $object The node for use
-     * @param {string} response The XHR responseText
-     * @memberof router
-     * @description Cache the DOM content for a page once its parsed out.
-     *
-     */
-    cachePage ( $object, response ) {
-        core.cache.set( core.util.getPageKey(), {
-            $object,
-            response
-        });
     },
 
 
@@ -259,14 +256,10 @@ const router = {
         core.dom.html.removeClass( "is-routing" );
         core.dom.page.removeClass( "is-inactive" );
 
-        //core.scrolls.topout( 0 );
-        //core.scrolls.clearStates();
-        this.app.scrolling.clearStates();
+        core.scrolls.topout( 0 );
+        core.scrolls.clearStates();
 
-        setTimeout( () => {
-            core.emitter.fire( "app--intro-art" );
-
-        }, this.pageDuration );
+        setTimeout( () => core.emitter.fire( "app--intro-art" ), this.pageDuration );
 
         core.emitter.off( "app--preload-done", this.onPreloadDone );
     },
@@ -297,23 +290,24 @@ const router = {
      *
      * @public
      * @method changeContent
-     * @param {string} html The responseText as an HTML string
+     * @param {object} data The PageController data object
      * @memberof router
      * @description Swap the new content into the DOM.
      *
      */
-    changeContent ( html ) {
-        let cached = core.cache.get( core.util.getPageKey() );
+    changeContent ( data ) {
+        this.status = data.status;
 
-        if ( !cached ) {
-            cached = this.parseDoc( html );
+        if ( this.status === 404 ) {
+            this.handle404();
 
-            this.cachePage( cached.$object, cached.response );
+        } else {
+            const doc = this.parseDoc( data.response );
+
+            core.dom.page[ 0 ].innerHTML = doc.pageHtml;
+
+            core.emitter.fire( "app--analytics-push", doc.$doc );
         }
-
-        core.dom.page[ 0 ].innerHTML = cached.response;
-
-        core.emitter.fire( "app--analytics-push", html, cached.$object );
 
         // Check state before cycle finishes so `checked` state can be deleted
         this.checkState();

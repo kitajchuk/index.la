@@ -28,7 +28,7 @@ const drags = {
             _draggable = new window.Draggable( core.dom.page[ 0 ], {
                 bounds: core.dom.body[ 0 ],
                 dragResistance: 0.5,
-                edgeResistance: 0.5,
+                edgeResistance: 0.75,
                 lockAxis: true,
                 //onDragEnd: () => {},
                 onDragStart: onDraggableStart,
@@ -97,6 +97,15 @@ const drags = {
 };
 
 
+/**
+ *
+ * @private
+ * @method getDragPosition
+ * @memberof core.drags
+ * @description Method will return the current drag position as a positive Y value, like scrollY.
+ * @returns {number}
+ *
+ */
 const getDragPosition = function () {
     return Math.abs( _draggable.y );
 };

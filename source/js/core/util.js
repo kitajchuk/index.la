@@ -6,8 +6,10 @@
  * @description Houses app-wide utility methods.
  *
  */
-import $ from "js_libs/hobo/dist/hobo.build";
+import $ from "properjs-hobo";
 import ImageLoader from "properjs-imageloader";
+import loadCSS from "fg-loadcss";
+import loadJS from "fg-loadjs";
 import dom from "./dom";
 import config from "./config";
 import detect from "./detect";
@@ -46,7 +48,7 @@ const translate3d = function ( el, x, y, z ) {
 
 /**
  *
- * @description Look-ahead method for pre-loading elements
+ * @description Module onImageLoadHander method, handles event
  * @method isElementLoadable
  * @param {object} el The DOMElement to check the offset of
  * @memberof core.util
@@ -54,17 +56,21 @@ const translate3d = function ( el, x, y, z ) {
  *
  */
 const isElementLoadable = function ( el ) {
+    let ret = false;
+
     if ( el ) {
         const bounds = el.getBoundingClientRect();
 
-        return ( bounds.top < (window.innerHeight * 2) );
+        ret = ( bounds.top < (window.innerHeight * 2) );
     }
+
+    return ret;
 };
 
 
 /**
  *
- * @description Look at elements in the current viewport, vertically
+ * @description Module isElementVisibleVert method, handles element boundaries
  * @method isElementVisibleVert
  * @param {object} el The DOMElement to check the offsets of
  * @memberof core.util
@@ -72,17 +78,21 @@ const isElementLoadable = function ( el ) {
  *
  */
 const isElementVisibleVert = function ( el ) {
+    let ret = false;
+
     if ( el ) {
         const bounds = el.getBoundingClientRect();
 
-        return ( bounds.top < window.innerHeight && bounds.bottom > 0 );
+        ret = ( bounds.top < window.innerHeight && bounds.bottom > 0 );
     }
+
+    return ret;
 };
 
 
 /**
  *
- * @description Look at elements in the current viewport, horizontally
+ * @description Module isElementVisibleHorz method, handles element boundaries
  * @method isElementVisibleHorz
  * @param {object} el The DOMElement to check the offsets of
  * @memberof core.util
@@ -90,11 +100,15 @@ const isElementVisibleVert = function ( el ) {
  *
  */
 const isElementVisibleHorz = function ( el ) {
+    let ret = false;
+
     if ( el ) {
         const bounds = el.getBoundingClientRect();
 
-        return ( bounds.left < window.innerWidth && bounds.right > 0 );
+        ret = ( bounds.left < window.innerWidth && bounds.right > 0 );
     }
+
+    return ret;
 };
 
 
@@ -150,6 +164,43 @@ const loadImages = function ( images, handler ) {
         transitionDelay: 0
 
     }).on( "data", handler );
+};
+
+
+/**
+ *
+ * @description Load all deps for a module
+ * @method loadDependencies
+ * @param {object} data The dependency data
+ * @param {function} callback Function to call when all deps are loaded
+ * @memberof core.util
+ *
+ */
+const loadDependencies = function ( data, callback ) {
+    let i = 0;
+    const total = data.sources.length;
+    const onload = function () {
+        i++;
+
+        if ( i === total ) {
+            if ( typeof data.callback === "function" ) {
+                data.callback();
+            }
+
+            if ( typeof callback === "function" ) {
+                callback();
+            }
+        }
+    };
+
+    data.sources.forEach(( source ) => {
+        if ( source.type === "script" ) {
+            loadJS( (config.asyncScriptPath + source.file), onload );
+
+        } else if ( source.type === "style" ) {
+            loadCSS( (config.asyncStylePath + source.file) ).onloadcssdefined( onload );
+        }
+    });
 };
 
 
@@ -349,9 +400,10 @@ const extendObject = function ( target, arrow ) {
 /******************************************************************************
  * Export
 *******************************************************************************/
-export default {
+export {
     // Loading
     loadImages,
+    loadDependencies,
     getElementsInView,
     isElementLoadable,
     isElementVisibleVert,

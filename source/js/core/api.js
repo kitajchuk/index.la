@@ -1,4 +1,4 @@
-import $ from "js_libs/hobo/dist/hobo.build";
+import $ from "properjs-hobo";
 import * as util from "./util";
 
 
