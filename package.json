@@ -22,6 +22,7 @@
     "paramalama": "~0.2",
     "postcss-cli": "^2.1.0",
     "postcss-loader": "^0.9.1",
+    "prismic-express": "^0.1.3",
     "properjs-controller": "~0.2",
     "properjs-debounce": "^0.2.0",
     "properjs-easing": "~0.2",
