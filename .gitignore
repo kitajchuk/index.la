@@ -18,3 +18,4 @@ db
 build
 static
 greensock-js
+test*

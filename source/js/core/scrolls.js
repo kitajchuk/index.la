@@ -37,6 +37,9 @@ const scrolls = {
 
         this.topout();
 
+        dom.html.removeClass( "is-clipped" );
+        dom.body.removeClass( "is-clipped" );
+
         log( "scrolls initialized" );
     },
 
