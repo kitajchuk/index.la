@@ -90,13 +90,16 @@ const images = {
      * @param {object} $images Optionally, the image collection to load
      * @param {function} callback Optionally, a callback to fire when loading is done
      * @description Method handles separation of pre-load and lazy-load.
+     * @returns {ImageController}
      *
      */
     handleImages ( $images, callback ) {
+        let imageController = null;
+
         $images = ($images || dom.page.find( config.lazyImageSelector ));
 
         if ( $images.length ) {
-            const imageController = new ImageController( $images );
+            imageController = new ImageController( $images );
 
             imageController.on( "preload", this.handlePreload.bind( this, callback ) );
 
@@ -107,6 +110,8 @@ const images = {
         } else {
             this.handlePreload( callback );
         }
+
+        return imageController;
     }
 };
 

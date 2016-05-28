@@ -1,6 +1,10 @@
 /******************************************************************************
  * Document States
 *******************************************************************************/
+.is-hidden {
+    display: none;
+}
+
 .is-neverflow {
     overflow: hidden;
 }
@@ -24,16 +28,3 @@
         pointer-events: none;
         }
 }
-
-
-
-/******************************************************************************
- * Cover Pages / Posters
-*******************************************************************************/
-.is-cover-page {}
-.is-cover-page--dark {
-    background-color: $true-black;
-    }
-.is-cover-poster {}
-.is-cover-moment {}
-.is-cover-light {}

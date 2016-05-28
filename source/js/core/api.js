@@ -2,9 +2,6 @@ import $ from "properjs-hobo";
 import * as util from "./util";
 
 
-const _rSlash = /^\/|\/$/g;
-
-
 /**
  *
  * @public
@@ -24,8 +21,7 @@ const api = {
      */
     data: {
         site: {
-            url: location.origin,
-            api: [location.origin, "api"].join( "/" )
+            url: location.origin
         }
     },
 
@@ -55,21 +51,6 @@ const api = {
     /**
      *
      * @public
-     * @method urify
-     * @param {string} uri The collection uri
-     * @memberof core.api
-     * @description Ensures a leading/trailing slash.
-     * @returns {string}
-     *
-     */
-    urify ( uri ) {
-        return ["/", uri.replace( _rSlash, "" ), "/"].join( "" );
-    },
-
-
-    /**
-     *
-     * @public
      * @method endpoint
      * @param {string} uri The collection uri
      * @memberof core.api
@@ -78,22 +59,7 @@ const api = {
      *
      */
     endpoint ( uri ) {
-        return [this.data.site.url, uri.replace( _rSlash, "" )].join( "/" );
-    },
-
-
-    /**
-     *
-     * @public
-     * @method apipoint
-     * @param {string} uri The API uri
-     * @memberof core.api
-     * @description Creates the fullUrl from an API uri.
-     * @returns {string}
-     *
-     */
-    apipoint ( uri ) {
-        return [this.data.site.api, uri.replace( _rSlash, "" )].join( "/" );
+        return [this.data.site.url, uri.replace( /^\/|\/$/g, "" )].join( "/" );
     },
 
 

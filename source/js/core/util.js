@@ -161,9 +161,8 @@ const loadImages = function ( images, handler ) {
     return new ImageLoader({
         elements: images,
         property: config.lazyImageAttr,
-        transitionDelay: 0
-
-    }).on( "data", handler );
+        executor: handler
+    });
 };
 
 
@@ -297,69 +296,6 @@ const preNoop = function ( e ) {
 
 /**
  *
- * @description Randomize array element order in-place.
- * Using Fisher-Yates shuffle algorithm.
- * @method shuffle
- * @param {object} arr The array to shuffle
- * @memberof core.util
- * @returns {array}
- *
- */
-const shuffle = function ( arr ) {
-    let i = arr.length - 1;
-    let j = 0;
-    let temp = arr[ i ];
-
-    for ( i; i > 0; i-- ) {
-        j = Math.floor( Math.random() * (i + 1) );
-        temp = arr[ i ];
-
-        arr[ i ] = arr[ j ];
-        arr[ j ] = temp;
-    }
-
-    return arr;
-};
-
-
-/**
- *
- * @method calculateAspectRatioFit
- * @memberof core.util
- * @param {number} srcWidth The node width
- * @param {number} srcHeight The node height
- * @param {number} maxWidth The bounds width
- * @param {number} maxHeight The bounds height
- * @description Get optimum size for the given bounds and node dimensions
- * @returns {object}
- *
- */
-const calculateAspectRatioFit = function ( srcWidth, srcHeight, maxWidth, maxHeight ) {
-    const ratio = Math.min( (maxWidth / srcWidth), (maxHeight / srcHeight) );
-
-    return {
-        width: srcWidth * ratio,
-        height: srcHeight * ratio
-    };
-};
-
-
-/**
- *
- * @public
- * @method getPageKey
- * @memberof util
- * @description Determine the key for local page cache storage.
- * @returns {string}
- *
- */
-const getPageKey = function () {
-    return `${window.location.pathname}${window.location.search}`;
-};
-
-
-/**
- *
  * @public
  * @method extendObject
  * @memberof util
@@ -416,10 +352,7 @@ export {
     // Random
     px,
     noop,
-    shuffle,
-    getPageKey,
     translate3d,
     extendObject,
-    getTransitionDuration,
-    calculateAspectRatioFit
+    getTransitionDuration
 };

@@ -31,7 +31,7 @@
  * Type
 *******************************************************************************/
 @mixin meta() {
-    color: $black;
+    color: $grey-text;
     font-size: $meta-size;
     line-height: 1.444444;
     @include font-sans-text();
@@ -52,22 +52,22 @@
 @mixin h1() {
     font-size: $h1-size;
     line-height: 1.32;
-    @include font-serif-text();
+    @include font-sans-text();
 }
 @mixin h2() {
     font-size: $h2-size;
     line-height: 1.333333;
-    @include font-serif-text();
+    @include font-sans-text();
 }
 @mixin h3() {
     font-size: $h3-size;
     line-height: $h3-line-height;
-    @include font-serif-text();
+    @include font-sans-text();
 }
 @mixin h4() {
     font-size: $h4-size;
     line-height: 1.4166666667;
-    @include font-serif-text();
+    @include font-sans-text();
 }
 @mixin li() {
     padding-left: 20px;

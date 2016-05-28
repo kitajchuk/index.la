@@ -8,25 +8,17 @@ $serif-text: "Georgia";
 // Sans Serif
 $sans-serif-text: "Helvetica";
 
-// Monospace - Code Snippets
-$monospace-text: Pragmata, Menlo, "DejaVu LGC Sans Mono", "DejaVu Sans Mono", Consolas, "Everson Mono", "Lucida Console", "Andale Mono", "Nimbus Mono L", "Liberation Mono", FreeMono, "Osaka Monospaced", Courier, "New Courier", monospace;
-
 
 
 /******************************************************************************
  * Colors
 *******************************************************************************/
 
-// Grey Tones
-$true-black: #000;
-$black: #121212;
+$black: #000;
 $white: #fff;
-$dark: #2b2b2b;
-$grey-bg: #f5f5f5;
+$spot: #95c7e3;
 $grey-text: #a0a0a0;
-$grey-link: #807e7e;
-$grey-rule: #d7d7d7;
-$grey-code: #aaa;
+$grey-light: #e5e7e7;
 
 
 
@@ -42,27 +34,19 @@ $grid-columns: 12 11 10 9 8 7 6 5 4 3 2 1;
  * Spacing
 *******************************************************************************/
 
-// Small
-$bump-size: 80px;
-$nudge-size: 40px;
+// Translate
+$bump-size: 60px;
 
 // Content Blocks
-$expander-one: 90px;
-$expander-two: 160px;
-$expander-three: 250px;
-$expander-mobile: 50px;
-$expander-mobile-tite: 15px;
+$expander-one: 60px;
+$expander-two: 120px;
+$expander-three: 240px;
+$expander-mobile: 30px;
 
 // Horizontal
 $mobile-padding: 30px;
 $image-padding: 13.671875%;
 $wrapper-padding: 7.03125%;
-$grid-padding: #{"calc( ~\"#{$wrapper-padding} + #{$bump-size}\" )"};
-
-// Grid Walls
-$grid-item-padding: 5.5%;
-$grid-item-padding-static: 55px;
-$grid-item-padding-bottom: #{"calc( ~\"11% + #{$bump-size}\" )"};
 
 
 

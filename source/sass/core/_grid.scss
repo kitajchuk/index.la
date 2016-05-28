@@ -64,20 +64,5 @@
     margin: 0;
     padding: 0;
     position: relative;
-    text-align: center;
     width: auto;
-    }
-.grid__item {
-    display: inline-block;
-    padding: 0 $grid-item-padding $grid-item-padding-bottom;
-    vertical-align: middle;
-    width: 33.333333%;
-
-    &.is-hidden {
-        display: none;
-        }
-
-    > a {
-        display: block;
-        }
     }

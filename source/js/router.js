@@ -1,9 +1,10 @@
 import $ from "properjs-hobo";
 import PageController from "properjs-pagecontroller";
 import * as core from "./core";
-import cover from "./cover";
 import nav from "./menus/nav";
 import animate from "./animate";
+import index from "./index";
+import artist from "./index/artist";
 
 
 /**
@@ -30,6 +31,72 @@ const router = {
         this.initPageController();
 
         core.log( "router initialized" );
+    },
+
+
+    /**
+     *
+     * @public
+     * @method initPageController
+     * @memberof router
+     * @description Create the PageController instance.
+     *
+     */
+    initPageController () {
+        this.controller = new PageController({
+            transitionTime: this.pageDuration
+        });
+
+        this.controller.setConfig([
+            "*"
+        ]);
+
+        this.controller.setModules([
+            core.images,
+
+            index,
+            artist,
+            animate
+        ]);
+
+        this.controller.on( "page-controller-router-samepage", () => nav.close() );
+        this.controller.on( "page-controller-router-transition-out", this.changePageOut.bind( this ) );
+        this.controller.on( "page-controller-router-refresh-document", this.changeContent.bind( this ) );
+        this.controller.on( "page-controller-router-transition-in", this.changePageIn.bind( this ) );
+        this.controller.on( "page-controller-initialized-page", this.initPage.bind( this ) );
+
+        this.controller.initPage();
+    },
+
+
+    /**
+     *
+     * @public
+     * @method initPage
+     * @param {object} data The PageController data object
+     * @memberof router
+     * @description Cache the initial page load.
+     *
+     */
+    initPage ( data ) {
+        this.status = data.status;
+
+        if ( this.status === 404 ) {
+            this.handle404();
+        }
+    },
+
+
+    /**
+     *
+     * @public
+     * @method handle404
+     * @memberof router
+     * @description Handle `Page Not Found` for Router.
+     *
+     */
+    handle404 () {
+        // Handle 404s here...
     },
 
 
@@ -133,73 +200,6 @@ const router = {
     push ( path, cb ) {
         this.controller.routeSilently( path, (cb || core.util.noop) );
         this.checkState();
-    },
-
-
-    /**
-     *
-     * @public
-     * @method initPageController
-     * @memberof router
-     * @description Create the PageController instance.
-     *
-     */
-    initPageController () {
-        this.controller = new PageController({
-            transitionTime: this.pageDuration
-        });
-
-        this.controller.setConfig([
-            "*"
-        ]);
-
-        this.controller.setModules([
-            core.images,
-
-            cover,
-            animate
-        ]);
-
-        this.controller.on( "page-controller-router-samepage", () => nav.close() );
-        this.controller.on( "page-controller-router-transition-out", this.changePageOut.bind( this ) );
-        this.controller.on( "page-controller-router-refresh-document", this.changeContent.bind( this ) );
-        this.controller.on( "page-controller-router-transition-in", this.changePageIn.bind( this ) );
-        this.controller.on( "page-controller-initialized-page", this.initPage.bind( this ) );
-
-        this.controller.initPage();
-    },
-
-
-    /**
-     *
-     * @public
-     * @method initPage
-     * @param {object} data The PageController data object
-     * @memberof router
-     * @description Cache the initial page load.
-     *
-     */
-    initPage ( data ) {
-        nav.padPage();
-
-        this.status = data.status;
-
-        if ( this.status === 404 ) {
-            this.handle404();
-        }
-    },
-
-
-    /**
-     *
-     * @public
-     * @method handle404
-     * @memberof router
-     * @description Handle `Page Not Found` for Router.
-     *
-     */
-    handle404 () {
-        // Handle 404s here...
     },
 
 

@@ -4,9 +4,10 @@
 .page {
     left: 0;
     overflow: auto;
-    position: absolute;
+    //position: absolute;
+    position: relative;
     top: 0;
-    transition: opacity $base-duration $ease-cubic;
+    transition: opacity $fast-duration $ease;
     width: 100%;
 
     &.is-reactive {

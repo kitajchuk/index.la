@@ -16,10 +16,10 @@ import config from "./config";
 import env from "./env";
 import log from "./log";
 import Waypoints from "./Waypoints";
-import cache from "./cache";
+//import cache from "./cache";
 import Analytics from "./Analytics";
 import emitter from "./emitter";
-import mediabox from "./mediabox";
+//import mediabox from "./mediabox";
 import scroller from "./scroller";
 import resizer from "./resizer";
 
@@ -36,10 +36,10 @@ export {
     env,
     log,
     Waypoints,
-    cache,
+    //cache,
     Analytics,
     emitter,
-    mediabox,
+    //mediabox,
     scroller,
     resizer
 };

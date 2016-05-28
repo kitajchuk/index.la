@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-prismic-express server &
+./node_modules/.bin/prismic-express server &
 PID=$!
 trap 'kill -9 $PID' TERM INT
 npm start

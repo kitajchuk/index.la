@@ -1,6 +1,5 @@
 import dom from "./dom";
 import log from "./log";
-import detect from "./detect";
 import emitter from "./emitter";
 import scroller from "./scroller";
 
@@ -149,10 +148,6 @@ const broadcast = function ( event, position ) {
  *
  */
 const suppressEvents = function ( scrollPos ) {
-    if ( detect.isStandalone() ) {
-        return;
-    }
-
     try {
         clearTimeout( _timeout );
 
@@ -190,7 +185,7 @@ const suppressEvents = function ( scrollPos ) {
  *
  */
 const onScrollerUp = function () {
-    if ( !scrolls.isScrollInRange() || detect.isStandalone() ) {
+    if ( !scrolls.isScrollInRange() ) {
         return;
     }
 
@@ -211,7 +206,7 @@ const onScrollerUp = function () {
  *
  */
 const onScrollerDown = function () {
-    if ( !scrolls.isScrollInRange() || detect.isStandalone() ) {
+    if ( !scrolls.isScrollInRange() ) {
         return;
     }
 
@@ -232,7 +227,7 @@ const onScrollerDown = function () {
  *
  */
 const onScroller = function () {
-    if ( !scrolls.isScrollInRange() || detect.isStandalone() ) {
+    if ( !scrolls.isScrollInRange() ) {
         return;
     }
 

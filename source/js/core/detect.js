@@ -29,19 +29,7 @@ const detect = {
     init () {
         this._isTouch = ("ontouchstart" in window || "DocumentTouch" in window);
         this._isMobile = (/Android|BlackBerry|iPhone|iPad|iPod|IEMobile|Opera Mini/gi.test( window.navigator.userAgent ));
-        this._isSurface = ("onmouseover" in document) && (/Windows NT/.test( window.navigator.userAgent ) && /Touch/.test( window.navigator.userAgent ));
-        this._isStandalone = ("standalone" in window);
         this._prefix = this.getPrefix();
-
-        // iOS Standalone mode
-        if ( "standalone" in window ) {
-            dom.html.addClass( "is-standalone" );
-        }
-
-        // Windows Surface mode
-        if ( this._isSurface ) {
-            dom.html.addClass( "is-surface" );
-        }
 
         // Touch support mode
         if ( this._isTouch ) {
@@ -137,20 +125,6 @@ const detect = {
      */
     isDevice () {
         return (this._isTouch && this._isMobile);
-    },
-
-
-    /**
-     *
-     * @public
-     * @method isStandalone
-     * @memberof core.detect
-     * @description Must be window.standalone.
-     * @returns {boolean}
-     *
-     */
-    isStandalone () {
-        return this._isStandalone;
     }
 };
 

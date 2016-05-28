@@ -5,14 +5,12 @@
     padding-bottom: $cinema-aspect;
     }
 .-exp {
-    padding-bottom: $expander-two;
-    padding-top: $expander-two;
+    padding-bottom: $expander-one;
+    padding-top: $expander-one;
     }
-.-exp-t {
-    padding-top: $expander-two;
-    }
-.-exp-b {
-    padding-bottom: $expander-two;
+.-exp-m {
+    padding-bottom: $expander-mobile;
+    padding-top: $expander-mobile;
     }
 
 
@@ -41,38 +39,13 @@
 
 
 /******************************************************************************
- * ProperJS ImageLoader Hooks
-*******************************************************************************/
-/*
-.-is-lazy-loading {
-    opacity: 0;
-    }
-.-is-lazy-transition {
-    transition: opacity $base-duration $ease-cubic;
-    }
-.-is-lazy-loaded {
-    opacity: 1;
-    }
-.-is-lazy-handled {
-    }
-*/
-
-
-
-/******************************************************************************
  * Fills
 *******************************************************************************/
 .-bg--light {
     background-color: $white;
     }
-.-bg--dark {
-    background-color: $dark;
-    }
 .-bg--black {
     background-color: $black;
-    }
-.-bg--true-black {
-    background-color: $true-black;
     }
 
 
@@ -92,9 +65,18 @@
 .-light {
     color: $white;
     }
-.-dark {
-    color: $dark;
+.-black {
+    color: $black;
     }
 .-grey {
     color: $grey-text;
+    }
+
+
+
+.-f-zero {
+    font-size: 0;
+    }
+.-valign-top {
+    vertical-align: top;
     }

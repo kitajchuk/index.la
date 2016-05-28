@@ -1,0 +1,8 @@
+<article class="artist js-artist wrapper -exp -f-zero -text--center" data-id="<%= document.id %>">
+    <p class="p">{{data.name.value}}</p>
+    <p class="p meta">{{data.region.value.data.name.value}}</p>
+    <p class="p meta">{{data.city.value.data.name.value}}</p>
+    <div class="artist__gallery -column -column--1of4">
+        <img v-for="galleryImage in data.gallery.value" class="artist__gallery__image image js-artist-image -exp" data-img-src="{{galleryImage.value.image.url}}" />
+    </div>
+</article>

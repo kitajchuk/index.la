@@ -1,6 +1,6 @@
 .animate {
     opacity: 0;
-    transform: translate3d( 0, $nudge-size, 0 );
+    transform: translate3d( 0, $bump-size, 0 );
     transition: opacity $long-duration $ease-out,
                 transform $base-duration $ease-out;
 
@@ -25,5 +25,5 @@
 
 
 .animate--horz {
-    transform: translate3d( $nudge-size, 0, 0 );
+    transform: translate3d( $bump-size, 0, 0 );
     }

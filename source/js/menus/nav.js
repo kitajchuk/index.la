@@ -1,8 +1,9 @@
+import $ from "properjs-hobo";
 import * as core from "../core";
 import Menu from "./Menu";
 
 
-const $_jsItems = core.dom.nav.find( ".js-menu-nav-item" );
+const $_jsItems = core.dom.nav.find( ".js-nav-item" );
 
 
 /**
@@ -85,7 +86,7 @@ const nav = {
      *
      */
     bindMainEvents () {
-        core.dom.nav.on( "click", ".js-menu-nav", onTapNavMenu );
+        core.dom.nav.on( "click", ".js-nav", onTapNavMenu );
         core.dom.header.on( "click", ".js-controller--nav", onTapNavIcon );
     }
 };
@@ -95,12 +96,17 @@ const nav = {
  *
  * @private
  * @method onTapNavMenu
+ * @param {object} e The Event object
  * @memberof menus.nav
  * @description Handles list icon event.
  *
  */
-const onTapNavMenu = function () {
-    nav.close();
+const onTapNavMenu = function ( e ) {
+    const $target = $( e.target );
+
+    if ( $target.is( ".js-nav" ) ) {
+        nav.close();
+    }
 };
 
 

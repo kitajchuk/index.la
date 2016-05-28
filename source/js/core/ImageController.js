@@ -70,6 +70,19 @@ class ImageController extends Controller {
             this.fire( "lazyload" );
         });
     }
+
+
+    destroy () {
+        if ( this.preLoader ) {
+            this.preLoader.stop();
+            this.preLoader = null;
+        }
+
+        if ( this.lazyLoader ) {
+            this.lazyLoader.stop();
+            this.lazyLoader = null;
+        }
+    }
 }
 
 

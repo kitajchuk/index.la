@@ -6,11 +6,12 @@
 require( "../sass/screen.scss" );
 
 
+import $ from "properjs-hobo";
 import router from "./router";
 import nav from "./menus/nav";
 import * as core from "./core";
-import intro from "./menus/intro";
 import drags from "./drags";
+import intro from "./menus/intro";
 
 
 /**
@@ -24,12 +25,25 @@ class App {
     constructor () {
         this.nav = nav;
         this.core = core;
-        this.intro = intro;
         this.router = router;
-        this.drags = drags;
+        this.intro = intro;
 
-        this.initEvents();
-        this.initModules();
+        this.loadData().then(( data ) => {
+            this.initModules();
+            this.initScrolling();
+
+            this.core.emitter.fire( "app--data", data );
+
+            this.intro.teardown();
+        });
+    }
+
+
+    loadData () {
+        return $.ajax({
+            url: "/api/data.json",
+            dataType: "json"
+        });
     }
 
 
@@ -44,8 +58,6 @@ class App {
      */
     initModules () {
         this.core.detect.init( this );
-        this.core.resizes.init( this );
-        this.core.scrolls.init( this );
         this.router.init( this );
         this.nav.init( this );
 
@@ -57,39 +69,19 @@ class App {
      *
      * @public
      * @instance
-     * @method initEvents
+     * @method initScrolling
      * @memberof App
-     * @description Initialize application events.
+     * @description Initialize the appropriate scroll manager.
      *
      */
-    initEvents () {
-        this._onPreloadDone = this.onPreloadDone.bind( this );
-
-        this.core.emitter.on( "app--preload-done", this._onPreloadDone );
-    }
-
-
-    /**
-     *
-     * @public
-     * @instance
-     * @method onPreloadDone
-     * @memberof App
-     * @description Handle the event for initializing the app.
-     *
-     */
-    onPreloadDone () {
-        this.core.emitter.off( "app--preload-done", this._onPreloadDone );
-
-        this.intro.teardown();
-
+    initScrolling () {
         // Use Greensock Draggable for devices
         if ( this.core.detect.isDevice() ) {
-            this.scrollManager = this.drags;
+            this.scrollManager = drags;
 
         // Use ProperJS ScrollController for laptops, etc...
         } else {
-            this.scrollManager = this.core.scrolls;
+            this.scrollManager = core.scrolls;
         }
 
         this.scrollManager.init( this );

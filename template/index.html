@@ -1,0 +1,56 @@
+<section class="filter js-filter wrapper -exp -f-zero -text--center">
+    <div class="filter__col -column -valign-top -text--left">
+        <p class="p">Location</p>
+        <ul class="filter__set">
+            <% region.forEach(function ( r ) { %>
+                <li class="filter__opt p meta js-filter-option" data-type="region" data-value="<%= r.data['region.name'].value %>"><%= r.data["region.name"].value %></li>
+            <% }) %>
+        </ul>
+    </div>
+    <div class="filter__col -column -valign-top -text--left">
+        <p class="p">Category</p>
+        <ul class="filter__set">
+            <% category.forEach(function ( c ) { %>
+                <li class="filter__opt p meta js-filter-option" data-type="categories" data-value="<%= c.data['category.name'].value %>"><%= c.data["category.name"].value %></li>
+            <% }) %>
+        </ul>
+    </div>
+    <div class="filter__col -column -valign-top -text--left">
+        <p class="p">Type</p>
+        <ul class="filter__set">
+            <% type.forEach(function ( t ) { %>
+                <li class="filter__opt p meta js-filter-option" data-type="types" data-value="<%= t.data['type.name'].value %>"><%= t.data["type.name"].value %></li>
+            <% }) %>
+        </ul>
+    </div>
+    <div class="filter__col -column -valign-top -text--left">
+        <p class="p">Sort</p>
+        <ul class="filter__set">
+            <li class="filter__opt p meta js-sort-option" data-value="uuid">Most Recent</li>
+            <li class="filter__opt p meta js-sort-option" data-value="region">Location</li>
+            <li class="filter__opt p meta js-sort-option" data-value="name">Name</li>
+        </ul>
+    </div>
+</section>
+<section class="index js-index">
+    <a class="index__row wrapper -exp -f-zero -text--center" v-show="artist.show" v-for="artist in artists" href="/artist/{{artist.slug}}/" data-uuid="{{artist.uuid}}">
+        <div class="index__col -column -text--left">
+            <div class="index__thumbnail">
+                <figure class="index__figure">
+                    <img class="index__image image image--{{artist.data.featureImage.value.main.dimensions.width > artist.data.featureImage.value.main.dimensions.height ? 'wide' : 'tall'}} js-index-image" data-img-src="{{artist.data.featureImage.value.main.url}}" />
+                </figure>
+            </div>
+        </div>
+        <div class="index__col -column -text--left">
+            <p class="p">{{artist.data.name.value}}</p>
+            <p class="p meta" v-if="artist.data.type">{{artist.data.type.value.data.name.value}}</p>
+            <p class="p meta" v-else v-for="type in artist.data.types.value">{{type.value.data.name.value}}</p>
+        </div>
+        <div class="index__col -column -text--left">
+            <p class="p meta" v-for="category in artist.data.categories.value">{{category.value.data.name.value}}</p>
+        </div>
+        <div class="index__col -column -text--left">
+            <p class="p meta">{{artist.data.region.value.data.name.value}}</p>
+        </div>
+    </a>
+</section>

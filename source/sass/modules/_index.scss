@@ -1,0 +1,54 @@
+.index__row {
+    border-top: 1px solid $grey-light;
+    display: block;
+    }
+.index__col {
+    width: 25%;
+    }
+.index__col:not( :first-child ) {
+    padding-left: $expander-two;
+    }
+.index__thumbnail {
+    max-width: 300px;
+    position: relative;
+    width: 100%;
+    }
+.index__figure {
+    padding-bottom: 100%;
+    position: relative;
+    width: 100%;
+    }
+.index__image {
+    left: 50%;
+    max-height: 100%;
+    max-width: 100%;
+    position: absolute;
+    top: 50%;
+    transform: translate3d( -50%, -50%, 0 );
+
+    &.image--tall {
+        height: 100%;
+        width: auto;
+        }
+    &.image--wide {
+        height: auto;
+        width: 100%;
+        }
+    }
+
+
+
+.filter {
+    width: 100%;
+    }
+.filter__opt {
+    cursor: pointer;
+
+    &.is-active {
+        color: $spot;
+        }
+    }
+.filter__col {}
+.filter__col:not( :first-child ) {
+    padding-left: $expander-three;
+    }

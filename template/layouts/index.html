@@ -10,31 +10,23 @@
         <title>Index.la</title>
 
         <!-- Styles -->
-        <link href="{{static.css.screen}}" rel="stylesheet" />
+        <link href="<%= static.css.screen %>" rel="stylesheet" />
     </head>
     <body class="is-clipped">
-        <header class="header js-header"></header>
-        <nav class="nav js-nav"></nav>
-        <div class="page js-page">
-            {{{body}}}
-            <div class="animate animate--fade js-animate"><img class="image js-lazy-image" data-img-src="http://nerdist.com/wp-content/uploads/2015/09/legend_of_zelda___deku_tree_by_minionslayer-d7w2trc-970x545.jpg" /></div>
-            <div class="animate animate--fade js-animate"><img class="image js-lazy-image" data-img-src="http://nerdist.com/wp-content/uploads/2015/09/legend_of_zelda___deku_tree_by_minionslayer-d7w2trc-970x545.jpg" /></div>
-            <div class="animate animate--fade js-animate"><img class="image js-lazy-image" data-img-src="http://nerdist.com/wp-content/uploads/2015/09/legend_of_zelda___deku_tree_by_minionslayer-d7w2trc-970x545.jpg" /></div>
-            <div class="animate animate--fade js-animate"><img class="image js-lazy-image" data-img-src="http://nerdist.com/wp-content/uploads/2015/09/legend_of_zelda___deku_tree_by_minionslayer-d7w2trc-970x545.jpg" /></div>
-            <div class="animate animate--fade js-animate"><img class="image js-lazy-image" data-img-src="http://nerdist.com/wp-content/uploads/2015/09/legend_of_zelda___deku_tree_by_minionslayer-d7w2trc-970x545.jpg" /></div>
-            <div class="animate animate--fade js-animate"><img class="image js-lazy-image" data-img-src="http://nerdist.com/wp-content/uploads/2015/09/legend_of_zelda___deku_tree_by_minionslayer-d7w2trc-970x545.jpg" /></div>
-            <div class="animate animate--fade js-animate"><img class="image js-lazy-image" data-img-src="http://nerdist.com/wp-content/uploads/2015/09/legend_of_zelda___deku_tree_by_minionslayer-d7w2trc-970x545.jpg" /></div>
-            <div class="animate animate--fade js-animate"><img class="image js-lazy-image" data-img-src="http://nerdist.com/wp-content/uploads/2015/09/legend_of_zelda___deku_tree_by_minionslayer-d7w2trc-970x545.jpg" /></div>
-            <div class="animate animate--fade js-animate"><img class="image js-lazy-image" data-img-src="http://nerdist.com/wp-content/uploads/2015/09/legend_of_zelda___deku_tree_by_minionslayer-d7w2trc-970x545.jpg" /></div>
-            <div class="animate animate--fade js-animate"><img class="image js-lazy-image" data-img-src="http://nerdist.com/wp-content/uploads/2015/09/legend_of_zelda___deku_tree_by_minionslayer-d7w2trc-970x545.jpg" /></div>
-            <div class="animate animate--fade js-animate"><img class="image js-lazy-image" data-img-src="http://nerdist.com/wp-content/uploads/2015/09/legend_of_zelda___deku_tree_by_minionslayer-d7w2trc-970x545.jpg" /></div>
-            <div class="animate animate--fade js-animate"><img class="image js-lazy-image" data-img-src="http://nerdist.com/wp-content/uploads/2015/09/legend_of_zelda___deku_tree_by_minionslayer-d7w2trc-970x545.jpg" /></div>
-            <div class="animate animate--fade js-animate"><img class="image js-lazy-image" data-img-src="http://nerdist.com/wp-content/uploads/2015/09/legend_of_zelda___deku_tree_by_minionslayer-d7w2trc-970x545.jpg" /></div>
-            <div class="animate animate--fade js-animate"><img class="image js-lazy-image" data-img-src="http://nerdist.com/wp-content/uploads/2015/09/legend_of_zelda___deku_tree_by_minionslayer-d7w2trc-970x545.jpg" /></div>
-        </div>
-        <div class="intro js-intro screen -text--center ghost is-active">
+        <header class="header wrapper js-header">
+            <span class="icon icon--list js-controller--nav"></span>
+        </header>
+        <nav class="nav screen ghost js-nav -text--center">
+            <div class="ghost__child">
+                <a class="p -light" href="/">Index</a>
+            </div>
+        </nav>
+        <main class="page js-page">
+            <%- body %>
+        </main>
+        <section class="intro js-intro screen -text--center ghost is-active">
             <h1 class="h1 ghost__child">Index.la</h1>
-        </div>
-        <script src="{{static.js.app}}"></script>
+        </section>
+        <script src="<%= static.js.app %>"></script>
     </body>
 </html>
