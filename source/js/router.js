@@ -323,10 +323,8 @@ const router = {
      * @description Trigger transition-in animation.
      *
      */
-    changePageIn ( data ) {
-        const collection = data.request.uri.split( "/" )[ 0 ];
-
-        nav.toggleActive( collection );
+    changePageIn ( /* data */ ) {
+        nav.toggleActive();
     }
 };
 

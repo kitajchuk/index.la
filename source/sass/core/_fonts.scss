@@ -1,3 +1,31 @@
 /******************************************************************************
  * Font Declarations
 *******************************************************************************/
+@font-face {
+    font-family: $sans-text-regular;
+    src: url( "https://prismic-io.s3.amazonaws.com/index-la%2F284e55d4-ff9c-4f00-b321-236157638066_gt-walsheim-regular.woff" ) format( "woff" ),
+         url( "https://prismic-io.s3.amazonaws.com/index-la%2F1c0d471f-348e-4eab-bfef-51c514fe17f7_gt-walsheim-regular.ttf" ) format( "truetype" );
+    font-style: normal;
+    font-stretch: normal;
+}
+@font-face {
+    font-family: $sans-text-regular-oblique;
+    src: url( "https://prismic-io.s3.amazonaws.com/index-la%2Ff2494630-a622-48eb-a0ab-b9822ff08922_gt-walsheim-regular-oblique.woff" ) format( "woff" ),
+         url( "https://prismic-io.s3.amazonaws.com/index-la%2F8fcdd19d-00e9-4a54-81c4-938649ef0743_gt-walsheim-regular-oblique.ttf" ) format( "truetype" );
+    font-style: normal;
+    font-stretch: normal;
+}
+@font-face {
+    font-family: $sans-text-medium;
+    src: url( "https://prismic-io.s3.amazonaws.com/index-la%2Fcd3ed92c-9730-4a33-bbc1-ad1263d2b5de_gt-walsheim-medium.woff" ) format( "woff" ),
+         url( "https://prismic-io.s3.amazonaws.com/index-la%2Fb798c141-bffa-4941-9877-d5d34f8620cf_gt-walsheim-medium.ttf" ) format( "truetype" );
+    font-style: normal;
+    font-stretch: normal;
+}
+@font-face {
+    font-family: $sans-text-medium-oblique;
+    src: url( "https://prismic-io.s3.amazonaws.com/index-la%2F37165429-5f9f-4014-8fdf-0623337408bf_gt-walsheim-medium-oblique.woff" ) format( "woff" ),
+         url( "https://prismic-io.s3.amazonaws.com/index-la%2F15958389-4c5e-47a8-b97f-6a7f45ee212b_gt-walsheim-medium-oblique.ttf" ) format( "truetype" );
+    font-style: normal;
+    font-stretch: normal;
+}

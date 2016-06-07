@@ -1,9 +1,7 @@
 import * as core from "../core";
 import helpers from "./helpers";
-import sort from "./sort";
 import filter from "./filter";
 import Vue from "vue";
-import $ from "properjs-hobo";
 
 
 /**
@@ -27,6 +25,8 @@ const index = {
      *
      */
     init () {
+        filter.init();
+
         core.emitter.on( "app--data", this.ondata.bind( this ) );
 
         core.log( "index initialized" );
@@ -64,12 +64,10 @@ const index = {
             data: this.viewData,
             ready: () => {
                 this.imageController = core.images.handleImages( this.element.find( ".js-index-image" ) );
-                this.filter = core.dom.page.find( ".js-filter" );
-                this.filters = this.filter.find( ".js-filter-option" );
-                this.sorts = this.filter.find( ".js-sort-option" );
-                this.bind();
             }
         });
+
+        filter.setData( this.viewData.artists );
     },
 
 
@@ -104,12 +102,6 @@ const index = {
         this.view = null;
         this.viewData = null;
 
-        // Filters?
-        this.filters.off( "click" );
-        this.filters = null;
-        this.filter = null;
-        this.sorts = null;
-
         // Element?
         this.element = null;
     },
@@ -133,34 +125,6 @@ const index = {
 
     ondata ( data ) {
         this.data = data;
-    },
-
-
-    bind () {
-        this.filter.on( "click", ".js-filter-option", ( e ) => {
-            const $target = $( e.target );
-            const filters = [];
-
-            $target.toggleClass( "is-active" );
-
-            this.filters.filter( ".is-active" ).forEach(( node ) => {
-                const nodeData = $( node ).data();
-
-                filters.push( nodeData );
-            });
-
-            filter.by( filters, this.viewData.artists );
-        });
-
-        this.filter.on( "click", ".js-sort-option", ( e ) => {
-            const $target = $( e.target );
-            const value = $target.data( "value" );
-
-            this.sorts.removeClass( "is-active" );
-            $target.addClass( "is-active" );
-
-            sort.by( value, this.viewData.artists );
-        });
     }
 };
 

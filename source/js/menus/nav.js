@@ -3,9 +3,6 @@ import * as core from "../core";
 import Menu from "./Menu";
 
 
-const $_jsItems = core.dom.nav.find( ".js-nav-item" );
-
-
 /**
  *
  * @public
@@ -24,9 +21,12 @@ const nav = {
      *
      */
     init () {
-        this.bindMainEvents();
-
-        this.menu = new Menu( core.dom.nav );
+        this.element = core.dom.body.find( ".js-nav" );
+        this.trigger = core.dom.header.find( ".js-controller--nav" );
+        this.items = this.element.find( ".js-nav-item" );
+        this.menu = new Menu( this.element );
+        this.bind();
+        this.toggleActive();
 
         core.log( "nav initialized" );
     },
@@ -61,33 +61,33 @@ const nav = {
     /**
      *
      * @public
-     * @method toggleActive
-     * @param {string} id The unique nav identifier
+     * @method bind
      * @memberof menus.nav
-     * @description Toggle the active nav menu item by id.
+     * @description Setup main interaction events for nav/header.
      *
      */
-    toggleActive ( id ) {
-        const $navi = $_jsItems.find( `.js-nav__${id}` );
-
-        if ( $navi.length ) {
-            $_jsItems.removeClass( "is-active" );
-            $navi[ 0 ].className += " is-active";
-        }
+    bind () {
+        this.element.on( "click", onTapNavMenu );
+        this.trigger.on( "click", onTapNavIcon );
     },
 
 
     /**
      *
      * @public
-     * @method bindMainEvents
+     * @method toggleActive
      * @memberof menus.nav
-     * @description Setup main interaction events for nav/header.
+     * @description Toggle the active nav menu item by id.
      *
      */
-    bindMainEvents () {
-        core.dom.nav.on( "click", ".js-nav", onTapNavMenu );
-        core.dom.header.on( "click", ".js-controller--nav", onTapNavIcon );
+    toggleActive () {
+        const $navi = this.items.filter( `[href='${window.location.pathname}']` );
+
+        this.items.removeClass( "-light" );
+
+        if ( $navi.length ) {
+            $navi.addClass( "-light" );
+        }
     }
 };
 

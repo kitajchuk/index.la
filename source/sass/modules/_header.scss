@@ -1,5 +1,10 @@
 .header {
-    border-bottom: 1px solid $grey-light;
+    //border-bottom: 1px solid $grey-light;
+    left: 0;
     padding-bottom: $expander-one;
     padding-top: $expander-one;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: $z_layer_10;
     }

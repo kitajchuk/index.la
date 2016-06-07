@@ -2,7 +2,7 @@
     <p class="p">{{data.name.value}}</p>
     <p class="p meta">{{data.region.value.data.name.value}}</p>
     <p class="p meta">{{data.city.value.data.name.value}}</p>
-    <div class="artist__gallery -column -column--1of4">
+    <div class="artist__gallery -column -column--2of4">
         <img v-for="galleryImage in data.gallery.value" class="artist__gallery__image image js-artist-image -exp" data-img-src="{{galleryImage.value.image.url}}" />
     </div>
 </article>

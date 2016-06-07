@@ -22,17 +22,17 @@ const intro = {
      *
      */
     teardown () {
-        core.dom.intro.removeClass( "is-active" );
-
         setTimeout( () => {
-            core.dom.intro.remove();
+            core.dom.intro.removeClass( "is-active" );
 
             setTimeout( () => {
+                core.dom.intro.remove();
+
                 core.emitter.fire( "app--intro-art" );
 
-            }, 0 );
+            }, _transTime );
 
-        }, _transTime );
+        }, 2000 );
     }
 };
 

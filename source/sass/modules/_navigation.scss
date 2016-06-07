@@ -1,3 +1,16 @@
 /******************************************************************************
  * Nav Menu
 *******************************************************************************/
+.nav__menu {
+    left: 0;
+    position: absolute;
+    top: 0;
+    }
+.nav__menu__li {
+    display: inline-block;
+    vertical-align: middle;
+
+    &:not( :first-child ) {
+        margin-left: $expander-one;
+        }
+    }

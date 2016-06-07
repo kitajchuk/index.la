@@ -1,6 +1,6 @@
 {
-  "title": "ProperJS App",
-  "name": "properjs-app",
+  "title": "Index.la",
+  "name": "index-la",
   "description": "A modular micro-framework for modern web apps.",
   "version": "0.2.0",
   "devDependencies": {
@@ -46,19 +46,19 @@
     "start": "npm run watch",
     "sync": "./node_modules/.bin/prismic-express sync",
     "build": "./node_modules/.bin/prismic-express build",
-    "postinstall": "cd ./node_modules/properjs-hobo && npm install && npm run build -- 'is eq not filter detach append remove toggleClass'"
+    "postinstall": "cd ./node_modules/properjs-hobo && npm install && npm run build -- 'is eq not filter detach append remove parent children'"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/ProperJS/App.git"
+    "url": "git://github.com/kitajchuk/index.la.git"
   },
   "bugs": {
-    "url": "https://github.com/ProperJS/App/issues"
+    "url": "https://github.com/kitajchuk/index.la/issues"
   },
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/ProperJS/App/blob/master/LICENSE"
+      "url": "https://github.com/kitajchuk/index.la/blob/master/LICENSE"
     }
   ],
   "keywords": [],

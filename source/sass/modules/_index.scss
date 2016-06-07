@@ -2,12 +2,6 @@
     border-top: 1px solid $grey-light;
     display: block;
     }
-.index__col {
-    width: 25%;
-    }
-.index__col:not( :first-child ) {
-    padding-left: $expander-two;
-    }
 .index__thumbnail {
     max-width: 300px;
     position: relative;
@@ -35,6 +29,24 @@
         width: 100%;
         }
     }
+.index__filters {
+    border-top: 1px solid $grey-light;
+    display: none;
+
+    &.is-active {
+        display: block;
+        }
+    }
+
+
+
+.index__col {
+    width: 25%;
+    }
+.index__col:not( :first-child ),
+.filter__col:not( :first-child ) {
+    padding-left: $expander-two;
+    }
 
 
 
@@ -47,8 +59,4 @@
     &.is-active {
         color: $spot;
         }
-    }
-.filter__col {}
-.filter__col:not( :first-child ) {
-    padding-left: $expander-three;
     }

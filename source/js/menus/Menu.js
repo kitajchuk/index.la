@@ -15,7 +15,7 @@ class Menu {
         this.tDuration = core.util.getTransitionDuration( this.$node[ 0 ] );
         this.isOpen = false;
 
-        this.$node.detach();
+        this.$node.detach().removeClass( "is-hidden" );
     }
 
 

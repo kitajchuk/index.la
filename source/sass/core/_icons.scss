@@ -49,3 +49,24 @@
         width: 15px;
         }
     }
+.icon--filter {
+    border-left: 2px solid $black;
+    height: 18px;
+    width: 18px;
+
+    &:after,
+    &:before {
+        background-color: $black;
+        content: "";
+        height: 100%;
+        position: absolute;
+        width: 2px;
+        }
+    &:after {
+        right: 0;
+        }
+    &:before {
+        left: 50%;
+        margin-left: -2px;
+        }
+    }

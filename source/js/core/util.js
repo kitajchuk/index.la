@@ -70,42 +70,20 @@ const isElementLoadable = function ( el ) {
 
 /**
  *
- * @description Module isElementVisibleVert method, handles element boundaries
- * @method isElementVisibleVert
+ * @description Module isElementVisible method, handles element boundaries
+ * @method isElementVisible
  * @param {object} el The DOMElement to check the offsets of
  * @memberof core.util
  * @returns {boolean}
  *
  */
-const isElementVisibleVert = function ( el ) {
+const isElementVisible = function ( el ) {
     let ret = false;
 
     if ( el ) {
         const bounds = el.getBoundingClientRect();
 
         ret = ( bounds.top < window.innerHeight && bounds.bottom > 0 );
-    }
-
-    return ret;
-};
-
-
-/**
- *
- * @description Module isElementVisibleHorz method, handles element boundaries
- * @method isElementVisibleHorz
- * @param {object} el The DOMElement to check the offsets of
- * @memberof core.util
- * @returns {boolean}
- *
- */
-const isElementVisibleHorz = function ( el ) {
-    let ret = false;
-
-    if ( el ) {
-        const bounds = el.getBoundingClientRect();
-
-        ret = ( bounds.left < window.innerWidth && bounds.right > 0 );
     }
 
     return ret;
@@ -126,7 +104,7 @@ const getElementsInView = function ( $nodes, executor ) {
     let i = $nodes.length;
     const ret = [];
 
-    executor = (executor || isElementLoadable);
+    executor = (executor || isElementVisible);
 
     for ( i; i--; ) {
         if ( executor( $nodes[ i ] ) ) {
@@ -342,8 +320,7 @@ export {
     loadDependencies,
     getElementsInView,
     isElementLoadable,
-    isElementVisibleVert,
-    isElementVisibleHorz,
+    isElementVisible,
 
     // Disabling
     disableTouchMove,

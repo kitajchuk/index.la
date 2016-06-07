@@ -2,10 +2,11 @@
  * Abstract Page
 *******************************************************************************/
 .page {
+    height: 100%;
     left: 0;
+    max-height: 100%;
     overflow: auto;
-    //position: absolute;
-    position: relative;
+    padding-top: 140px;
     top: 0;
     transition: opacity $fast-duration $ease;
     width: 100%;

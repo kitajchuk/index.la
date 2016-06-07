@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="is-clipped">
+<html class="">
     <head>
         <meta charset="utf-8" />
 
@@ -7,25 +7,71 @@
         <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1" />
 
         <!-- Title -->
-        <title>Index.la</title>
+        <title><% if ( locals.document ) { %><%= document.data[ 'artist.name' ].value %> – <% } %>Index.la</title>
 
         <!-- Styles -->
         <link href="<%= static.css.screen %>" rel="stylesheet" />
     </head>
-    <body class="is-clipped">
-        <header class="header wrapper js-header">
-            <span class="icon icon--list js-controller--nav"></span>
-        </header>
-        <nav class="nav screen ghost js-nav -text--center">
-            <div class="ghost__child">
-                <a class="p -light" href="/">Index</a>
+    <body class="">
+        <header class="header wrapper js-header -f-zero">
+            <div class="-column -column--2of4">
+                <span class="icon icon--list js-controller--nav"></span>
             </div>
+            <div class="-column -column--2of4 -text--right">
+                <span class="icon icon--filter js-controller--filter"></span>
+            </div>
+        </header>
+        <nav class="nav screen js-nav -text--center is-hidden">
+            <ul class="nav__menu wrapper -exp">
+                <li class="nav__menu__li">
+                    <a href="/" class="nav__menu__a js-nav-item p meta">Index</a>
+                </li>
+                <li class="nav__menu__li">
+                    <a href="/about/" class="nav__menu__a js-nav-item p meta">About</a>
+                </li>
+            </ul>
         </nav>
+        <menu class="filter js-filter screen wrapper ghost -f-zero -text--center is-hidden">
+            <div class="ghost__child">
+                <div class="filter__col -column -valign-top -text--left">
+                    <p class="p -light">Location</p>
+                    <ul class="filter__set">
+                        <% region.forEach(function ( r ) { %>
+                            <li class="filter__opt p meta js-filter-option" data-type="region" data-value="<%= r.data['region.name'].value %>"><%= r.data["region.name"].value %></li>
+                        <% }) %>
+                    </ul>
+                </div>
+                <div class="filter__col -column -valign-top -text--left">
+                    <p class="p -light">Category</p>
+                    <ul class="filter__set">
+                        <% category.forEach(function ( c ) { %>
+                            <li class="filter__opt p meta js-filter-option" data-type="categories" data-value="<%= c.data['category.name'].value %>"><%= c.data["category.name"].value %></li>
+                        <% }) %>
+                    </ul>
+                </div>
+                <div class="filter__col -column -valign-top -text--left">
+                    <p class="p -light">Type</p>
+                    <ul class="filter__set">
+                        <% type.forEach(function ( t ) { %>
+                            <li class="filter__opt p meta js-filter-option" data-type="types" data-value="<%= t.data['type.name'].value %>"><%= t.data["type.name"].value %></li>
+                        <% }) %>
+                    </ul>
+                </div>
+                <div class="filter__col -column -valign-top -text--left">
+                    <p class="p -light">Sort</p>
+                    <ul class="filter__set">
+                        <li class="filter__opt p meta js-sort-option" data-value="uuid">Most Recent</li>
+                        <li class="filter__opt p meta js-sort-option" data-value="region">Location</li>
+                        <li class="filter__opt p meta js-sort-option" data-value="name">Name</li>
+                    </ul>
+                </div>
+            </div>
+        </menu>
         <main class="page js-page">
             <%- body %>
         </main>
         <section class="intro js-intro screen -text--center ghost is-active">
-            <h1 class="h1 ghost__child">Index.la</h1>
+            <h1 class="h1 ghost__child -light">Index.la</h1>
         </section>
         <script src="<%= static.js.app %>"></script>
     </body>

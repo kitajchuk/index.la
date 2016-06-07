@@ -63,7 +63,7 @@ class ImageController extends Controller {
     handleLazyload () {
         log( "ImageController lazyload queue:", this.$lazyload.length );
 
-        this.lazyLoader = util.loadImages( this.$lazyload, util.isElementLoadable );
+        this.lazyLoader = util.loadImages( this.$lazyload, util.isElementVisible );
         this.lazyLoader.on( "done", () => {
             log( "ImageController lazyloaded:", this.$lazyload.length );
 
@@ -72,6 +72,14 @@ class ImageController extends Controller {
     }
 
 
+    /**
+     *
+     * @public
+     * @method destroy
+     * @memberof core.ImageController
+     * @description Stop and kill ImageLoader instances.
+     *
+     */
     destroy () {
         if ( this.preLoader ) {
             this.preLoader.stop();

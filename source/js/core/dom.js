@@ -57,17 +57,6 @@ const dom = {
     /**
      *
      * @public
-     * @member nav
-     * @memberof core.dom
-     * @description The cached nav node.
-     *
-     */
-    nav: $( ".js-nav" ),
-
-
-    /**
-     *
-     * @public
      * @member header
      * @memberof core.dom
      * @description The cached header node.
