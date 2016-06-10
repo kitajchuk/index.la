@@ -1,6 +1,6 @@
 <section class="index js-index">
     <a class="index__row -wrap -exp -f-zero -text--center" v-show="artist.show" v-for="artist in artists" href="/artist/{{artist.slug}}/" data-uuid="{{artist.uuid}}">
-        <div class="index__col -column -text--left">
+        <div class="index__col index__feature -column -text--left">
             <div class="index__thumbnail">
                 <figure class="index__figure">
                     <img class="index__image image image--{{artist.data.featureImage.value.main.dimensions.width > artist.data.featureImage.value.main.dimensions.height ? 'wide' : 'tall'}} js-index-image" data-img-src="{{artist.data.featureImage.value.main.url}}" />

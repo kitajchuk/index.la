@@ -30,6 +30,7 @@
 }
 @mixin p() {
     font-size: $p-size;
+    line-height: 1.5;
     @include font-sans-text();
 }
 @mixin a() {

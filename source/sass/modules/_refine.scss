@@ -7,7 +7,8 @@
     position: fixed;
     top: 0;
     transform: translate3d( -100%, 0, 0 );
-    transition: transform $long-duration $ease-cubic-sharp;
+    transition: width $long-duration $ease-cubic-sharp,
+                transform $long-duration $ease-cubic-sharp;
     width: $filter-width;
     z-index: $z_layer_10;
     }
@@ -41,33 +42,19 @@
 
 .filter {
     padding-left: $expander-two;
+    transition: padding-left $long-duration $ease-cubic-sharp;
     }
 .filter__opt {
     cursor: pointer;
     position: relative;
 
-    &:before {
-        background-color: transparent;
-        content: "";
-        height: 6px;
-        left: -20px;
-        margin-top: -3px;
-        position: absolute;
-        top: 50%;
-        vertical-align: middle;
-        width: 6px;
-        border-radius: 3px;
-        }
     &.is-active {
         color: $black;
-        }
-    &.is-active:before {
-        background-color: $black;
         }
     }
 .filter__col + .filter__col {
     padding-top: $expander-one;
     }
 .filter__set {
-    margin-top: 30px;
+    margin-top: 20px;
     }

@@ -1,10 +1,5 @@
 var path = require( "path" );
 var autoprefixer = require( "autoprefixer" );
-var sassLoaders = [
-    "file-loader?name=../css/[name].css",
-    "postcss-loader",
-    "sass-loader?sourceMap"
-];
 
 
 
@@ -68,7 +63,7 @@ module.exports = {
             // Sass
             {
                 test: /\.scss$/,
-                loader: sassLoaders.join( "!" )
+                loader: "file-loader?name=../css/[name].css!postcss-loader!sass-loader?sourceMap"
             }
         ]
     },

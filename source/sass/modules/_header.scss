@@ -3,7 +3,8 @@
     left: 0;
     position: fixed;
     top: 0;
-    transition: padding-left $long-duration $ease-cubic-sharp;
+    transition: padding-left $long-duration $ease-cubic-sharp,
+                transform $long-duration $ease-cubic-sharp;
     width: 100%;
     z-index: $z_layer_10;
     }

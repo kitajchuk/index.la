@@ -12,9 +12,6 @@
 .p {
     @include p();
     }
-.p + .p {
-    margin-top: 14px;
-    }
 .ol,
 .ul {
     @include li();

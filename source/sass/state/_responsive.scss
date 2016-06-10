@@ -5,11 +5,13 @@
     .index__col:not( :first-child ) {
         padding-left: $expander-one;
         }
-    .filter {
-        padding-left: $expander-one;
+    .refine {
         width: 320px;
         }
-    .is-filter-open {
+    .filter {
+        padding-left: $expander-one;
+        }
+    .is-refine-open {
         .page,
         .header {
             padding-left: 320px;
@@ -19,12 +21,52 @@
 
 
 
+@media only screen and ( max-width: $break-tablet-full ) {}
+
+
+
+@media only screen and ( max-width: $break-tablet-medium ) {
+    .index .p,
+    .refine .p {
+        font-size: 16px;
+        }
+    .is-refine-open {
+        .page,
+        .header {
+            padding-left: 0;
+            transform: translate3d( 320px, 0, 0 );
+            }
+    }
+}
+
+
+
 @media only screen and ( max-width: $break-mobile-full ) {
-    .index__col {
-        width: 50%;
+    .index__feature {
+        width: 40%;
+        }
+    .index__name {
+        width: 60%;
         }
     .index__categories,
     .index__location {
         display: none;
         }
+    .refine {
+        width: 80%;
+        }
+    .is-refine-open {
+        .page,
+        .header {
+            padding-left: 0;
+            transform: translate3d( 80%, 0, 0 );
+            }
+    }
+    .nav__menu__li {
+        display: block;
+
+        &:not( :first-child ) {
+            margin-left: 0;
+            }
+    }
 }

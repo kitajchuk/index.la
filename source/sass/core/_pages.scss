@@ -9,7 +9,8 @@
     padding-top: calc( #{$header-height} - 1px );
     top: 0;
     transition: opacity $fast-duration $ease,
-                padding-left $long-duration $ease-cubic-sharp;
+                padding-left $long-duration $ease-cubic-sharp,
+                transform $long-duration $ease-cubic-sharp;
     width: 100%;
 
     &.is-reactive {
