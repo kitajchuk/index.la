@@ -1,6 +1,6 @@
 import * as core from "../core";
 import helpers from "./helpers";
-import filter from "./filter";
+import refine from "./refine";
 import Vue from "vue";
 
 
@@ -12,7 +12,25 @@ import Vue from "vue";
  *
  */
 const index = {
+    /**
+     *
+     * @public
+     * @member dataType
+     * @memberof index
+     * @description The content type.
+     *
+     */
     dataType: "artist",
+
+
+    /**
+     *
+     * @public
+     * @member domSelector
+     * @memberof index
+     * @description The dom context.
+     *
+     */
     domSelector: ".js-index",
 
 
@@ -25,7 +43,7 @@ const index = {
      *
      */
     init () {
-        filter.init();
+        refine.init();
 
         core.emitter.on( "app--data", this.ondata.bind( this ) );
 
@@ -67,7 +85,9 @@ const index = {
             }
         });
 
-        filter.setData( this.viewData.artists );
+        refine.setData( this.viewData.artists );
+
+        core.dom.html.addClass( "is-index-page" );
     },
 
 
@@ -104,6 +124,8 @@ const index = {
 
         // Element?
         this.element = null;
+
+        core.dom.html.removeClass( "is-index-page" );
     },
 
 
@@ -123,6 +145,15 @@ const index = {
     },
 
 
+    /**
+     *
+     * @public
+     * @method ondata
+     * @param {object} data The app data
+     * @memberof index
+     * @description Listen for the app datas.
+     *
+     */
     ondata ( data ) {
         this.data = data;
     }

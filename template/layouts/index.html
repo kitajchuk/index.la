@@ -13,56 +13,63 @@
         <link href="<%= static.css.screen %>" rel="stylesheet" />
     </head>
     <body class="">
-        <header class="header wrapper js-header -f-zero">
-            <div class="-column -column--2of4">
-                <span class="icon icon--list js-controller--nav"></span>
-            </div>
-            <div class="-column -column--2of4 -text--right">
-                <span class="icon icon--filter js-controller--filter"></span>
+        <header class="header js-header ghost -f-zero">
+            <div class="header__wrap ghost__child">
+                <div class="-wrap-l -column -column--2of4">
+                    <span class="icon icon--refine js-controller--refine"></span>
+                    <a href="/" class="icon icon--ex"></a>
+                </div>
+                <div class="-wrap-r -column -column--2of4 -text--right">
+                    <span class="icon icon--list js-controller--nav"></span>
+                </div>
             </div>
         </header>
-        <nav class="nav screen js-nav -text--center is-hidden">
-            <ul class="nav__menu wrapper -exp">
+        <nav class="nav js-nav screen ghost -text--center is-hidden">
+            <span class="icon icon--ex icon--ex--close"></span>
+            <ul class="nav__menu ghost__child -exp">
                 <li class="nav__menu__li">
-                    <a href="/" class="nav__menu__a js-nav-item p meta">Index</a>
+                    <a href="/" class="nav__menu__a js-nav-item h3 -grey">Index</a>
                 </li>
                 <li class="nav__menu__li">
-                    <a href="/about/" class="nav__menu__a js-nav-item p meta">About</a>
+                    <a href="/about/" class="nav__menu__a js-nav-item h3 -grey">About</a>
                 </li>
             </ul>
         </nav>
-        <menu class="filter js-filter screen wrapper ghost -f-zero -text--center is-hidden">
-            <div class="ghost__child">
-                <div class="filter__col -column -valign-top -text--left">
-                    <p class="p -light">Location</p>
+        <menu class="refine js-refine">
+            <div class="search js-search">
+                <input class="search__field js-search-field p" placeholder="Search" type="text" />
+            </div>
+            <div class="filter js-filter -exp">
+                <div class="filter__col">
+                    <p class="p">Sort</p>
                     <ul class="filter__set">
-                        <% region.forEach(function ( r ) { %>
-                            <li class="filter__opt p meta js-filter-option" data-type="region" data-value="<%= r.data['region.name'].value %>"><%= r.data["region.name"].value %></li>
-                        <% }) %>
+                        <li class="filter__opt p -grey js-sort-option" data-value="uuid">Most Recent</li>
+                        <li class="filter__opt p -grey js-sort-option" data-value="name">Name</li>
+                        <li class="filter__opt p -grey js-sort-option" data-value="region">Location</li>
                     </ul>
                 </div>
-                <div class="filter__col -column -valign-top -text--left">
-                    <p class="p -light">Category</p>
-                    <ul class="filter__set">
-                        <% category.forEach(function ( c ) { %>
-                            <li class="filter__opt p meta js-filter-option" data-type="categories" data-value="<%= c.data['category.name'].value %>"><%= c.data["category.name"].value %></li>
-                        <% }) %>
-                    </ul>
-                </div>
-                <div class="filter__col -column -valign-top -text--left">
-                    <p class="p -light">Type</p>
+                <div class="filter__col">
+                    <p class="p">Type</p>
                     <ul class="filter__set">
                         <% type.forEach(function ( t ) { %>
-                            <li class="filter__opt p meta js-filter-option" data-type="types" data-value="<%= t.data['type.name'].value %>"><%= t.data["type.name"].value %></li>
+                            <li class="filter__opt p -grey js-filter-option" data-type="types" data-value="<%= t.data['type.name'].value %>"><%= t.data["type.name"].value %></li>
                         <% }) %>
                     </ul>
                 </div>
-                <div class="filter__col -column -valign-top -text--left">
-                    <p class="p -light">Sort</p>
+                <div class="filter__col">
+                    <p class="p">Category</p>
                     <ul class="filter__set">
-                        <li class="filter__opt p meta js-sort-option" data-value="uuid">Most Recent</li>
-                        <li class="filter__opt p meta js-sort-option" data-value="region">Location</li>
-                        <li class="filter__opt p meta js-sort-option" data-value="name">Name</li>
+                        <% category.forEach(function ( c ) { %>
+                            <li class="filter__opt p -grey js-filter-option" data-type="categories" data-value="<%= c.data['category.name'].value %>"><%= c.data["category.name"].value %></li>
+                        <% }) %>
+                    </ul>
+                </div>
+                <div class="filter__col">
+                    <p class="p">Location</p>
+                    <ul class="filter__set">
+                        <% region.forEach(function ( r ) { %>
+                            <li class="filter__opt p -grey js-filter-option" data-type="region" data-value="<%= r.data['region.name'].value %>"><%= r.data["region.name"].value %></li>
+                        <% }) %>
                     </ul>
                 </div>
             </div>
@@ -70,7 +77,7 @@
         <main class="page js-page">
             <%- body %>
         </main>
-        <section class="intro js-intro screen -text--center ghost is-active">
+        <section class="intro js-intro screen ghost -text--center is-active">
             <h1 class="h1 ghost__child -light">Index.la</h1>
         </section>
         <script src="<%= static.js.app %>"></script>

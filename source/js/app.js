@@ -37,6 +37,16 @@ class App {
     }
 
 
+    /**
+     *
+     * @public
+     * @instance
+     * @method loadData
+     * @memberof App
+     * @description Load the static site datas.
+     * @returns {Promise}
+     *
+     */
     loadData () {
         return $.ajax({
             url: "/api/data.json",

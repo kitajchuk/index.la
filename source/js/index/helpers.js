@@ -3,12 +3,24 @@ let uuid = 0;
 
 /**
  *
- * @description Helper methods for datas
- * @member helpers
- * @memberof helpers
+ * @description Helper methods for prismic.io datas
+ * @namespace helpers
+ * @public
  *
  */
 const helpers = {
+    /**
+     *
+     * @public
+     * @method getLinkedDocument
+     * @param {string} key The document type
+     * @param {string} id The document ID
+     * @param {array} dict The array of documents of this type
+     * @memberof helpers
+     * @description Get a document by type from an array with its documents linked up.
+     * @returns {object}
+     *
+     */
     getLinkedDocument ( key, id, dict ) {
         let i = dict[ key ].length;
         let ret = null;
@@ -25,6 +37,17 @@ const helpers = {
     },
 
 
+    /**
+     *
+     * @public
+     * @method getLinkedDocuments
+     * @param {string} key The document type
+     * @param {array} dict The array of documents of this type
+     * @memberof helpers
+     * @description Get documents by type with their documents linked up.
+     * @returns {array}
+     *
+     */
     getLinkedDocuments ( key, dict ) {
         const ret = [];
         const data = JSON.parse( JSON.stringify( dict ) );
@@ -37,24 +60,18 @@ const helpers = {
     },
 
 
-    getDocumentLink ( link, dict ) {
-        let i = dict[ link.type ].length;
-        let ret = null;
-
-        for ( i; i--; ) {
-            if ( dict[ link.type ][ i ].id === link.id ) {
-                ret = dict[ link.type ][ i ];
-                break;
-            }
-        }
-
-        ret.data = this.cleanDataKeys( ret.data );
-
-        return ret;
-    },
-
-
-    cleanDataKeys ( data ) {
+    /**
+     *
+     * @private
+     * @method _cleanDataKeys
+     * @param {object} data The documents data to clean keys for
+     * @memberof helpers
+     * @description Get the data for a document with cleaned keys.
+     *              Convert keys from `data['artist.name']` to just `data.name`
+     * @returns {object}
+     *
+     */
+    _cleanDataKeys ( data ) {
         let i = null;
         const ret = {};
 
@@ -68,6 +85,45 @@ const helpers = {
     },
 
 
+    /**
+     *
+     * @private
+     * @method _getDocumentLink
+     * @param {object} link The `Link.document`
+     * @param {array} dict The array of documents to look in
+     * @memberof helpers
+     * @description Get the full reference for a `Link.document`
+     * @returns {object}
+     *
+     */
+    _getDocumentLink ( link, dict ) {
+        let i = dict[ link.type ].length;
+        let ret = null;
+
+        for ( i; i--; ) {
+            if ( dict[ link.type ][ i ].id === link.id ) {
+                ret = dict[ link.type ][ i ];
+                break;
+            }
+        }
+
+        ret.data = this._cleanDataKeys( ret.data );
+
+        return ret;
+    },
+
+
+    /**
+     *
+     * @private
+     * @method _getDocumentWithLinks
+     * @param {object} doc The Document
+     * @param {array} dict The array of documents to look in
+     * @memberof helpers
+     * @description Get a document with all `Link.document` and `Group` fields pulled into it
+     * @returns {object}
+     *
+     */
     _getDocumentWithLinks ( doc, dict ) {
         let i = null;
         let k = null;
@@ -88,7 +144,7 @@ const helpers = {
                 if ( doc.data[ i ].type === "Link.document" ) {
                     ret.data[ k ] = {
                         type: "Link.document",
-                        value: this.getDocumentLink( doc.data[ i ].value.document, dict )
+                        value: this._getDocumentLink( doc.data[ i ].value.document, dict )
                     };
 
                 } else if ( doc.data[ i ].type === "Group" ) {
@@ -107,7 +163,7 @@ const helpers = {
                                 if ( doc.data[ i ].value[ j ][ type ].type === "Link.document" ) {
                                     ret.data[ k ].value.push({
                                         type: "Link.document",
-                                        value: this.getDocumentLink( doc.data[ i ].value[ j ][ type ].value.document, dict )
+                                        value: this._getDocumentLink( doc.data[ i ].value[ j ][ type ].value.document, dict )
                                     });
 
                                 } else {

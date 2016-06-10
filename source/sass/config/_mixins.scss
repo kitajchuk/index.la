@@ -26,41 +26,36 @@
 @mixin meta() {
     color: $grey-text;
     font-size: inherit;
-    line-height: 1.444444;
     @include font-sans-text();
 }
 @mixin p() {
     font-size: $p-size;
-    line-height: 2.22222222;
     @include font-sans-text();
 }
 @mixin a() {
+    border-bottom: 1px solid $black;
     color: $black;
     display: inline;
     font-size: $p-size;
-    line-height: 2.22222222;
     text-decoration: none;
     @include font-sans-text();
 }
 @mixin h1() {
     font-size: $h1-size;
-    line-height: 1.32;
-    @include font-sans-medium();
+    @include font-sans-text();
 }
 @mixin h2() {
     font-size: $h2-size;
-    line-height: 1.333333;
-    @include font-sans-medium();
+    @include font-sans-text();
 }
 @mixin h3() {
     font-size: $h3-size;
     line-height: $h3-line-height;
-    @include font-sans-medium();
+    @include font-sans-text();
 }
 @mixin h4() {
     font-size: $h4-size;
-    line-height: 1.4166666667;
-    @include font-sans-medium();
+    @include font-sans-text();
 }
 @mixin li() {
     padding-left: 20px;

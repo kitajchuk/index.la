@@ -1,7 +1,7 @@
 import * as core from "../core";
 import helpers from "./helpers";
+import refine from "./refine";
 import Vue from "vue";
-//import $ from "properjs-hobo";
 
 
 /**
@@ -12,7 +12,25 @@ import Vue from "vue";
  *
  */
 const artist = {
+    /**
+     *
+     * @public
+     * @member dataType
+     * @memberof artist
+     * @description The content type.
+     *
+     */
     dataType: "artist",
+
+
+    /**
+     *
+     * @public
+     * @member domSelector
+     * @memberof artist
+     * @description The dom context.
+     *
+     */
     domSelector: ".js-artist",
 
 
@@ -62,6 +80,11 @@ const artist = {
                 this.imageController = core.images.handleImages( this.element.find( ".js-artist-image" ) );
             }
         });
+
+        refine.resetSearch();
+        refine.resetFilters();
+
+        core.dom.html.addClass( "is-artist-page" );
     },
 
 
@@ -98,6 +121,8 @@ const artist = {
 
         // Element?
         this.element = null;
+
+        core.dom.html.removeClass( "is-artist-page" );
     },
 
 
@@ -117,6 +142,15 @@ const artist = {
     },
 
 
+    /**
+     *
+     * @public
+     * @method ondata
+     * @param {object} data The app data
+     * @memberof artist
+     * @description Listen for the app datas.
+     *
+     */
     ondata ( data ) {
         this.data = data;
     }

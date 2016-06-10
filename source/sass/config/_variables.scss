@@ -15,9 +15,10 @@ $sans-text-medium-oblique: "GT-Walsheim-Medium-Oblique";
 
 $black: #000;
 $white: #fff;
-$spot: #95c7e3;
+$spot: #fed412;
 $grey-text: #a0a0a0;
 $grey-light: #e5e7e7;
+$grey-back: #fafafa;
 
 
 
@@ -52,31 +53,12 @@ $wrapper-padding: 7.03125%;
 /******************************************************************************
  * Sizes
 *******************************************************************************/
-
-// Aspects
 $logo-aspect: 5.7142857143;
 $reel-aspect: 41.875%;
 $cinema-aspect: 56.25%;
+$filter-width: 480px;
+$header-height: 113px;
 
-// Widths
-$quote-width: 1060px;
-$leadin-width: 820px;
-$block-width: 700px;
-$cap-width: 460px;
-$paragraph-link-hover-width: 250px;
-$content-title-width: 420px;
-$logo-width: 115px;
-$logo-intro-width: 144px;
-$player-thumb-width: 260px;
-
-// Heights
-$logo-height: ($logo-width / $logo-aspect) + 0.5px;
-$logo-intro-height: ($logo-intro-width / $logo-aspect) + 0.5px;
-$player-scrub-height: 2px;
-$player-scrub-tall-height: 16px;
-$player-bar-height: 70px;
-$circle-size: 90px;
-$play-button-height: 80px;
 
 
 
@@ -110,18 +92,6 @@ $h3-line-height: 1.4705882353;
 
 $h4-size: 22px;
 $h4-size-small: 20px;
-
-
-
-/******************************************************************************
- * iPhone Device Skins
-*******************************************************************************/
-$iphone6-device-width: 430px;
-$iphone6-device-height: 885px;
-$iphone6-screen-width: 375px;
-$iphone6-screen-height: 667px;
-$iphone6-device-aspect-height: percentage( $iphone6-device-height / $iphone6-device-width );
-$iphone6-screen-aspect-width: percentage( $iphone6-screen-width / $iphone6-device-width );
 
 
 

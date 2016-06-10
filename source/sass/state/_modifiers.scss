@@ -1,9 +1,6 @@
 /******************************************************************************
  * Display
 *******************************************************************************/
-.-cinema {
-    padding-bottom: $cinema-aspect;
-    }
 .-exp {
     padding-bottom: $expander-one;
     padding-top: $expander-one;
@@ -11,6 +8,16 @@
 .-exp-m {
     padding-bottom: $expander-mobile;
     padding-top: $expander-mobile;
+    }
+.-wrap {
+    padding-left: $wrapper-padding;
+    padding-right: $wrapper-padding;
+    }
+.-wrap-l {
+    padding-left: $wrapper-padding;
+    }
+.-wrap-r {
+    padding-right: $wrapper-padding;
     }
 
 
@@ -62,21 +69,22 @@
 .-text--left {
     text-align: left;
     }
+.-grey {
+    color: $grey-text;
+    }
 .-light {
     color: $white;
     }
 .-black {
     color: $black;
     }
-.-grey {
-    color: $grey-text;
+.-caps {
+    letter-spacing: 2px;
+    text-transform: uppercase;
     }
 
 
 
 .-f-zero {
     font-size: 0;
-    }
-.-valign-top {
-    vertical-align: top;
     }

@@ -37,26 +37,9 @@
         display: block;
         }
     }
-
-
-
 .index__col {
     width: 25%;
     }
-.index__col:not( :first-child ),
-.filter__col:not( :first-child ) {
+.index__col:not( :first-child ) {
     padding-left: $expander-two;
-    }
-
-
-
-.filter {
-    width: 100%;
-    }
-.filter__opt {
-    cursor: pointer;
-
-    &.is-active {
-        color: $spot;
-        }
     }

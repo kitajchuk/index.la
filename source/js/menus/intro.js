@@ -32,7 +32,7 @@ const intro = {
 
             }, _transTime );
 
-        }, 2000 );
+        }, 1000 );
     }
 };
 

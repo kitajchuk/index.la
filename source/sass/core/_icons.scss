@@ -15,17 +15,6 @@
     text-align: center;
     vertical-align: middle;
     }
-.icon--svg {
-    svg {
-        fill: $black;
-        transition: fill $base-duration $ease;
-        }
-    }
-.icon--light {
-    svg {
-        fill: $white;
-        }
-    }
 .icon--list {
     border-top: 2px solid $black;
     height: 18px;
@@ -38,35 +27,67 @@
         height: 2px;
         left: 0;
         position: absolute;
+        width: 100%;
         }
     &:after {
         bottom: 0;
-        width: 100%;
         }
     &:before {
         margin-top: -2px;
         top: 50%;
-        width: 15px;
         }
     }
-.icon--filter {
-    border-left: 2px solid $black;
+.icon--refine {
+    border: 2px solid $black;
+    border-radius: 100%;
+    display: none;
     height: 18px;
+    transition: border-color $long-duration $ease-cubic-sharp;
     width: 18px;
+
+    &:after {
+        background-color: $black;
+        bottom: -3px;
+        content: "";
+        height: 2px;
+        position: absolute;
+        right: -5px;
+        transform: rotate( 45deg );
+        transition: background-color $long-duration $ease-cubic-sharp;
+        width: 8px;
+        }
+    }
+.icon--ex {
+    display: none;
+    height: 24px;
+    width: 24px;
 
     &:after,
     &:before {
         background-color: $black;
         content: "";
         height: 100%;
+        left: 50%;
+        margin-left: -1px;
         position: absolute;
         width: 2px;
         }
     &:after {
-        right: 0;
+        transform: rotate( 45deg );
         }
     &:before {
-        left: 50%;
-        margin-left: -2px;
+        transform: rotate( -45deg );
+        }
+    }
+.icon--ex--close {
+    display: inline-block;
+    pointer-events: none;
+    position: absolute;
+    right: $wrapper-padding;
+    top: $expander-one;
+
+    &:after,
+    &:before {
+        background-color: $white;
         }
     }

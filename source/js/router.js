@@ -5,6 +5,7 @@ import nav from "./menus/nav";
 import animate from "./animate";
 import index from "./index";
 import artist from "./index/artist";
+import refine from "./index/refine";
 
 
 /**
@@ -256,8 +257,7 @@ const router = {
         core.dom.html.removeClass( "is-routing" );
         core.dom.page.removeClass( "is-inactive" );
 
-        core.scrolls.topout( 0 );
-        core.scrolls.clearStates();
+        core.dom.page[ 0 ].scrollTop = 0;
 
         setTimeout( () => core.emitter.fire( "app--intro-art" ), this.pageDuration );
 
@@ -280,7 +280,11 @@ const router = {
         core.dom.html.addClass( "is-routing" );
         core.dom.page.addClass( "is-inactive" );
 
-        setTimeout( () => nav.close(), this.pageDuration );
+        setTimeout( () => {
+            nav.close();
+            refine.close();
+
+        }, this.pageDuration );
 
         core.emitter.on( "app--preload-done", this.onPreloadDone );
     },

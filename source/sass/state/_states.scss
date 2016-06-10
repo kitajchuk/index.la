@@ -34,3 +34,32 @@
         pointer-events: none;
         }
 }
+
+.is-refine-open {
+    .refine {
+        transform: translate3d( 0, 0, 0 );
+        }
+    .page,
+    .header {
+        padding-left: $filter-width;
+        }
+    .icon--refine {
+        border-color: $grey-text;
+
+        &:after {
+            background-color: $grey-text;
+            }
+        }
+}
+
+.is-index-page {
+    .icon--refine {
+        display: inline-block;
+        }
+}
+
+.is-artist-page {
+    .icon--ex {
+        display: inline-block;
+        }
+}
