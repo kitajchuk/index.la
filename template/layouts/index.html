@@ -23,32 +23,33 @@
         </title>
 
         <!-- Styles -->
-        <link href="<%= static.css.screen %>" rel="stylesheet" />
+        <link href="<%= locals.static.css.screen %>" rel="stylesheet" />
     </head>
     <body class="">
         <header class="header js-header ghost -f-zero">
             <div class="header__wrap ghost__child">
                 <div class="-wrap-l -column -column--2of4">
-                    <span class="icon icon--refine js-controller--refine"></span>
-                    <a href="/" class="icon icon--ex"></a>
+                    <span class="target--refine icon-wrap js-controller--refine">
+                        <span class="icon icon--refine"></span>
+                    </span>
+                    <a href="/" class="target--back icon-wrap">
+                        <span class="icon icon--back"></span>
+                    </a>
                 </div>
                 <div class="-wrap-r -column -column--2of4 -text--right">
-                    <span class="icon icon--list js-controller--nav"></span>
+                    <span class="target--nav icon-wrap js-controller--nav">
+                        <span class="icon icon--list"></span>
+                    </span>
                 </div>
             </div>
         </header>
         <nav class="nav js-nav screen ghost -text--center is-hidden">
-            <span class="icon icon--ex icon--ex--close"></span>
             <ul class="nav__menu ghost__child -exp">
-                <li class="nav__menu__li">
-                    <a href="/" class="nav__menu__a js-nav-item h3 -grey">Index</a>
-                </li>
-                <li class="nav__menu__li">
-                    <a href="/about/" class="nav__menu__a js-nav-item h3 -grey">About</a>
-                </li>
-                <li class="nav__menu__li">
-                    <a href="/featured/" class="nav__menu__a js-nav-item h3 -grey">Featured</a>
-                </li>
+                <% locals.staticPages.reverse().forEach(function ( p ) { %>
+                    <li class="nav__menu__li">
+                        <a href="<%= p.url %>" class="nav__menu__a js-nav-item h1 -grey"><%= p.id %></a>
+                    </li>
+                <% }) %>
             </ul>
         </nav>
         <menu class="refine js-refine">
@@ -67,7 +68,7 @@
                 <div class="filter__col">
                     <p class="p">Type</p>
                     <ul class="filter__set">
-                        <% type.forEach(function ( t ) { %>
+                        <% locals.type.forEach(function ( t ) { %>
                             <li class="filter__opt p -grey js-filter-option" data-type="types" data-value="<%= t.data['type.name'].value %>"><%= t.data["type.name"].value %></li>
                         <% }) %>
                     </ul>
@@ -75,7 +76,7 @@
                 <div class="filter__col">
                     <p class="p">Category</p>
                     <ul class="filter__set">
-                        <% category.forEach(function ( c ) { %>
+                        <% locals.category.forEach(function ( c ) { %>
                             <li class="filter__opt p -grey js-filter-option" data-type="categories" data-value="<%= c.data['category.name'].value %>"><%= c.data["category.name"].value %></li>
                         <% }) %>
                     </ul>
@@ -83,7 +84,7 @@
                 <div class="filter__col">
                     <p class="p">Location</p>
                     <ul class="filter__set">
-                        <% region.forEach(function ( r ) { %>
+                        <% locals.region.forEach(function ( r ) { %>
                             <li class="filter__opt p -grey js-filter-option" data-type="region" data-value="<%= r.data['region.name'].value %>"><%= r.data["region.name"].value %></li>
                         <% }) %>
                     </ul>
@@ -91,11 +92,11 @@
             </div>
         </menu>
         <main class="page js-page">
-            <%- body %>
+            <%- locals.body %>
         </main>
         <section class="intro js-intro screen ghost -text--center is-active">
             <h1 class="h1 ghost__child -light">theindex.la</h1>
         </section>
-        <script src="<%= static.js.app %>"></script>
+        <script src="<%= locals.static.js.app %>"></script>
     </body>
 </html>

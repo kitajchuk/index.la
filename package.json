@@ -2,7 +2,8 @@
   "title": "Index.la",
   "name": "index-la",
   "description": "A modular micro-framework for modern web apps.",
-  "version": "0.2.0",
+  "version": "0.1.0",
+  "private": true,
   "devDependencies": {
     "autoprefixer": "^6.3.6",
     "babel-core": "^6.0.0",
@@ -46,6 +47,7 @@
     "start": "npm run watch",
     "sync": "./node_modules/.bin/prismic-express sync",
     "build": "./node_modules/.bin/prismic-express build",
+    "deploy": "rsync -av -e 'ssh' ./build/ blkpdx.com@blkpdx.com:domains/index-la.blkpdx.com/html/",
     "postinstall": "cd ./node_modules/properjs-hobo && npm install && npm run build -- 'is eq not filter detach append remove parent children'"
   },
   "repository": {
