@@ -1,0 +1,44 @@
+{
+    "Main": {
+        "name": {
+            "type": "Text",
+            "fieldset": "Feature name",
+            "config": {
+                "label": "Name"
+            }
+        },
+        "artist": {
+            "type": "Link",
+            "fieldset": "Artist",
+            "config": {
+                "select": "document",
+                "customtypes": [ "artist" ],
+                "placeholder": "Add artist..."
+            }
+        },
+        "featureImage": {
+            "type": "Image",
+            "fieldset": "Feature image",
+            "config": {
+                "placeholder": "Add image..."
+            }
+        },
+        "gallery": {
+            "type": "Group",
+            "fieldset": "Gallery",
+            "config": {
+                "fields": {
+                    "image": {
+                        "type": "Link",
+                        "fieldset": "Image",
+                        "config": {
+                            "select": "media",
+                            "placeholder": "Add image..."
+                        }
+                    }
+                },
+                "repeat": true
+            }
+        }
+    }
+}

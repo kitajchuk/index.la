@@ -1,0 +1,11 @@
+{
+    "Main": {
+        "title": {
+            "type": "Text",
+            "fieldset": "Page Title",
+            "config": {
+                "label": "Title"
+            }
+        }
+    }
+}

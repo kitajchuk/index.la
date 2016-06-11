@@ -7,7 +7,20 @@
         <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1" />
 
         <!-- Title -->
-        <title><% if ( locals.document ) { %><%= document.data[ 'artist.name' ].value %> – <% } %>Index.la</title>
+        <title>
+            <% if ( locals.document ) { %>
+                <% if ( locals.document.type === 'artist' ) { %>
+                    <%= locals.document.data[ 'artist.name' ].value %> – Index.la
+                <% } %>
+                <% if ( locals.document.type === 'feature' ) { %>
+                    <%= locals.document.data[ 'feature.name' ].value %> – Index.la
+                <% } %>
+            <% } else if ( locals.page ) { %>
+                <%= locals.page.data[ 'page.title' ].value %> – Index.la
+            <% } else { %>
+                Index.la
+            <% } %>
+        </title>
 
         <!-- Styles -->
         <link href="<%= static.css.screen %>" rel="stylesheet" />
@@ -81,7 +94,7 @@
             <%- body %>
         </main>
         <section class="intro js-intro screen ghost -text--center is-active">
-            <h1 class="h1 ghost__child -light">Index.la</h1>
+            <h1 class="h1 ghost__child -light">theindex.la</h1>
         </section>
         <script src="<%= static.js.app %>"></script>
     </body>

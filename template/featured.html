@@ -1,3 +1,8 @@
-<section class="features -exp wrapper -text--center">
-    <p class="p">This is the features page</p>
+<section class="featured js-featured -exp -text--center">
+    <a class="featured__row -exp -f-zero -text--center -column -column--1of4" v-show="feature.show" v-for="feature in features" href="/feature/{{feature.slug}}/" data-uuid="{{feature.uuid}}">
+        <p class="p">{{feature.data.name.value}}</p>
+        <figure class="featured__figure">
+            <img class="featured__image image image--{{feature.data.featureImage.value.main.dimensions.width > feature.data.featureImage.value.main.dimensions.height ? 'wide' : 'tall'}} js-featured-image" data-img-src="{{feature.data.featureImage.value.main.url}}" />
+        </figure>
+    </a>
 </section>

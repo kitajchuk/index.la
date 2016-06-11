@@ -12,6 +12,7 @@
                 padding-left $long-duration $ease-cubic-sharp,
                 transform $long-duration $ease-cubic-sharp;
     width: 100%;
+    -webkit-overflow-scrolling: touch;
 
     &.is-reactive {
         }

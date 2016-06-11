@@ -11,6 +11,7 @@
                 transform $long-duration $ease-cubic-sharp;
     width: $filter-width;
     z-index: $z_layer_10;
+    -webkit-overflow-scrolling: touch;
     }
 
 

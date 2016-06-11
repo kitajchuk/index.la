@@ -9,13 +9,13 @@
         </div>
         <div class="index__col index__name -column -text--left">
             <p class="p">{{artist.data.name.value}}</p>
-            <p class="p meta" v-for="type in artist.data.types.value">{{type.value.data.name.value}}</p>
+            <p class="p -grey" v-for="type in artist.data.types.value">{{type.value.data.name.value}}</p>
         </div>
         <div class="index__col index__categories -column -text--left">
-            <p class="p meta" v-for="category in artist.data.categories.value">{{category.value.data.name.value}}</p>
+            <p class="p -grey" v-for="category in artist.data.categories.value">{{category.value.data.name.value}}</p>
         </div>
         <div class="index__col index__location -column -text--left">
-            <p class="p meta">{{artist.data.city.value.data.name.value}}</p>
+            <p class="p -grey">{{artist.data.city.value.data.name.value}}</p>
         </div>
     </a>
 </section>

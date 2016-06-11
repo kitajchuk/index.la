@@ -21,14 +21,10 @@
 
 
 
-@media only screen and ( max-width: $break-tablet-full ) {}
-
-
-
 @media only screen and ( max-width: $break-tablet-medium ) {
     .index .p,
     .refine .p {
-        font-size: 16px;
+        font-size: $meta-size;
         }
     .is-refine-open {
         .page,
@@ -42,6 +38,24 @@
 
 
 @media only screen and ( max-width: $break-mobile-full ) {
+    .-wrap {
+        padding-left: $expander-mobile;
+        padding-right: $expander-mobile;
+        }
+    .-wrap-l {
+        padding-left: $expander-mobile;
+        }
+    .-wrap-r {
+        padding-right: $expander-mobile;
+        }
+    .index .p,
+    .filter .p {
+        line-height: 2;
+        }
+    .index__row {
+        padding-bottom: $expander-mobile;
+        padding-top: $expander-mobile;
+        }
     .index__feature {
         width: 40%;
         }
@@ -52,21 +66,47 @@
     .index__location {
         display: none;
         }
+    .header,
+    .search {
+        height: 80px;
+        }
     .refine {
         width: 80%;
+    }
+    .filter {
+        padding-left: $expander-mobile;
+        padding-top: $expander-mobile;
+    }
+    .page {
+        padding-top: calc( 80px - 1px );
         }
-    .is-refine-open {
-        .page,
-        .header {
-            padding-left: 0;
-            transform: translate3d( 80%, 0, 0 );
-            }
+    .artist__gallery {
+        padding-left: $expander-mobile;
+        padding-right: $expander-mobile;
+        width: 100%;
+        }
+    .artist__gallery__image {
+        padding-bottom: 0;
+        padding-top: $expander-mobile;
     }
     .nav__menu__li {
         display: block;
 
         &:not( :first-child ) {
             margin-left: 0;
+            }
+    }
+    .icon--ex--close {
+        top: 28px;
+        }
+    .search__field {
+        padding-left: $expander-mobile;
+        }
+    .is-refine-open {
+        .page,
+        .header {
+            padding-left: 0;
+            transform: translate3d( 80%, 0, 0 );
             }
     }
 }

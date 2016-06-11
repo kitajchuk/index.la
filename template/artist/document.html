@@ -1,10 +1,7 @@
-<article class="artist js-artist -wrap -exp -f-zero -text--center" data-id="<%= document.id %>">
-    <p class="p">{{data.name.value}}</p>
-    <p class="p">{{data.city.value.data.name.value}}</p>
-    <p class="p">
-        <a href="{{data.website.value}}" class="a" target="_blank">Website</a>
-    </p>
-    <div class="artist__gallery -column -column--1of4">
-        <img v-for="galleryImage in data.gallery.value" class="artist__gallery__image image js-artist-image -exp" data-img-src="{{galleryImage.value.image.url}}" />
+<article class="artist js-artist -exp -f-zero -text--center" data-id="<%= document.id %>">
+    <h1 class="artist__name h1">{{data.name.value}}</h1>
+    <p class="artist__type p -grey" v-for="type in data.types.value">{{type.value.data.name.value}}</p>
+    <div class="artist__gallery -exp-t -column">
+        <img v-for="galleryImage in data.gallery.value" class="artist__gallery__image image image--{{parseInt( galleryImage.value.image.width, 10 ) > parseInt( galleryImage.value.image.height, 10 ) ? 'wide' : 'tall'}} js-artist-image -exp" data-img-src="{{galleryImage.value.image.url}}" />
     </div>
 </article>

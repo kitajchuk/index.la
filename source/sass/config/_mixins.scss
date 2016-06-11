@@ -45,19 +45,6 @@
     font-size: $h1-size;
     @include font-sans-text();
 }
-@mixin h2() {
-    font-size: $h2-size;
-    @include font-sans-text();
-}
-@mixin h3() {
-    font-size: $h3-size;
-    line-height: $h3-line-height;
-    @include font-sans-text();
-}
-@mixin h4() {
-    font-size: $h4-size;
-    @include font-sans-text();
-}
 @mixin li() {
     padding-left: 20px;
     @include p();

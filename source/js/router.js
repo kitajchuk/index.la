@@ -2,9 +2,9 @@ import $ from "properjs-hobo";
 import PageController from "properjs-pagecontroller";
 import * as core from "./core";
 import nav from "./menus/nav";
-import animate from "./animate";
 import index from "./index";
 import artist from "./index/artist";
+import featured from "./index/featured";
 import refine from "./index/refine";
 
 
@@ -57,7 +57,7 @@ const router = {
 
             index,
             artist,
-            animate
+            featured
         ]);
 
         this.controller.on( "page-controller-router-samepage", () => nav.close() );
