@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="">
+<html>
     <head>
         <!-- Meta -->
         <meta charset="utf-8" />
@@ -29,7 +29,7 @@
         <!-- Styles -->
         <link href="<%= locals.static.css.screen %>" rel="stylesheet" />
     </head>
-    <body class="">
+    <body>
         <!-- Header -->
         <header class="header js-header ghost -f-zero">
             <div class="header__wrap ghost__child">
@@ -52,15 +52,11 @@
         <!-- Nav -->
         <nav class="nav js-nav screen ghost -text--center is-hidden">
             <ul class="nav__menu ghost__child -exp">
-                <li class="nav__menu__li">
-                    <a href="/" class="nav__menu__a js-nav-item h1 -grey">Index</a>
-                </li>
-                <li class="nav__menu__li">
-                    <a href="/featured/" class="nav__menu__a js-nav-item h1 -grey">Featured</a>
-                </li>
-                <li class="nav__menu__li">
-                    <a href="/about/" class="nav__menu__a js-nav-item h1 -grey">About</a>
-                </li>
+                <% locals.nav.forEach(function ( n ) { %>
+                    <li class="nav__menu__li">
+                        <a href="<%= n.data[ 'nav.url' ].value %>" class="nav__menu__a js-nav-item h1 -grey"><%= n.data[ 'nav.title' ].value %></a>
+                    </li>
+                <% }) %>
             </ul>
         </nav>
 
@@ -106,7 +102,9 @@
         </menu>
 
         <!-- Page -->
-        <main class="page js-page"><%= locals.body %></main>
+        <main class="page js-page">
+            <%= locals.body %>
+        </main>
 
         <!-- Splash -->
         <section class="intro js-intro screen ghost -text--center is-active">
@@ -115,8 +113,36 @@
 
         <!-- Templates -->
         <div class="templates js-templates is-hidden">
+            <!-- Index -->
+            <section class="index js-index">
+                <div class="index__row -wrap -exp -f-zero -text--center" v-show="artist.show" v-for="artist in artists" data-uuid="{{artist.uuid}}">
+                    <div class="index__col index__feature -column -text--left">
+                        <div class="index__thumbnail">
+                            <figure class="index__figure">
+                                <a href="/artist/{{artist.slug}}/">
+                                    <img class="index__image image image--{{artist.data.featureImage.value.main.dimensions.width > artist.data.featureImage.value.main.dimensions.height ? 'wide' : 'tall'}} js-lazy-image" data-img-src="{{artist.data.featureImage.value.main.url}}" />
+                                </a>
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="index__col index__name -column -text--left">
+                        <a href="/artist/{{artist.slug}}/">
+                            <p class="p">{{artist.data.name.value}}</p>
+                            <p class="p -grey" v-for="type in artist.data.types.value">{{type.value.data.name.value}}</p>
+                        </a>
+                    </div>
+                    <div class="index__col index__categories -column -text--left">
+                        <p class="p -grey" v-for="category in artist.data.categories.value">{{category.value.data.name.value}}</p>
+                    </div>
+                    <div class="index__col index__location -column -text--left">
+                        <p class="p -grey">{{artist.data.city.value.data.name.value}}</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Artist -->
             <article class="artist js-artist -f-zero -text--center">
-                <div class="artist__info -text--left -wrap-l">
+                <div class="artist__info -text--left -wrap">
                     <div class="artist__info__item p">
                         <p class="artist__name">{{artist.data.name.value}}</p>
                         <p class="artist__types -grey" v-for="type in artist.data.types.value">{{type.value.data.name.value}}</p>
@@ -133,53 +159,38 @@
                     </div>
                 </div>
                 <div class="h1 -wrap -exp">Other Artists</div>
-                <div class="artist__other -wrap -exp-t">
-                    <a v-for="otherArtist in otherArtists" class="artist__other__col -wrap -exp -column -column--1of3" href="/artist/{{otherArtist.slug}}/">
+                <div class="artist__other -wrap-w -exp-t">
+                    <div v-for="otherArtist in otherArtists" class="artist__other__col -wrap -exp -column -column--1of3">
                         <div class="index__thumbnail artist__other__thumbnail">
                             <figure class="index__figure">
-                                <img class="index__image image image--{{otherArtist.data.featureImage.value.main.dimensions.width > otherArtist.data.featureImage.value.main.dimensions.height ? 'wide' : 'tall'}} js-lazy-image" data-img-src="{{otherArtist.data.featureImage.value.main.url}}" />
+                                <a href="/artist/{{otherArtist.slug}}/">
+                                    <img class="index__image image image--{{otherArtist.data.featureImage.value.main.dimensions.width > otherArtist.data.featureImage.value.main.dimensions.height ? 'wide' : 'tall'}} js-lazy-image" data-img-src="{{otherArtist.data.featureImage.value.main.url}}" />
+                                </a>
                             </figure>
                         </div>
-                        <p class="p">{{otherArtist.data.name.value}}</p>
-                        <!--<p class="p -grey" v-for="category in otherArtist.data.categories.value">{{category.value.data.name.value}}</p>-->
-                    </a>
+                        <a class="artist__other__meta" href="/artist/{{otherArtist.slug}}/">
+                            <p class="p">{{otherArtist.data.name.value}}</p>
+                            <p class="p -grey">
+                                <span v-for="type in otherArtist.data.types.value">{{type.value.data.name.value}}</span>
+                            </p>
+                        </a>
+                    </div>
                 </div>
             </article>
-            <article class="feature js-feature -wrap -exp -f-zero -text--center"></article>
-            <section class="about js-about -exp wrapper -text--center">
-                <h1 class="h1">theindex.la</h1>
-                <div class="-exp -text--left -column -column--2of4">
-                    <p class="p -grey">This is some text about the app.</p>
-                </div>
+
+            <!-- Featured -->
+            <section class="featured js-featured -wrap -exp -text--center">
+                <h1 class="h1">Featured</h1>
             </section>
-            <section class="featured js-featured -exp -text--center">
-                <a class="featured__row -exp -f-zero -text--center -column -column--1of4" v-show="feature.show" v-for="feature in features" href="/feature/{{feature.slug}}/" data-uuid="{{feature.uuid}}">
-                    <p class="p">{{feature.data.name.value}}</p>
-                    <figure class="featured__figure">
-                        <img class="featured__image image image--{{feature.data.featureImage.value.main.dimensions.width > feature.data.featureImage.value.main.dimensions.height ? 'wide' : 'tall'}} js-lazy-image" data-img-src="{{feature.data.featureImage.value.main.url}}" />
-                    </figure>
-                </a>
-            </section>
-            <section class="index js-index">
-                <a class="index__row -wrap -exp -f-zero -text--center" v-show="artist.show" v-for="artist in artists" href="/artist/{{artist.slug}}/" data-uuid="{{artist.uuid}}">
-                    <div class="index__col index__feature -column -text--left">
-                        <div class="index__thumbnail">
-                            <figure class="index__figure">
-                                <img class="index__image image image--{{artist.data.featureImage.value.main.dimensions.width > artist.data.featureImage.value.main.dimensions.height ? 'wide' : 'tall'}} js-lazy-image" data-img-src="{{artist.data.featureImage.value.main.url}}" />
-                            </figure>
-                        </div>
-                    </div>
-                    <div class="index__col index__name -column -text--left">
-                        <p class="p">{{artist.data.name.value}}</p>
-                        <p class="p -grey" v-for="type in artist.data.types.value">{{type.value.data.name.value}}</p>
-                    </div>
-                    <div class="index__col index__categories -column -text--left">
-                        <p class="p -grey" v-for="category in artist.data.categories.value">{{category.value.data.name.value}}</p>
-                    </div>
-                    <div class="index__col index__location -column -text--left">
-                        <p class="p -grey">{{artist.data.city.value.data.name.value}}</p>
-                    </div>
-                </a>
+
+            <!-- Feature -->
+            <article class="feature js-feature -wrap -exp -text--center">
+                <h1 class="h1">Feature</h1>
+            </article>
+
+            <!-- About -->
+            <section class="about js-about -wrap -exp -text--center">
+                <h1 class="h1">About</h1>
             </section>
         </div>
 

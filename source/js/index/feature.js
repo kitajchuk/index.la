@@ -7,31 +7,31 @@ import templates from "./templates";
 /**
  *
  * @public
- * @namespace about
+ * @namespace feature
  * @description A nice description of what this module does...
  *
  */
-const about = {
+const feature = {
     /**
      *
      * @public
      * @member dataType
-     * @memberof about
+     * @memberof feature
      * @description The content type.
      *
      */
-    dataType: "page",
+    dataType: "feature",
 
 
     /**
      *
      * @public
      * @member template
-     * @memberof about
+     * @memberof feature
      * @description The template context.
      *
      */
-    template: "about",
+    template: "feature",
 
 
     /**
@@ -39,17 +39,17 @@ const about = {
      * @public
      * @method init
      * @param {object} data The loaded app data
-     * @memberof about
+     * @memberof feature
      * @description Method runs once when window loads.
      *
      */
     init ( data ) {
         this.data = data;
 
-        core.emitter.on( "app--view-about", this.load.bind( this ) );
+        core.emitter.on( "app--view-feature", this.load.bind( this ) );
         core.emitter.on( "app--view-teardown", this.teardown.bind( this ) );
 
-        core.log( "about initialized" );
+        core.log( "feature initialized" );
     },
 
 
@@ -57,13 +57,14 @@ const about = {
      *
      * @public
      * @method load
-     * @memberof about
+     * @param {string} slug The document slug
+     * @memberof feature
      * @description Method performs onloading actions for this module.
      *
      */
-    load () {
+    load ( slug ) {
         this.viewData = {
-            page: helpers.getLinkedDocumentBySlug( this.dataType, this.template, this.data )
+            page: helpers.getLinkedDocumentBySlug( this.dataType, slug, this.data )
         };
         this.view = new Vue({
             el: core.dom.page[ 0 ],
@@ -75,7 +76,7 @@ const about = {
             template: templates.get( this.template )
         });
 
-        core.dom.html.addClass( "is-about-page" );
+        core.dom.html.addClass( "is-feature-page" );
     },
 
 
@@ -83,7 +84,7 @@ const about = {
      *
      * @public
      * @method teardown
-     * @memberof about
+     * @memberof feature
      * @description Method performs cleanup after this module. Remmoves events, null vars etc...
      *
      */
@@ -99,7 +100,7 @@ const about = {
             this.imageController = null;
         }
 
-        core.dom.html.removeClass( "is-about-page" );
+        core.dom.html.removeClass( "is-feature-page" );
     }
 };
 
@@ -107,4 +108,4 @@ const about = {
 /******************************************************************************
  * Export
 *******************************************************************************/
-export default about;
+export default feature;

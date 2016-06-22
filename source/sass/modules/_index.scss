@@ -65,6 +65,16 @@
     width: 40%;
     }
 .artist__other__thumbnail {
-    margin-bottom: $mobile-padding;
     max-width: none;
     }
+.artist__other__meta {
+    display: inline-block;
+    padding-top: $mobile-padding;
+    }
+.artist__other__col {
+    span + span {
+        &:before {
+            content: " / ";
+            }
+        }
+}

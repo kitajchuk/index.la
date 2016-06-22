@@ -38,6 +38,17 @@ const artist = {
     /**
      *
      * @public
+     * @member otherLimit
+     * @memberof artist
+     * @description The `other artists` limit cap.
+     *
+     */
+    otherLimit: 12,
+
+
+    /**
+     *
+     * @public
      * @method init
      * @param {object} data The loaded app data
      * @memberof artist
@@ -65,7 +76,7 @@ const artist = {
      */
     load ( slug ) {
         this.artist = helpers.getLinkedDocumentBySlug( this.dataType, slug, this.data );
-        this.otherArtists = helpers.getLinkedDocuments( this.dataType, this.data ).filter( this.filterOtherArtists.bind( this ) );
+        this.otherArtists = helpers.getLinkedDocuments( this.dataType, this.data ).filter( this.filterOtherArtists.bind( this ) ).slice( 0, this.otherLimit );
         this.viewData = {
             artist: this.artist,
             otherArtists: this.otherArtists
@@ -106,6 +117,7 @@ const artist = {
                     ret = true;
                 }
             });
+
         });
 
         return ret;

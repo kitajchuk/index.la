@@ -12,8 +12,10 @@ import router from "./router";
 import nav from "./menus/nav";
 import * as core from "./core";
 import intro from "./menus/intro";
+import about from "./index/about";
 import artist from "./index/artist";
 import refine from "./index/refine";
+import feature from "./index/feature";
 import featured from "./index/featured";
 import templates from "./index/templates";
 
@@ -31,9 +33,11 @@ class App {
         this.core = core;
         this.intro = intro;
         this.index = index;
+        this.about = about;
         this.refine = refine;
         this.router = router;
         this.artist = artist;
+        this.feature = feature;
         this.featured = featured;
         this.templates = templates;
 
@@ -83,10 +87,10 @@ class App {
 
         // Views
         this.index.init( data );
+        this.about.init( data );
         this.artist.init( data );
+        this.feature.init( data );
         this.featured.init( data );
-        //this.about.init( data );
-        //this.feature.init( data );
     }
 
 

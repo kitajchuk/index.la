@@ -26,6 +26,14 @@
     .refine .p {
         font-size: $meta-size;
         }
+    .artist__info {
+        padding-bottom: $expander-one;
+        padding-top: $expander-one;
+        position: relative;
+        text-align: inherit;
+        top: auto;
+        transform: none;
+        }
     .is-refine-open {
         .page,
         .header {
