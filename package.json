@@ -47,7 +47,8 @@
     "start": "npm run watch",
     "sync": "./node_modules/.bin/prismic-express sync",
     "build": "./node_modules/.bin/prismic-express build",
-    "deploy": "rsync -av -e 'ssh' ./build/ blkpdx.com@blkpdx.com:domains/index-la.blkpdx.com/html/",
+    "server": "node webtasks/server.js",
+    "postbuild": "rsync -av -e 'ssh' ./build/ blkpdx.com@blkpdx.com:domains/index-la.blkpdx.com/html/",
     "postinstall": "cd ./node_modules/properjs-hobo && npm install && npm run build -- 'is eq not filter detach append remove parent children'"
   },
   "repository": {

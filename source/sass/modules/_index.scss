@@ -1,3 +1,6 @@
+.index {
+    transition: opacity 600ms ease;
+    }
 .index__row {
     border-top: 1px solid $grey-light;
     display: block;
@@ -46,9 +49,22 @@
 
 
 
-.artist__name {
-    margin-bottom: 20px;
+.artist__info {
+    left: 0;
+    position: fixed;
+    top: 50%;
+    transform: translateY( -50% );
+    }
+.artist__info__item {
+    display: block;
+    }
+.artist__info__item + .artist__info__item {
+    margin-top: $mobile-padding;
     }
 .artist__gallery {
     width: 40%;
+    }
+.artist__other__thumbnail {
+    margin-bottom: $mobile-padding;
+    max-width: none;
     }

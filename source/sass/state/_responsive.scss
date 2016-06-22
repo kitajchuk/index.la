@@ -100,6 +100,11 @@
         padding-left: $expander-mobile;
         }
     .is-refine-open {
+        .index {
+            opacity: 0.5;
+            pointer-events: none;
+            }
+
         .page,
         .header {
             padding-left: 0;

@@ -1,0 +1,18 @@
+{
+    "Main": {
+        "title": {
+            "type": "Text",
+            "fieldset": "Social Channel Title",
+            "config": {
+                "label": "Channel Title"
+            }
+        },
+        "url": {
+            "type": "Text",
+            "fieldset": "Social Channel URL",
+            "config": {
+                "label": "Channel URL"
+            }
+        }
+    }
+}

@@ -21,6 +21,13 @@
                 "label": "Website"
             }
         },
+        "instagram": {
+            "type": "Text",
+            "fieldset": "Artist Instagram",
+            "config": {
+                "label": "Instagram"
+            }
+        },
         "description": {
             "type": "StructuredText",
             "fieldset": "Artist description",

@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html class="">
     <head>
-        <meta charset="utf-8" />
-
         <!-- Meta -->
+        <meta charset="utf-8" />
         <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="theindex.la" />
+        <meta name="format-detection" content="telephone=no" />
+        <link rel="apple-touch-icon-precomposed" href="/images/touchicon.png" />
 
         <!-- Title -->
         <title>
@@ -26,6 +30,7 @@
         <link href="<%= locals.static.css.screen %>" rel="stylesheet" />
     </head>
     <body class="">
+        <!-- Header -->
         <header class="header js-header ghost -f-zero">
             <div class="header__wrap ghost__child">
                 <div class="-wrap-l -column -column--2of4">
@@ -43,15 +48,23 @@
                 </div>
             </div>
         </header>
+
+        <!-- Nav -->
         <nav class="nav js-nav screen ghost -text--center is-hidden">
             <ul class="nav__menu ghost__child -exp">
-                <% locals.staticPages.reverse().forEach(function ( p ) { %>
-                    <li class="nav__menu__li">
-                        <a href="<%= p.url %>" class="nav__menu__a js-nav-item h1 -grey"><%= p.id %></a>
-                    </li>
-                <% }) %>
+                <li class="nav__menu__li">
+                    <a href="/" class="nav__menu__a js-nav-item h1 -grey">Index</a>
+                </li>
+                <li class="nav__menu__li">
+                    <a href="/featured/" class="nav__menu__a js-nav-item h1 -grey">Featured</a>
+                </li>
+                <li class="nav__menu__li">
+                    <a href="/about/" class="nav__menu__a js-nav-item h1 -grey">About</a>
+                </li>
             </ul>
         </nav>
+
+        <!-- Refine -->
         <menu class="refine js-refine">
             <div class="search js-search">
                 <input class="search__field js-search-field p" placeholder="Search" type="text" />
@@ -60,16 +73,16 @@
                 <div class="filter__col">
                     <p class="p">Sort</p>
                     <ul class="filter__set">
-                        <li class="filter__opt p -grey js-sort-option" data-value="uuid">Most Recent</li>
-                        <li class="filter__opt p -grey js-sort-option" data-value="name">Name</li>
-                        <li class="filter__opt p -grey js-sort-option" data-value="region">Location</li>
+                        <% locals.sort.forEach(function ( s ) { %>
+                            <li class="filter__opt p -grey js-sort-option <% if ( s.data[ 'sort.value' ].value === 'uuid' ) { %>is-active<% } %>" data-value="<%= s.data[ 'sort.value' ].value %>"><%= s.data[ 'sort.label' ].value %></li>
+                        <% }) %>
                     </ul>
                 </div>
                 <div class="filter__col">
                     <p class="p">Type</p>
                     <ul class="filter__set">
                         <% locals.type.forEach(function ( t ) { %>
-                            <li class="filter__opt p -grey js-filter-option" data-type="types" data-value="<%= t.data['type.name'].value %>"><%= t.data["type.name"].value %></li>
+                            <li class="filter__opt p -grey js-filter-option" data-type="types" data-value="<%= t.data[ 'type.name' ].value %>"><%= t.data[ 'type.name' ].value %></li>
                         <% }) %>
                     </ul>
                 </div>
@@ -77,7 +90,7 @@
                     <p class="p">Category</p>
                     <ul class="filter__set">
                         <% locals.category.forEach(function ( c ) { %>
-                            <li class="filter__opt p -grey js-filter-option" data-type="categories" data-value="<%= c.data['category.name'].value %>"><%= c.data["category.name"].value %></li>
+                            <li class="filter__opt p -grey js-filter-option" data-type="categories" data-value="<%= c.data[ 'category.name' ].value %>"><%= c.data[ 'category.name' ].value %></li>
                         <% }) %>
                     </ul>
                 </div>
@@ -85,18 +98,92 @@
                     <p class="p">Location</p>
                     <ul class="filter__set">
                         <% locals.region.forEach(function ( r ) { %>
-                            <li class="filter__opt p -grey js-filter-option" data-type="region" data-value="<%= r.data['region.name'].value %>"><%= r.data["region.name"].value %></li>
+                            <li class="filter__opt p -grey js-filter-option" data-type="region" data-value="<%= r.data[ 'region.name' ].value %>"><%= r.data[ 'region.name' ].value %></li>
                         <% }) %>
                     </ul>
                 </div>
             </div>
         </menu>
-        <main class="page js-page">
-            <%- locals.body %>
-        </main>
+
+        <!-- Page -->
+        <main class="page js-page"><%= locals.body %></main>
+
+        <!-- Splash -->
         <section class="intro js-intro screen ghost -text--center is-active">
             <h1 class="h1 ghost__child -light">theindex.la</h1>
         </section>
+
+        <!-- Templates -->
+        <div class="templates js-templates is-hidden">
+            <article class="artist js-artist -f-zero -text--center">
+                <div class="artist__info -text--left -wrap-l">
+                    <div class="artist__info__item p">
+                        <p class="artist__name">{{artist.data.name.value}}</p>
+                        <p class="artist__types -grey" v-for="type in artist.data.types.value">{{type.value.data.name.value}}</p>
+                    </div>
+                    <div class="artist__info__item artist__categories p -grey">
+                        <p v-for="category in artist.data.categories.value">{{category.value.data.name.value}}</p>
+                    </div>
+                    <p class="artist__info__item artist__city p -grey">{{artist.data.city.value.data.name.value}}</p>
+                    <a class="artist__info__item artist__website p a -grey" href="{{artist.data.website.value}}" target="_blank">Website</a>
+                </div>
+                <div class="artist__gallery -column -exp-b">
+                    <div v-for="galleryImage in artist.data.gallery.value" class="artist__gallery__image -exp">
+                        <img class="image image--{{parseInt( galleryImage.value.image.width, 10 ) > parseInt( galleryImage.value.image.height, 10 ) ? 'wide' : 'tall'}} js-lazy-image" data-img-src="{{galleryImage.value.image.url}}" />
+                    </div>
+                </div>
+                <div class="h1 -wrap -exp">Other Artists</div>
+                <div class="artist__other -wrap -exp-t">
+                    <a v-for="otherArtist in otherArtists" class="artist__other__col -wrap -exp -column -column--1of3" href="/artist/{{otherArtist.slug}}/">
+                        <div class="index__thumbnail artist__other__thumbnail">
+                            <figure class="index__figure">
+                                <img class="index__image image image--{{otherArtist.data.featureImage.value.main.dimensions.width > otherArtist.data.featureImage.value.main.dimensions.height ? 'wide' : 'tall'}} js-lazy-image" data-img-src="{{otherArtist.data.featureImage.value.main.url}}" />
+                            </figure>
+                        </div>
+                        <p class="p">{{otherArtist.data.name.value}}</p>
+                        <!--<p class="p -grey" v-for="category in otherArtist.data.categories.value">{{category.value.data.name.value}}</p>-->
+                    </a>
+                </div>
+            </article>
+            <article class="feature js-feature -wrap -exp -f-zero -text--center"></article>
+            <section class="about js-about -exp wrapper -text--center">
+                <h1 class="h1">theindex.la</h1>
+                <div class="-exp -text--left -column -column--2of4">
+                    <p class="p -grey">This is some text about the app.</p>
+                </div>
+            </section>
+            <section class="featured js-featured -exp -text--center">
+                <a class="featured__row -exp -f-zero -text--center -column -column--1of4" v-show="feature.show" v-for="feature in features" href="/feature/{{feature.slug}}/" data-uuid="{{feature.uuid}}">
+                    <p class="p">{{feature.data.name.value}}</p>
+                    <figure class="featured__figure">
+                        <img class="featured__image image image--{{feature.data.featureImage.value.main.dimensions.width > feature.data.featureImage.value.main.dimensions.height ? 'wide' : 'tall'}} js-lazy-image" data-img-src="{{feature.data.featureImage.value.main.url}}" />
+                    </figure>
+                </a>
+            </section>
+            <section class="index js-index">
+                <a class="index__row -wrap -exp -f-zero -text--center" v-show="artist.show" v-for="artist in artists" href="/artist/{{artist.slug}}/" data-uuid="{{artist.uuid}}">
+                    <div class="index__col index__feature -column -text--left">
+                        <div class="index__thumbnail">
+                            <figure class="index__figure">
+                                <img class="index__image image image--{{artist.data.featureImage.value.main.dimensions.width > artist.data.featureImage.value.main.dimensions.height ? 'wide' : 'tall'}} js-lazy-image" data-img-src="{{artist.data.featureImage.value.main.url}}" />
+                            </figure>
+                        </div>
+                    </div>
+                    <div class="index__col index__name -column -text--left">
+                        <p class="p">{{artist.data.name.value}}</p>
+                        <p class="p -grey" v-for="type in artist.data.types.value">{{type.value.data.name.value}}</p>
+                    </div>
+                    <div class="index__col index__categories -column -text--left">
+                        <p class="p -grey" v-for="category in artist.data.categories.value">{{category.value.data.name.value}}</p>
+                    </div>
+                    <div class="index__col index__location -column -text--left">
+                        <p class="p -grey">{{artist.data.city.value.data.name.value}}</p>
+                    </div>
+                </a>
+            </section>
+        </div>
+
+        <!-- Javascript -->
         <script src="<%= locals.static.js.app %>"></script>
     </body>
 </html>

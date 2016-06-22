@@ -1,11 +1,7 @@
-import $ from "properjs-hobo";
-import PageController from "properjs-pagecontroller";
-import * as core from "./core";
 import nav from "./menus/nav";
-import index from "./index";
-import artist from "./index/artist";
-import featured from "./index/featured";
+import * as core from "./core";
 import refine from "./index/refine";
+import PageController from "properjs-pagecontroller";
 
 
 /**
@@ -26,7 +22,6 @@ const router = {
      */
     init () {
         this.state = {};
-        this.status = 200;
         this.pageDuration = core.util.getTransitionDuration( core.dom.page[ 0 ] );
         this.bindEmptyHashLinks();
         this.initPageController();
@@ -45,26 +40,23 @@ const router = {
      */
     initPageController () {
         this.controller = new PageController({
-            transitionTime: this.pageDuration
+            transitionTime: this.pageDuration,
+            routerOptions: {
+                async: false
+            }
         });
 
         this.controller.setConfig([
-            "*"
-        ]);
-
-        this.controller.setModules([
-            core.images,
-
-            index,
-            artist,
-            featured
+            "/",
+            ":view",
+            ":view/:id"
         ]);
 
         this.controller.on( "page-controller-router-samepage", () => nav.close() );
         this.controller.on( "page-controller-router-transition-out", this.changePageOut.bind( this ) );
         this.controller.on( "page-controller-router-refresh-document", this.changeContent.bind( this ) );
         this.controller.on( "page-controller-router-transition-in", this.changePageIn.bind( this ) );
-        this.controller.on( "page-controller-initialized-page", this.initPage.bind( this ) );
+        this.controller.on( "page-controller-initialized-page", this.viewChange.bind( this ) );
 
         this.controller.initPage();
     },
@@ -73,31 +65,17 @@ const router = {
     /**
      *
      * @public
-     * @method initPage
+     * @method viewChange
      * @param {object} data The PageController data object
      * @memberof router
-     * @description Cache the initial page load.
+     * @description Handle view changes.
      *
      */
-    initPage ( data ) {
-        this.status = data.status;
+    viewChange ( data ) {
+        const view = (data.request.params.view || "index");
+        const args = (data.request.params.id || null);
 
-        if ( this.status === 404 ) {
-            this.handle404();
-        }
-    },
-
-
-    /**
-     *
-     * @public
-     * @method handle404
-     * @memberof router
-     * @description Handle `Page Not Found` for Router.
-     *
-     */
-    handle404 () {
-        // Handle 404s here...
+        core.emitter.fire( `app--view-${view}`, args );
     },
 
 
@@ -207,31 +185,6 @@ const router = {
     /**
      *
      * @public
-     * @method parseDoc
-     * @param {string} html The responseText to parse out
-     * @memberof router
-     * @description Get the DOM information to cache for a request.
-     * @returns {object}
-     *
-     */
-    parseDoc ( html ) {
-        let doc = document.createElement( "html" );
-
-        doc.innerHTML = html;
-
-        doc = $( doc );
-
-        return {
-            $doc: doc,
-            $page: doc.find( ".js-page" ),
-            pageHtml: doc.find( ".js-page" )[ 0 ].innerHTML
-        };
-    },
-
-
-    /**
-     *
-     * @public
      * @method bindEmptyHashLinks
      * @memberof router
      * @description Suppress #hash links.
@@ -239,29 +192,6 @@ const router = {
      */
     bindEmptyHashLinks () {
         core.dom.body.on( "click", "[href^='#']", ( e ) => e.preventDefault() );
-    },
-
-
-    /**
-     *
-     * @public
-     * @method onPreloadDone
-     * @memberof router
-     * @description Finish routing sequence when image pre-loading is done.
-     *
-     */
-    onPreloadDone () {
-        core.util.disableMouseWheel( false );
-        core.util.disableTouchMove( false );
-
-        core.dom.html.removeClass( "is-routing" );
-        core.dom.page.removeClass( "is-inactive" );
-
-        core.dom.page[ 0 ].scrollTop = 0;
-
-        setTimeout( () => core.emitter.fire( "app--intro-art" ), this.pageDuration );
-
-        core.emitter.off( "app--preload-done", this.onPreloadDone );
     },
 
 
@@ -284,9 +214,11 @@ const router = {
             nav.close();
             refine.close();
 
-        }, this.pageDuration );
+            core.dom.page[ 0 ].scrollTop = 0;
 
-        core.emitter.on( "app--preload-done", this.onPreloadDone );
+            core.emitter.fire( "app--view-teardown" );
+
+        }, this.pageDuration );
     },
 
 
@@ -300,18 +232,7 @@ const router = {
      *
      */
     changeContent ( data ) {
-        this.status = data.status;
-
-        if ( this.status === 404 ) {
-            this.handle404();
-
-        } else {
-            const doc = this.parseDoc( data.response );
-
-            core.dom.page[ 0 ].innerHTML = doc.pageHtml;
-
-            core.emitter.fire( "app--analytics-push", doc.$doc );
-        }
+        this.viewChange( data );
 
         // Check state before cycle finishes so `checked` state can be deleted
         this.checkState();
@@ -329,6 +250,12 @@ const router = {
      */
     changePageIn ( /* data */ ) {
         nav.toggleActive();
+
+        core.util.disableMouseWheel( false );
+        core.util.disableTouchMove( false );
+
+        core.dom.html.removeClass( "is-routing" );
+        core.dom.page.removeClass( "is-inactive" );
     }
 };
 

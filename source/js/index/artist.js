@@ -1,7 +1,8 @@
+import Vue from "vue";
+import refine from "./refine";
 import * as core from "../core";
 import helpers from "./helpers";
-import refine from "./refine";
-import Vue from "vue";
+import templates from "./templates";
 
 
 /**
@@ -26,24 +27,28 @@ const artist = {
     /**
      *
      * @public
-     * @member domSelector
+     * @member template
      * @memberof artist
-     * @description The dom context.
+     * @description The template context.
      *
      */
-    domSelector: ".js-artist",
+    template: "artist",
 
 
     /**
      *
      * @public
      * @method init
+     * @param {object} data The loaded app data
      * @memberof artist
      * @description Method runs once when window loads.
      *
      */
-    init () {
-        core.emitter.on( "app--data", this.ondata.bind( this ) );
+    init ( data ) {
+        this.data = data;
+
+        core.emitter.on( "app--view-artist", this.load.bind( this ) );
+        core.emitter.on( "app--view-teardown", this.teardown.bind( this ) );
 
         core.log( "artist initialized" );
     },
@@ -52,33 +57,27 @@ const artist = {
     /**
      *
      * @public
-     * @method isActive
-     * @memberof artist
-     * @description Method informs PageController of active status.
-     * @returns {boolean}
-     *
-     */
-    isActive () {
-        return (this.getElements() > 0);
-    },
-
-
-    /**
-     *
-     * @public
-     * @method onload
+     * @method load
+     * @param {string} slug The document slug
      * @memberof artist
      * @description Method performs onloading actions for this module.
      *
      */
-    onload () {
-        this.viewData = helpers.getLinkedDocument( this.dataType, this.element.data().id, this.data );
+    load ( slug ) {
+        this.artist = helpers.getLinkedDocumentBySlug( this.dataType, slug, this.data );
+        this.otherArtists = helpers.getLinkedDocuments( this.dataType, this.data ).filter( this.filterOtherArtists.bind( this ) );
+        this.viewData = {
+            artist: this.artist,
+            otherArtists: this.otherArtists
+        };
         this.view = new Vue({
-            el: this.domSelector,
+            el: core.dom.page[ 0 ],
             data: this.viewData,
             ready: () => {
-                this.imageController = core.images.handleImages( this.element.find( ".js-artist-image" ) );
-            }
+                this.imageController = core.images.handleImages();
+            },
+            replace: false,
+            template: templates.get( this.template )
         });
 
         refine.resetSearch();
@@ -91,13 +90,25 @@ const artist = {
     /**
      *
      * @public
-     * @method unload
+     * @method filterOtherArtists
      * @memberof artist
-     * @description Method performs unloading actions for this module.
+     * @param {object} otherArtist The document object
+     * @description Get other artists from the index that have matching categories
+     * @returns {boolean}
      *
      */
-    unload () {
-        this.teardown();
+    filterOtherArtists ( otherArtist ) {
+        let ret = false;
+
+        otherArtist.data.categories.value.forEach(( catA ) => {
+            this.artist.data.categories.value.forEach(( catB ) => {
+                if ( catA.value.data.name.value === catB.value.data.name.value ) {
+                    ret = true;
+                }
+            });
+        });
+
+        return ret;
     },
 
 
@@ -110,35 +121,20 @@ const artist = {
      *
      */
     teardown () {
-        // Images?
-        this.imageController.destroy();
-        this.imageController = null;
+        if ( this.view ) {
+            this.view.$destroy();
+            this.view = null;
+            this.viewData = null;
+            this.artist = null;
+            this.otherArtists = null;
+        }
 
-        // Vue.js?
-        this.view.$destroy();
-        this.view = null;
-        this.viewData = null;
-
-        // Element?
-        this.element = null;
+        if ( this.imageController ) {
+            this.imageController.destroy();
+            this.imageController = null;
+        }
 
         core.dom.html.removeClass( "is-artist-page" );
-    },
-
-
-    /**
-     *
-     * @public
-     * @method getElements
-     * @memberof artist
-     * @description Method queries DOM for this modules node.
-     * @returns {number}
-     *
-     */
-    getElements () {
-        this.element = core.dom.page.find( ".js-artist" );
-
-        return ( this.element.length );
     },
 
 

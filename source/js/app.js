@@ -6,11 +6,16 @@
 require( "../sass/screen.scss" );
 
 
+import index from "./index";
 import $ from "properjs-hobo";
 import router from "./router";
 import nav from "./menus/nav";
 import * as core from "./core";
 import intro from "./menus/intro";
+import artist from "./index/artist";
+import refine from "./index/refine";
+import featured from "./index/featured";
+import templates from "./index/templates";
 
 
 /**
@@ -24,15 +29,17 @@ class App {
     constructor () {
         this.nav = nav;
         this.core = core;
-        this.router = router;
         this.intro = intro;
+        this.index = index;
+        this.refine = refine;
+        this.router = router;
+        this.artist = artist;
+        this.featured = featured;
+        this.templates = templates;
 
         this.loadData().then(( data ) => {
-            this.initModules();
-
-            this.core.emitter.fire( "app--data", data );
-
-            this.intro.teardown();
+            this.initModules( data );
+            this.postModules();
         });
     }
 
@@ -60,16 +67,38 @@ class App {
      * @public
      * @instance
      * @method initModules
+     * @param {object} data The loaded app data
      * @memberof App
      * @description Initialize application modules.
      *
      */
-    initModules () {
-        this.core.detect.init( this );
-        this.router.init( this );
-        this.nav.init( this );
+    initModules ( data ) {
+        // Core
+        this.core.detect.init();
 
+        // Utility
+        this.nav.init();
+        this.refine.init();
+        this.templates.init();
+
+        // Views
+        this.index.init( data );
+        this.artist.init( data );
+        this.featured.init( data );
+        //this.about.init( data );
+        //this.feature.init( data );
+    }
+
+
+    postModules () {
+        // Controller
+        this.router.init();
+
+        // Analytics
         this.analytics = new this.core.Analytics();
+
+        // Remove splash
+        this.intro.teardown();
     }
 }
 

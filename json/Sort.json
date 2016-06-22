@@ -1,0 +1,18 @@
+{
+    "Main": {
+        "label": {
+            "type": "Text",
+            "fieldset": "Label",
+            "config": {
+                "label": "Label"
+            }
+        },
+        "value": {
+            "type": "Text",
+            "fieldset": "Value",
+            "config": {
+                "label": "Value"
+            }
+        }
+    }
+}

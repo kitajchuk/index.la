@@ -73,6 +73,19 @@ const refine = {
     /**
      *
      * @public
+     * @method resetScroll
+     * @memberof refine
+     * @description Reset the page scroll to top for index refinements
+     *
+     */
+    resetScroll () {
+        core.dom.page[ 0 ].scrollTop = 0;
+    },
+
+
+    /**
+     *
+     * @public
      * @method open
      * @memberof refine
      * @description Open the refine menu
@@ -82,6 +95,11 @@ const refine = {
         this.isOpen = true;
 
         core.dom.html.addClass( "is-refine-open" );
+        core.dom.page.on( "click", ( e ) => {
+            e.preventDefault();
+
+            this.close();
+        });
     },
 
 
@@ -97,6 +115,7 @@ const refine = {
         this.isOpen = false;
 
         core.dom.html.removeClass( "is-refine-open" );
+        core.dom.page.off( "click" );
     },
 
 
@@ -113,6 +132,7 @@ const refine = {
         this.element.on( "click", ".js-filter-option", onFilterOption );
         this.element.on( "click", ".js-sort-option", onSortOption );
         this.search.on( "keyup", onSearchKey );
+        core.dom.doc.on( "keydown", onEscKeydown );
     },
 
 
@@ -294,15 +314,6 @@ const refine = {
 };
 
 
-
-const onSearchKey = function ( e ) {
-    e.preventDefault();
-
-    refine.resetFilters();
-    refine.searchBy( this.value );
-};
-
-
 const onRefineTrigger = function () {
     if ( refine.isOpen ) {
         refine.close();
@@ -312,6 +323,28 @@ const onRefineTrigger = function () {
     }
 };
 
+
+const onEscKeydown = function ( e ) {
+    if ( e.keyCode === 27 && refine.isOpen ) {
+        e.preventDefault();
+
+        refine.close();
+    }
+};
+
+
+const onSearchKey = function ( e ) {
+    e.preventDefault();
+
+    if ( e.keyCode === 13 ) {
+        refine.close();
+
+    } else {
+        refine.resetFilters();
+        refine.searchBy( this.value );
+        refine.resetScroll();
+    }
+};
 
 
 const onSortOption = function ( e ) {
@@ -329,8 +362,8 @@ const onSortOption = function ( e ) {
 
     refine.resetSearch();
     refine.sortBy( value );
+    refine.resetScroll();
 };
-
 
 
 const onFilterOption = function ( e ) {
@@ -354,6 +387,7 @@ const onFilterOption = function ( e ) {
 
     refine.resetSearch();
     refine.filterBy( filters );
+    refine.resetScroll();
 };
 
 

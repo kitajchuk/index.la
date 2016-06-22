@@ -17,5 +17,5 @@ config.js
 db
 build
 static
-greensock-js
-test*
+test
+webtasks

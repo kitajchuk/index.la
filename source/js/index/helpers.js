@@ -12,22 +12,22 @@ const helpers = {
     /**
      *
      * @public
-     * @method getLinkedDocument
+     * @method getLinkedDocumentBySlug
      * @param {string} key The document type
-     * @param {string} id The document ID
+     * @param {string} slug The document SLUG
      * @param {array} dict The array of documents of this type
      * @memberof helpers
      * @description Get a document by type from an array with its documents linked up.
      * @returns {object}
      *
      */
-    getLinkedDocument ( key, id, dict ) {
+    getLinkedDocumentBySlug ( key, slug, dict ) {
         let i = dict[ key ].length;
         let ret = null;
         const data = JSON.parse( JSON.stringify( dict ) );
 
         for ( i; i--; ) {
-            if ( data[ key ][ i ].id === id ) {
+            if ( data[ key ][ i ].slug === slug ) {
                 ret = this._getDocumentWithLinks( data[ key ][ i ], data );
                 break;
             }
@@ -148,26 +148,29 @@ const helpers = {
                     };
 
                 } else if ( doc.data[ i ].type === "Group" ) {
-                    let j = doc.data[ i ].value.length;
+                    let j = 0;
+                    let value = null;
+                    let type = null;
+                    const len = doc.data[ i ].value.length;
 
                     ret.data[ k ] = {
                         type: "Group",
                         value: []
                     };
 
-                    for ( j; j--; ) {
-                        let type = null;
+                    for ( j; j < len; j++ ) {
+                        value = doc.data[ i ].value[ j ];
 
-                        for ( type in doc.data[ i ].value[ j ] ) {
-                            if ( doc.data[ i ].value[ j ].hasOwnProperty( type ) ) {
-                                if ( doc.data[ i ].value[ j ][ type ].type === "Link.document" ) {
+                        for ( type in value ) {
+                            if ( value.hasOwnProperty( type ) ) {
+                                if ( value[ type ].type === "Link.document" ) {
                                     ret.data[ k ].value.push({
                                         type: "Link.document",
-                                        value: this._getDocumentLink( doc.data[ i ].value[ j ][ type ].value.document, dict )
+                                        value: this._getDocumentLink( value[ type ].value.document, dict )
                                     });
 
                                 } else {
-                                    ret.data[ k ].value.push( doc.data[ i ].value[ j ][ type ] );
+                                    ret.data[ k ].value.push( value[ type ] );
                                 }
                             }
                         }

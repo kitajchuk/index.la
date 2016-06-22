@@ -34,7 +34,7 @@
     @include font-sans-text();
 }
 @mixin a() {
-    border-bottom: 1px solid $black;
+    //border-bottom: 1px solid $black;
     color: $black;
     display: inline;
     font-size: $p-size;
@@ -43,6 +43,7 @@
 }
 @mixin h1() {
     font-size: $h1-size;
+    line-height: 1.5;
     @include font-sans-text();
 }
 @mixin li() {

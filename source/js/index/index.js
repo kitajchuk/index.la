@@ -1,7 +1,8 @@
+import Vue from "vue";
+import refine from "./refine";
 import * as core from "../core";
 import helpers from "./helpers";
-import refine from "./refine";
-import Vue from "vue";
+import templates from "./templates";
 
 
 /**
@@ -26,26 +27,28 @@ const index = {
     /**
      *
      * @public
-     * @member domSelector
+     * @member template
      * @memberof index
-     * @description The dom context.
+     * @description The template context.
      *
      */
-    domSelector: ".js-index",
+    template: "index",
 
 
     /**
      *
      * @public
      * @method init
+     * @param {object} data The loaded app data
      * @memberof index
      * @description Method runs once when window loads.
      *
      */
-    init () {
-        refine.init();
+    init ( data ) {
+        this.data = data;
 
-        core.emitter.on( "app--data", this.ondata.bind( this ) );
+        core.emitter.on( "app--view-index", this.load.bind( this ) );
+        core.emitter.on( "app--view-teardown", this.teardown.bind( this ) );
 
         core.log( "index initialized" );
     },
@@ -54,53 +57,28 @@ const index = {
     /**
      *
      * @public
-     * @method isActive
-     * @memberof index
-     * @description Method informs PageController of active status.
-     * @returns {boolean}
-     *
-     */
-    isActive () {
-        return (this.getElements() > 0);
-    },
-
-
-    /**
-     *
-     * @public
-     * @method onload
+     * @method load
      * @memberof index
      * @description Method performs onloading actions for this module.
      *
      */
-    onload () {
+    load () {
         this.viewData = {
             artists: helpers.getLinkedDocuments( this.dataType, this.data )
         };
         this.view = new Vue({
-            el: this.domSelector,
+            el: core.dom.page[ 0 ],
             data: this.viewData,
             ready: () => {
-                this.imageController = core.images.handleImages( this.element.find( ".js-index-image" ) );
-            }
+                this.imageController = core.images.handleImages();
+            },
+            replace: false,
+            template: templates.get( this.template )
         });
 
         refine.setData( this.viewData.artists );
 
         core.dom.html.addClass( "is-index-page" );
-    },
-
-
-    /**
-     *
-     * @public
-     * @method unload
-     * @memberof index
-     * @description Method performs unloading actions for this module.
-     *
-     */
-    unload () {
-        this.teardown();
     },
 
 
@@ -113,49 +91,18 @@ const index = {
      *
      */
     teardown () {
-        // Images?
-        this.imageController.destroy();
-        this.imageController = null;
+        if ( this.view ) {
+            this.view.$destroy();
+            this.view = null;
+            this.viewData = null;
+        }
 
-        // Vue.js?
-        this.view.$destroy();
-        this.view = null;
-        this.viewData = null;
-
-        // Element?
-        this.element = null;
+        if ( this.imageController ) {
+            this.imageController.destroy();
+            this.imageController = null;
+        }
 
         core.dom.html.removeClass( "is-index-page" );
-    },
-
-
-    /**
-     *
-     * @public
-     * @method getElements
-     * @memberof index
-     * @description Method queries DOM for this modules node.
-     * @returns {number}
-     *
-     */
-    getElements () {
-        this.element = core.dom.page.find( ".js-index" );
-
-        return ( this.element.length );
-    },
-
-
-    /**
-     *
-     * @public
-     * @method ondata
-     * @param {object} data The app data
-     * @memberof index
-     * @description Listen for the app datas.
-     *
-     */
-    ondata ( data ) {
-        this.data = data;
     }
 };
 
