@@ -1,6 +1,7 @@
 import refine from "./refine";
 import router from "../router";
 import * as core from "../core";
+import Controller from "properjs-controller";
 
 
 /**
@@ -63,14 +64,64 @@ const artist = {
         const viewArtist = data.artist.find(( el ) => {
             return (el.slug === slug);
         });
+        // Shuffle the array of other artists
+        const otherArtists = core.util.shuffle( data.artist )
+                                // Filter out only artists with matching categories
+                                .filter( this.filterOtherArtists.bind( this, viewArtist ) )
+                                // Slice the top dozen off the matched artists
+                                .slice( 0, this.otherLimit );
         const viewData = {
             artist: viewArtist,
-            otherArtists: data.artist.filter( this.filterOtherArtists.bind( this, viewArtist ) ).slice( 0, this.otherLimit )
+            otherArtists: otherArtists
         };
 
         router.setView( this.template, viewData );
         refine.resetSearch();
         refine.resetFilters();
+
+        this.bindScroll();
+    },
+
+
+    /**
+     *
+     * @public
+     * @method bindScroll
+     * @memberof artist
+     * @description Hide / show artist info based on page position.
+     *
+     */
+    bindScroll () {
+        const info = core.dom.page.find( ".js-artist-info" );
+        const others = core.dom.page.find( ".js-artist-others" );
+
+        this.scroller = new Controller();
+        this.scroller.go(() => {
+            if ( core.util.isElementVisible( others[ 0 ] ) ) {
+                info.addClass( "is-inactive" );
+
+            } else {
+                info.removeClass( "is-inactive" );
+            }
+        });
+    },
+
+
+    /**
+     *
+     * @public
+     * @method unbindScroll
+     * @memberof artist
+     * @description Destroy the Controller instance on teardown.
+     *
+     */
+    unbindScroll () {
+        if ( this.scroller ) {
+            this.scroller.stop();
+            this.scroller = null;
+
+            delete this.scroller;
+        }
     },
 
 
@@ -109,7 +160,9 @@ const artist = {
      * @description Method performs cleanup after this module. Remmoves events, null vars etc...
      *
      */
-    teardown () {}
+    teardown () {
+        this.unbindScroll();
+    }
 };
 
 

@@ -8,8 +8,6 @@
  */
 import $ from "properjs-hobo";
 import ImageLoader from "properjs-imageloader";
-import loadCSS from "fg-loadcss";
-import loadJS from "fg-loadjs";
 import dom from "./dom";
 import config from "./config";
 import detect from "./detect";
@@ -146,43 +144,6 @@ const loadImages = function ( images, handler ) {
 
 /**
  *
- * @description Load all deps for a module
- * @method loadDependencies
- * @param {object} data The dependency data
- * @param {function} callback Function to call when all deps are loaded
- * @memberof core.util
- *
- */
-const loadDependencies = function ( data, callback ) {
-    let i = 0;
-    const total = data.sources.length;
-    const onload = function () {
-        i++;
-
-        if ( i === total ) {
-            if ( typeof data.callback === "function" ) {
-                data.callback();
-            }
-
-            if ( typeof callback === "function" ) {
-                callback();
-            }
-        }
-    };
-
-    data.sources.forEach(( source ) => {
-        if ( source.type === "script" ) {
-            loadJS( (config.asyncScriptPath + source.file), onload );
-
-        } else if ( source.type === "style" ) {
-            loadCSS( (config.asyncStylePath + source.file) ).onloadcssdefined( onload );
-        }
-    });
-};
-
-
-/**
- *
  * @description Toggle on/off scrollability
  * @method disableMouseWheel
  * @param {boolean} enable Flag to enable/disable
@@ -272,41 +233,31 @@ const preNoop = function ( e ) {
 };
 
 
+
 /**
  *
- * @public
- * @method extendObject
- * @memberof util
- * @param {object} target The target object/array
- * @param {object} arrow The incoming object/array
- * @description Merge or clone objects and arrays
- * @returns {object}
+ * @description Randomize array element order in-place.
+ * Using Fisher-Yates shuffle algorithm.
+ * @method shuffle
+ * @param {object} arr The array to shuffle
+ * @memberof core.util
+ * @returns {array}
  *
  */
-const extendObject = function ( target, arrow ) {
-    let i = null;
-    const ret = target;
+const shuffle = function ( arr ) {
+    let i = arr.length - 1;
+    let j = 0;
+    let temp = arr[ i ];
 
-    // Merge Arrays
-    // This is really just used as a `cloning` mechanism
-    if ( Array.isArray( arrow ) ) {
-        i = arrow.length;
+    for ( i; i > 0; i-- ) {
+        j = Math.floor( Math.random() * (i + 1) );
+        temp = arr[ i ];
 
-        for ( i; i--; ) {
-            ret[ i ] = arrow[ i ];
-        }
-
-    // Merge Objects
-    // This could `clone` as well, but is better for merging 2 objects
-    } else {
-        for ( i in arrow ) {
-            if ( arrow.hasOwnProperty( i ) ) {
-                ret[ i ] = arrow[ i ];
-            }
-        }
+        arr[ i ] = arr[ j ];
+        arr[ j ] = temp;
     }
 
-    return ret;
+    return arr;
 };
 
 
@@ -317,7 +268,6 @@ const extendObject = function ( target, arrow ) {
 export {
     // Loading
     loadImages,
-    loadDependencies,
     getElementsInView,
     isElementLoadable,
     isElementVisible,
@@ -329,7 +279,7 @@ export {
     // Random
     px,
     noop,
+    shuffle,
     translate3d,
-    extendObject,
     getTransitionDuration
 };

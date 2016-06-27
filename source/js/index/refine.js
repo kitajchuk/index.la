@@ -1,5 +1,5 @@
-import * as core from "../core";
 import $ from "properjs-hobo";
+import * as core from "../core";
 
 
 /**
@@ -67,6 +67,7 @@ const refine = {
     resetFilters () {
         this.sorts.removeClass( "is-active" );
         this.filters.removeClass( "is-active" );
+        this.showAll();
     },
 
 
@@ -139,6 +140,23 @@ const refine = {
     /**
      *
      * @public
+     * @method showAll
+     * @memberof refine
+     * @description Ensure all documents are visible
+     *
+     */
+    showAll () {
+        if ( this.data ) {
+            this.data.forEach(( element ) => {
+                element.show = true;
+            });
+        }
+    },
+
+
+    /**
+     *
+     * @public
      * @method sortBy
      * @param {string} key The type of sort to perform
      * @memberof refine
@@ -146,21 +164,7 @@ const refine = {
      *
      */
     sortBy ( key ) {
-        this.data.sort(( a, b ) => {
-            let ret = 0;
-
-            a = (a[ key ] !== undefined ? a[ key ] : typeof a.data[ key ].value === "object" ? a.data[ key ].value.data.name.value : a.data[ key ].value);
-            b = (b[ key ] !== undefined ? b[ key ] : typeof b.data[ key ].value === "object" ? b.data[ key ].value.data.name.value : b.data[ key ].value);
-
-            if ( a < b ) {
-                ret = -1;
-
-            } else {
-                ret = 1;
-            }
-
-            return ret;
-        });
+        this.processSort( key );
     },
 
 
@@ -310,6 +314,34 @@ const refine = {
         if ( has === needs ) {
             element.show = true;
         }
+    },
+
+
+    /**
+     *
+     * @public
+     * @method processSort
+     * @param {string} key The sorting order
+     * @memberof refine
+     * @description Process a documents against a sorting order
+     *
+     */
+    processSort ( key ) {
+        this.data.sort(( a, b ) => {
+            let ret = 0;
+
+            a = (a[ key ] !== undefined ? a[ key ] : typeof a.data[ key ].value === "object" ? a.data[ key ].value.data.name.value : a.data[ key ].value);
+            b = (b[ key ] !== undefined ? b[ key ] : typeof b.data[ key ].value === "object" ? b.data[ key ].value.data.name.value : b.data[ key ].value);
+
+            if ( a < b ) {
+                ret = -1;
+
+            } else {
+                ret = 1;
+            }
+
+            return ret;
+        });
     }
 };
 

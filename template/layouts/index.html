@@ -142,7 +142,7 @@
 
             <!-- Artist -->
             <article class="artist js-artist -f-zero -text--center">
-                <div class="artist__info -text--left -wrap">
+                <div class="artist__info js-artist-info -text--left -wrap">
                     <div class="artist__info__item p">
                         <p class="artist__name">{{artist.data.name.value}}</p>
                         <p class="artist__types -grey" v-for="type in artist.data.types.value">{{type.value.data.name.value}}</p>
@@ -159,7 +159,7 @@
                     </div>
                 </div>
                 <div class="h1 -wrap -exp">Other Artists</div>
-                <div class="artist__other -wrap-w -exp-t">
+                <div class="artist__other js-artist-others -wrap-w -exp-t">
                     <div v-for="otherArtist in otherArtists" class="artist__other__col -wrap -exp -column -column--1of3">
                         <div class="index__thumbnail artist__other__thumbnail">
                             <figure class="index__figure">
