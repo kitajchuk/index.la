@@ -29,6 +29,7 @@ import templates from "./index/templates";
  */
 class App {
     constructor () {
+        this.url = "http://localhost:1338";
         this.nav = nav;
         this.core = core;
         this.intro = intro;
@@ -41,9 +42,11 @@ class App {
         this.featured = featured;
         this.templates = templates;
 
+        this.intro.init();
+
         this.loadData().then(( data ) => {
-            this.initModules( data );
-            this.postModules();
+            this.initModules();
+            this.postModules( data );
         });
     }
 
@@ -60,7 +63,8 @@ class App {
      */
     loadData () {
         return $.ajax({
-            url: "/api/data.json",
+            url: this.url,
+            data: {},
             dataType: "json"
         });
     }
@@ -71,12 +75,11 @@ class App {
      * @public
      * @instance
      * @method initModules
-     * @param {object} data The loaded app data
      * @memberof App
      * @description Initialize application modules.
      *
      */
-    initModules ( data ) {
+    initModules () {
         // Core
         this.core.detect.init();
 
@@ -86,23 +89,31 @@ class App {
         this.templates.init();
 
         // Views
-        this.index.init( data );
-        this.about.init( data );
-        this.artist.init( data );
-        this.feature.init( data );
-        this.featured.init( data );
+        this.index.init();
+        this.about.init();
+        this.artist.init();
+        this.feature.init();
+        this.featured.init();
     }
 
 
-    postModules () {
+    /**
+     *
+     * @public
+     * @instance
+     * @method postModules
+     * @param {object} data The loaded app data
+     * @memberof App
+     * @description Initialize core modules.
+     *
+     */
+    postModules ( data ) {
         // Controller
+        this.router.setState( "data", data.results, true );
         this.router.init();
 
         // Analytics
         this.analytics = new this.core.Analytics();
-
-        // Remove splash
-        this.intro.teardown();
     }
 }
 

@@ -16,23 +16,37 @@ const intro = {
     /**
      *
      * @public
+     * @method init
+     * @memberof menus.intro
+     * @description Method initializes intro node in DOM.
+     *
+     */
+    init () {
+        core.dom.intro.addClass( "is-initialized" );
+
+        core.emitter.on( "app--intro-teardown", this.teardown.bind( this ) );
+    },
+
+
+    /**
+     *
+     * @public
      * @method teardown
      * @memberof menus.intro
      * @description Method removes intro node from DOM.
      *
      */
     teardown () {
+        core.emitter.off( "app--intro-teardown" );
+
+        core.dom.intro.removeClass( "is-active is-initialized" );
+
         setTimeout( () => {
-            core.dom.intro.removeClass( "is-active" );
+            core.dom.intro.remove();
 
-            setTimeout( () => {
-                core.dom.intro.remove();
+            core.emitter.fire( "app--intro-art" );
 
-                core.emitter.fire( "app--intro-art" );
-
-            }, _transTime );
-
-        }, 1000 );
+        }, _transTime );
     }
 };
 

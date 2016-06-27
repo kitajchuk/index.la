@@ -1,7 +1,5 @@
-import Vue from "vue";
+import router from "../router";
 import * as core from "../core";
-import helpers from "./helpers";
-import templates from "./templates";
 
 
 /**
@@ -12,17 +10,6 @@ import templates from "./templates";
  *
  */
 const featured = {
-    /**
-     *
-     * @public
-     * @member dataType
-     * @memberof featured
-     * @description The content type.
-     *
-     */
-    dataType: "feature",
-
-
     /**
      *
      * @public
@@ -38,14 +25,11 @@ const featured = {
      *
      * @public
      * @method init
-     * @param {object} data The loaded app data
      * @memberof featured
      * @description Method runs once when window loads.
      *
      */
-    init ( data ) {
-        this.data = data;
-
+    init () {
         core.emitter.on( "app--view-featured", this.load.bind( this ) );
         core.emitter.on( "app--view-teardown", this.teardown.bind( this ) );
 
@@ -62,20 +46,11 @@ const featured = {
      *
      */
     load () {
-        this.viewData = {
-            features: helpers.getLinkedDocuments( this.dataType, this.data )
+        const data = {
+            features: router.getState( "data" ).feature
         };
-        this.view = new Vue({
-            el: core.dom.page[ 0 ],
-            data: this.viewData,
-            ready: () => {
-                this.imageController = core.images.handleImages();
-            },
-            replace: false,
-            template: templates.get( this.template )
-        });
 
-        core.dom.html.addClass( "is-featured-page" );
+        router.setView( this.template, data );
     },
 
 
@@ -87,34 +62,7 @@ const featured = {
      * @description Method performs cleanup after this module. Remmoves events, null vars etc...
      *
      */
-    teardown () {
-        if ( this.view ) {
-            this.view.$destroy();
-            this.view = null;
-            this.viewData = null;
-        }
-
-        if ( this.imageController ) {
-            this.imageController.destroy();
-            this.imageController = null;
-        }
-
-        core.dom.html.removeClass( "is-featured-page" );
-    },
-
-
-    /**
-     *
-     * @public
-     * @method ondata
-     * @param {object} data The app data
-     * @memberof featured
-     * @description Listen for the app datas.
-     *
-     */
-    ondata ( data ) {
-        this.data = data;
-    }
+    teardown () {}
 };
 
 

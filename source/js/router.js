@@ -1,6 +1,8 @@
+import Vue from "vue";
 import nav from "./menus/nav";
 import * as core from "./core";
 import refine from "./index/refine";
+import templates from "./index/templates";
 import PageController from "properjs-pagecontroller";
 
 
@@ -15,16 +17,71 @@ const router = {
     /**
      *
      * @public
+     * @member view
+     * @memberof router
+     * @description The current vue.js instance.
+     *
+     */
+    view: null,
+
+
+    /**
+     *
+     * @public
+     * @member template
+     * @memberof router
+     * @description The current template ID.
+     *
+     */
+    template: null,
+
+
+    /**
+     *
+     * @public
+     * @member state
+     * @memberof router
+     * @description The internal state module.
+     *
+     */
+    state: {},
+
+
+    /**
+     *
+     * @public
+     * @member imageController
+     * @memberof router
+     * @description The current ImageController instance.
+     *
+     */
+    imageController: null,
+
+
+    /**
+     *
+     * @public
+     * @member pageDuration
+     * @memberof router
+     * @description The transition duration for view changes.
+     *
+     */
+    pageDuration: core.util.getTransitionDuration( core.dom.page[ 0 ] ),
+
+
+    /**
+     *
+     * @public
      * @method init
      * @memberof router
      * @description Initialize the router module.
      *
      */
     init () {
-        this.state = {};
-        this.pageDuration = core.util.getTransitionDuration( core.dom.page[ 0 ] );
         this.bindEmptyHashLinks();
         this.initPageController();
+
+        core.emitter.on( "app--view-teardown", this.viewTeardown.bind( this ) );
 
         core.log( "router initialized" );
     },
@@ -82,18 +139,79 @@ const router = {
     /**
      *
      * @public
+     * @method viewTeardown
+     * @memberof router
+     * @description Handle destroying current view.
+     *
+     */
+    viewTeardown () {
+        core.dom.html.removeClass( `is-${this.template}-page` );
+
+        // @this.view
+        this.view.$destroy();
+        this.view = null;
+
+        // @this.imageController
+        this.imageController.destroy();
+        this.imageController = null;
+
+        // @this.template
+        this.template = null;
+    },
+
+
+    /**
+     *
+     * @public
+     * @method setView
+     * @param {string} tpl The template access ID
+     * @param {object} data The PageController data object
+     * @memberof router
+     * @description Handle creating the new current view.
+     *
+     */
+    setView ( tpl, data ) {
+        // @this.template
+        this.template = tpl;
+
+        // @this.view
+        this.view = new Vue({
+            el: core.dom.page[ 0 ],
+            data: data,
+            compiled: () => {
+                // @this.imageController
+                this.imageController = core.images.handleImages();
+            },
+            ready: () => {
+                core.dom.html.removeClass( "is-inactive" );
+
+                core.emitter.fire( "app--intro-teardown" );
+            },
+            replace: false,
+            template: templates.get( tpl )
+        });
+
+        core.dom.html.addClass( `is-${this.template}-page` );
+    },
+
+
+    /**
+     *
+     * @public
      * @method setState
      * @memberof router
      * @param {string} name The access key
      * @param {mixed} value The storage value
+     * @param {boolean} keep Optional - will actually persist the state ref
      * @description Non-persistent state.
      *              This state object will persist for one router cycle.
      *              The next router cycle will delete this state object.
      *
      */
-    setState ( name, value ) {
+    setState ( name, value, keep ) {
         this.state[ name ] = {
             checked: false,
+            keep,
             name,
             value
         };
@@ -141,7 +259,7 @@ const router = {
 
         for ( id in this.state ) {
             if ( this.state.hasOwnProperty( id ) ) {
-                if ( this.state[ id ].checked ) {
+                if ( this.state[ id ].checked && !this.state[ id ].keep ) {
                     delete this.state[ id ];
 
                 } else {
@@ -204,11 +322,10 @@ const router = {
      *
      */
     changePageOut () {
+        core.dom.html.addClass( "is-inactive" );
+
         core.util.disableMouseWheel( true );
         core.util.disableTouchMove( true );
-
-        core.dom.html.addClass( "is-routing" );
-        core.dom.page.addClass( "is-inactive" );
 
         setTimeout( () => {
             nav.close();
@@ -253,9 +370,6 @@ const router = {
 
         core.util.disableMouseWheel( false );
         core.util.disableTouchMove( false );
-
-        core.dom.html.removeClass( "is-routing" );
-        core.dom.page.removeClass( "is-inactive" );
     }
 };
 

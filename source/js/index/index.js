@@ -1,8 +1,6 @@
-import Vue from "vue";
 import refine from "./refine";
+import router from "../router";
 import * as core from "../core";
-import helpers from "./helpers";
-import templates from "./templates";
 
 
 /**
@@ -13,17 +11,6 @@ import templates from "./templates";
  *
  */
 const index = {
-    /**
-     *
-     * @public
-     * @member dataType
-     * @memberof index
-     * @description The content type.
-     *
-     */
-    dataType: "artist",
-
-
     /**
      *
      * @public
@@ -39,14 +26,11 @@ const index = {
      *
      * @public
      * @method init
-     * @param {object} data The loaded app data
      * @memberof index
      * @description Method runs once when window loads.
      *
      */
-    init ( data ) {
-        this.data = data;
-
+    init () {
         core.emitter.on( "app--view-index", this.load.bind( this ) );
         core.emitter.on( "app--view-teardown", this.teardown.bind( this ) );
 
@@ -63,22 +47,12 @@ const index = {
      *
      */
     load () {
-        this.viewData = {
-            artists: helpers.getLinkedDocuments( this.dataType, this.data )
+        const data = {
+            artists: router.getState( "data" ).artist
         };
-        this.view = new Vue({
-            el: core.dom.page[ 0 ],
-            data: this.viewData,
-            ready: () => {
-                this.imageController = core.images.handleImages();
-            },
-            replace: false,
-            template: templates.get( this.template )
-        });
 
-        refine.setData( this.viewData.artists );
-
-        core.dom.html.addClass( "is-index-page" );
+        router.setView( this.template, data );
+        refine.setData( data.artists );
     },
 
 
@@ -90,20 +64,7 @@ const index = {
      * @description Method performs cleanup after this module. Remmoves events, null vars etc...
      *
      */
-    teardown () {
-        if ( this.view ) {
-            this.view.$destroy();
-            this.view = null;
-            this.viewData = null;
-        }
-
-        if ( this.imageController ) {
-            this.imageController.destroy();
-            this.imageController = null;
-        }
-
-        core.dom.html.removeClass( "is-index-page" );
-    }
+    teardown () {}
 };
 
 

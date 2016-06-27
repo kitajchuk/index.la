@@ -1,7 +1,5 @@
-import Vue from "vue";
+import router from "../router";
 import * as core from "../core";
-import helpers from "./helpers";
-import templates from "./templates";
 
 
 /**
@@ -12,17 +10,6 @@ import templates from "./templates";
  *
  */
 const about = {
-    /**
-     *
-     * @public
-     * @member dataType
-     * @memberof about
-     * @description The content type.
-     *
-     */
-    dataType: "page",
-
-
     /**
      *
      * @public
@@ -38,14 +25,11 @@ const about = {
      *
      * @public
      * @method init
-     * @param {object} data The loaded app data
      * @memberof about
      * @description Method runs once when window loads.
      *
      */
-    init ( data ) {
-        this.data = data;
-
+    init () {
         core.emitter.on( "app--view-about", this.load.bind( this ) );
         core.emitter.on( "app--view-teardown", this.teardown.bind( this ) );
 
@@ -62,20 +46,13 @@ const about = {
      *
      */
     load () {
-        this.viewData = {
-            page: helpers.getLinkedDocumentBySlug( this.dataType, this.template, this.data )
+        const data = {
+            page: router.getState( "data" ).page.find(( el ) => {
+                return (el.slug === "about");
+            })
         };
-        this.view = new Vue({
-            el: core.dom.page[ 0 ],
-            data: this.viewData,
-            ready: () => {
-                this.imageController = core.images.handleImages();
-            },
-            replace: false,
-            template: templates.get( this.template )
-        });
 
-        core.dom.html.addClass( "is-about-page" );
+        router.setView( this.template, data );
     },
 
 
@@ -87,20 +64,7 @@ const about = {
      * @description Method performs cleanup after this module. Remmoves events, null vars etc...
      *
      */
-    teardown () {
-        if ( this.view ) {
-            this.view.$destroy();
-            this.view = null;
-            this.viewData = null;
-        }
-
-        if ( this.imageController ) {
-            this.imageController.destroy();
-            this.imageController = null;
-        }
-
-        core.dom.html.removeClass( "is-about-page" );
-    }
+    teardown () {}
 };
 
 
