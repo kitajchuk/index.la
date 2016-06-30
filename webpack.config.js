@@ -1,6 +1,8 @@
 var path = require( "path" );
+var execSync = require( "child_process" ).execSync;
 var autoprefixer = require( "autoprefixer" );
 var BrowserSyncPlugin = require( "browser-sync-webpack-plugin" );
+var WebpackOnBuildPlugin = require( "on-build-webpack" );
 var shared = {
     resolve: {
         root: path.resolve( __dirname ),
@@ -88,6 +90,9 @@ var splash = {
             server: {
                 baseDir: "./splash/"
             }
+        }),
+        new WebpackOnBuildPlugin(function ( stats ) {
+            execSync( "cp -r ./static/fonts/ ./splash/fonts/" );
         })
     ],
     resolve: shared.resolve,

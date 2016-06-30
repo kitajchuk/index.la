@@ -143,6 +143,7 @@ var helpers = {
             if ( doc.data.hasOwnProperty( i ) ) {
                 k = i.replace( doc.type + ".", "" );
 
+                // Skip broken document links
                 if ( doc.data[ i ].type === "Link.document" && !doc.data[ i ].value.isBroken ) {
                     ret.data[ k ] = {
                         type: "Link.document",
@@ -166,13 +167,15 @@ var helpers = {
 
                         for ( type in value ) {
                             if ( value.hasOwnProperty( type ) ) {
+                                // Skip broken document links
                                 if ( value[ type ].type === "Link.document" && !value[ type ].value.isBroken ) {
                                     ret.data[ k ].value.push({
                                         type: "Link.document",
                                         value: this._getDocumentLink( value[ type ].value.document, dict )
                                     });
 
-                                } else {
+                                // Skip broken document links
+                                } else if ( !value[ type ].value.isBroken ) {
                                     ret.data[ k ].value.push( value[ type ] );
                                 }
                             }

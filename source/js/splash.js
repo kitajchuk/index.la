@@ -61,7 +61,7 @@ class App {
             },
             dataType: "jsonp"
         })
-        .then(( /*response*/ ) => {
+        .then(() => {
             this.splash.removeClass( "is-active" );
             this.message.addClass( "is-active" );
         });

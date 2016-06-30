@@ -22,6 +22,7 @@
     "jsdoc": "^3.4.0",
     "jsdoc-oblivion": "0.0.4",
     "node-sass": "^3.7.0",
+    "on-build-webpack": "^0.1.0",
     "paramalama": "~0.2",
     "postcss-cli": "^2.1.0",
     "postcss-loader": "^0.9.1",

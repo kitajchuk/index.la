@@ -45,6 +45,7 @@ class App {
         this.intro.init();
 
         this.loadData().then(( data ) => {
+            debugger;
             this.initModules();
             this.postModules( data );
         });
