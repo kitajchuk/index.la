@@ -14,8 +14,25 @@ Clone this repository, `git clone git@github.com:kitajchuk/index.la.git && cd in
 ### Install
 Once you have the repository cloned locally, you can run `./bin/install` to bootstrap the project.
 
-### Server
+### Dev Server
 Once the bootstrap installation is done, `./bin/start` will start the dev server.
+
+
+
+## AWS
+This app is using AWS. The following bin scripts are for connecting and deploying to EC2 instances. There are 3 tagged instances.
+
+### Production
+* `./bin/deploy-production` - Deploy to production
+* `./bin/connect-production` - Connect to production
+
+### Staging
+* `./bin/deploy-staging` - Deploy to staging
+* `./bin/connect-staging` - Connect to staging
+
+### Node
+* `./bin/deploy-node` - Deploy to node
+* `./bin/connect-node` - Connect to node
 
 
 

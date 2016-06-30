@@ -18,3 +18,7 @@ db
 build
 static
 test
+local
+splash/js
+splash/css
+splash/fonts

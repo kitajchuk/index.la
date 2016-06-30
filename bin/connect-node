@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+ssh ec2-user@ec2-54-213-158-16.us-west-2.compute.amazonaws.com -i ./local/theindexla.pem

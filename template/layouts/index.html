@@ -14,15 +14,15 @@
         <title>
             <% if ( locals.document ) { %>
                 <% if ( locals.document.type === 'artist' ) { %>
-                    <%= locals.document.data[ 'artist.name' ].value %> – Index.la
+                    <%= locals.document.data[ 'artist.name' ].value %> – theindex.la
                 <% } %>
                 <% if ( locals.document.type === 'feature' ) { %>
-                    <%= locals.document.data[ 'feature.name' ].value %> – Index.la
+                    <%= locals.document.data[ 'feature.name' ].value %> – theindex.la
                 <% } %>
             <% } else if ( locals.page ) { %>
-                <%= locals.page.data[ 'page.title' ].value %> – Index.la
+                <%= locals.page.data[ 'page.title' ].value %> – theindex.la
             <% } else { %>
-                Index.la
+                theindex.la
             <% } %>
         </title>
 

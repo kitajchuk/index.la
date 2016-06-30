@@ -29,7 +29,7 @@ import templates from "./index/templates";
  */
 class App {
     constructor () {
-        this.url = "http://localhost:1338";
+        this.url = "http://node.theindex.la";
         this.nav = nav;
         this.core = core;
         this.intro = intro;

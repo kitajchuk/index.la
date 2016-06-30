@@ -9,9 +9,12 @@
     "babel-core": "^6.0.0",
     "babel-loader": "^6.0.0",
     "babel-preset-es2015": "^6.0.0",
+    "browser-sync": "^2.13.0",
+    "browser-sync-webpack-plugin": "^1.0.3",
     "eslint": "^2.9.0",
     "eslint-loader": "^1.3.0",
     "expose-loader": "^0.7.1",
+    "express": "^4.14.0",
     "fg-loadcss": "^0.2.4",
     "fg-loadjs": "^0.2.3",
     "file-loader": "^0.8.5",
@@ -47,8 +50,7 @@
     "start": "npm run watch",
     "sync": "./node_modules/.bin/prismic-express sync",
     "build": "./node_modules/.bin/prismic-express build",
-    "server": "node webtasks/server.js",
-    "postbuild": "rsync -av -e 'ssh' ./build/ blkpdx.com@blkpdx.com:domains/index-la.blkpdx.com/html/",
+    "postbuild": "./bin/deploy-staging",
     "postinstall": "cd ./node_modules/properjs-hobo && npm install && npm run build -- 'is eq not filter detach append remove parent children'"
   },
   "repository": {
