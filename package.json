@@ -1,7 +1,7 @@
 {
-  "title": "Index.la",
-  "name": "index-la",
-  "description": "A modular micro-framework for modern web apps.",
+  "title": "theindex.la",
+  "name": "theindex-la",
+  "description": "A curation of photographers and filmmakers.",
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
@@ -56,15 +56,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/kitajchuk/index.la.git"
+    "url": "git://github.com/kitajchuk/theindex.la.git"
   },
   "bugs": {
-    "url": "https://github.com/kitajchuk/index.la/issues"
+    "url": "https://github.com/kitajchuk/theindex.la/issues"
   },
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/kitajchuk/index.la/blob/master/LICENSE"
+      "url": "https://github.com/kitajchuk/theindex.la/blob/master/LICENSE"
     }
   ],
   "keywords": [],
