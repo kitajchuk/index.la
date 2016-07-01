@@ -43,6 +43,8 @@ There are a handful of npm scripts as well.
 * `npm run jsdoc` - Generate jsdocs
 * `npm run sync` - Sync local data from prismic.io
 * `npm run build` - Generate static build of the site
+* `npm run node-start` - Start node server locally
+* `npm run node-stop` - Stop node server locally
 
 
 

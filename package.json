@@ -4,18 +4,28 @@
   "description": "A curation of photographers and filmmakers.",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "lint": "./node_modules/.bin/eslint ./source/js/",
+    "jsdoc": "jsdoc source/js/ -r -R README.md -P package.json -t node_modules/jsdoc-oblivion/template -c node_modules/jsdoc-oblivion/template/jsdoc.conf.json -d jsdocs",
+    "watch": "./node_modules/.bin/webpack -d --watch --colors",
+    "start": "npm run watch",
+    "node-start": "cd ./server ; set -x NODE_ENV development ; npm install ; npm start",
+    "node-stop": "cd ./server ; npm run stop",
+    "sync": "./node_modules/.bin/prismic-express sync",
+    "build": "./node_modules/.bin/prismic-express build",
+    "postbuild": "./bin/deploy-staging",
+    "postinstall": "cd ./node_modules/properjs-hobo && npm install && npm run build -- 'is eq not filter detach append remove parent children'"
+  },
   "devDependencies": {
     "autoprefixer": "^6.3.6",
     "babel-core": "^6.0.0",
     "babel-loader": "^6.0.0",
     "babel-preset-es2015": "^6.0.0",
-    "body-parser": "^1.15.2",
     "browser-sync": "^2.13.0",
     "browser-sync-webpack-plugin": "^1.0.3",
     "eslint": "^2.9.0",
     "eslint-loader": "^1.3.0",
     "expose-loader": "^0.7.1",
-    "express": "^4.14.0",
     "fg-loadcss": "^0.2.4",
     "fg-loadjs": "^0.2.3",
     "file-loader": "^0.8.5",
@@ -43,19 +53,7 @@
     "properjs-tween": "~0.2",
     "sass-loader": "^3.2.0",
     "vue": "^1.0.24",
-    "webpack": "^1.13.0",
-    "websocket": "^1.0.23"
-  },
-  "scripts": {
-    "lint": "./node_modules/.bin/eslint ./source/js/",
-    "jsdoc": "jsdoc source/js/ -r -R README.md -P package.json -t node_modules/jsdoc-oblivion/template -c node_modules/jsdoc-oblivion/template/jsdoc.conf.json -d jsdocs",
-    "watch": "./node_modules/.bin/webpack -d --watch --colors",
-    "start": "npm run watch",
-    "node": "set -x NODE_ENV development ; node server/server.js",
-    "sync": "./node_modules/.bin/prismic-express sync",
-    "build": "./node_modules/.bin/prismic-express build",
-    "postbuild": "./bin/deploy-staging",
-    "postinstall": "cd ./node_modules/properjs-hobo && npm install && npm run build -- 'is eq not filter detach append remove parent children'"
+    "webpack": "^1.13.0"
   },
   "repository": {
     "type": "git",
@@ -64,12 +62,7 @@
   "bugs": {
     "url": "https://github.com/kitajchuk/theindex.la/issues"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/kitajchuk/theindex.la/blob/master/LICENSE"
-    }
-  ],
+  "license": "MIT",
   "keywords": [],
   "license": "MIT",
   "contributors": [
