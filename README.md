@@ -1,5 +1,5 @@
-index.la
-========
+theindex.la
+===========
 
 > A curation of photographers and filmmakers.
 
