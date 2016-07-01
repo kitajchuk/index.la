@@ -34,6 +34,23 @@
     transition: opacity $base-duration $ease,
                 transform $base-duration $ease;
     }
+.intro__load {
+    bottom: 0;
+    font-size: 0;
+    height: 5px;
+    left: 0;
+    position: fixed;
+    text-align: left;
+    transform: translate3d( 0, 0, 0 );
+    width: 100%;
+    }
+.intro__load__fill {
+    background-color: $white;
+    display: inline-block;
+    height: 100%;
+    transition: width $fast-duration $ease;
+    width: 0;
+    }
 .intro.is-initialized {
     .intro__text {
         opacity: 1;

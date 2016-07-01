@@ -9,7 +9,7 @@ theindex.la
 This section will get the project running with all of its setup and dependencies.
 
 ### Clone
-Clone this repository, `git clone git@github.com:kitajchuk/index.la.git && cd index.la`
+Clone this repository, `git clone git@github.com:kitajchuk/theindex.la.git && cd theindex.la`
 
 ### Install
 Once you have the repository cloned locally, you can run `./bin/install` to bootstrap the project.

@@ -41,20 +41,20 @@ var helpers = {
      *
      * @public
      * @method getLinkedDocuments
-     * @param {string} key The document type
+     * @param {string} docs The documents array
      * @param {array} dict The array of documents of this type
      * @memberof helpers
      * @description Get documents by type with their documents linked up.
      * @returns {array}
      *
      */
-    getLinkedDocuments ( key, dict ) {
+    getLinkedDocuments ( docs, dict ) {
         uuid = 0;
 
         const ret = [];
         const data = JSON.parse( JSON.stringify( dict ) );
 
-        data[ key ].forEach(( doc ) => {
+        docs.forEach(( doc ) => {
             ret.push( this._getDocumentWithLinks( doc, data ) );
         });
 
@@ -132,7 +132,6 @@ var helpers = {
         var ret = {
             id: doc.id,
             slug: doc.slug,
-            tags: doc.tags,
             type: doc.type,
             data: {},
             show: true,

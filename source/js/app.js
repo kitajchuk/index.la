@@ -7,7 +7,8 @@ require( "../sass/screen.scss" );
 
 
 import index from "./index";
-import $ from "properjs-hobo";
+import Socket from "./Socket";
+//import $ from "properjs-hobo";
 import router from "./router";
 import nav from "./menus/nav";
 import * as core from "./core";
@@ -29,7 +30,7 @@ import templates from "./index/templates";
  */
 class App {
     constructor () {
-        this.url = "http://node.theindex.la";
+        this.url = (core.env.isDev() ? "http://localhost:8000" : "http://node.theindex.la");
         this.nav = nav;
         this.core = core;
         this.intro = intro;
@@ -42,31 +43,37 @@ class App {
         this.featured = featured;
         this.templates = templates;
 
+        // Intro splash screen
         this.intro.init();
+        this.intro.update( 5 );
 
-        this.loadData().then(( data ) => {
-            debugger;
-            this.initModules();
-            this.postModules( data );
-        });
-    }
+        // Initial empty data state
+        this.router.setState( "data", {}, true );
 
+        // Open websocket server connection
+        this.socket = new Socket();
+        this.socket.connect(() => {
+            core.log( "Socket connected." );
 
-    /**
-     *
-     * @public
-     * @instance
-     * @method loadData
-     * @memberof App
-     * @description Load the static site datas.
-     * @returns {Promise}
-     *
-     */
-    loadData () {
-        return $.ajax({
-            url: this.url,
-            data: {},
-            dataType: "json"
+            this.socket.on( "index-data", ( data ) => {
+                core.log( "Socket data", data );
+
+                const rData = router.getState( "data" );
+
+                if ( !rData[ data.type ] ) {
+                    rData[ data.type ] = data.value;
+
+                } else {
+                    rData[ data.type ] = rData[ data.type ].concat( data.value );
+                }
+
+                this.intro.update( data.stat );
+                this.router.setState( "data", rData, true );
+            });
+
+            this.socket.on( "index-done", () => {
+                this.initModules();
+            });
         });
     }
 
@@ -95,22 +102,8 @@ class App {
         this.artist.init();
         this.feature.init();
         this.featured.init();
-    }
 
-
-    /**
-     *
-     * @public
-     * @instance
-     * @method postModules
-     * @param {object} data The loaded app data
-     * @memberof App
-     * @description Initialize core modules.
-     *
-     */
-    postModules ( data ) {
         // Controller
-        this.router.setState( "data", data.results, true );
         this.router.init();
 
         // Analytics

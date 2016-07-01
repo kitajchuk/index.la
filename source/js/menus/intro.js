@@ -22,9 +22,25 @@ const intro = {
      *
      */
     init () {
+        this.fill = core.dom.intro.find( ".js-intro-fill" );
+
         core.dom.intro.addClass( "is-initialized" );
 
         core.emitter.on( "app--intro-teardown", this.teardown.bind( this ) );
+    },
+
+
+    /**
+     *
+     * @public
+     * @method update
+     * @param {number} percent The amount that is loaded
+     * @memberof menus.intro
+     * @description Update how much has loaded.
+     *
+     */
+    update ( percent ) {
+        this.fill[ 0 ].style.width = `${percent}%`;
     },
 
 
