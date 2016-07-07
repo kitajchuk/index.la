@@ -23,16 +23,16 @@ Once the bootstrap installation is done, `./bin/start` will start the dev server
 This app is using AWS. The following bin scripts are for connecting and deploying to EC2 instances. There are 3 tagged instances.
 
 ### Production
-* `./bin/deploy-production` - Deploy to production
 * `./bin/connect-production` - Connect to production
 
 ### Staging
-* `./bin/deploy-staging` - Deploy to staging
 * `./bin/connect-staging` - Connect to staging
 
 ### Node
-* `./bin/deploy-node` - Deploy to node
 * `./bin/connect-node` - Connect to node
+
+### Deployment
+We use [Circle CI](https://circleci.com/gh/theindex-la/theindex.la-www) to deploy to these 3 instances.
 
 
 
@@ -43,8 +43,7 @@ There are a handful of npm scripts as well.
 * `npm run jsdoc` - Generate jsdocs
 * `npm run sync` - Sync local data from prismic.io
 * `npm run build` - Generate static build of the site
-* `npm run node-start` - Start node server locally
-* `npm run node-stop` - Stop node server locally
+* `npm run node` - Run the node app server locally
 
 
 

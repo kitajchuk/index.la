@@ -1,12 +1,12 @@
 {
   "name": "node.theindex.la",
   "version": "0.1.0",
-  "description": "Node server for index.la prismic data.",
+  "description": "Node server for theindex.la prismic data.",
   "private": true,
   "main": "server.js",
   "scripts": {
     "start": "./node_modules/.bin/forever start server.js",
-    "stop": "./node_modules/.bin/forever stop server.js"
+    "stop": "./node_modules/.bin/forever stopall"
   },
   "contributors": [
     {

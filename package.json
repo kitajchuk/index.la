@@ -1,6 +1,6 @@
 {
-  "title": "theindex.la",
-  "name": "theindex-la",
+  "title": "theindex.la-www",
+  "name": "theindex-la-www",
   "description": "A curation of photographers and filmmakers.",
   "version": "0.1.0",
   "private": true,
@@ -9,11 +9,9 @@
     "jsdoc": "jsdoc source/js/ -r -R README.md -P package.json -t node_modules/jsdoc-oblivion/template -c node_modules/jsdoc-oblivion/template/jsdoc.conf.json -d jsdocs",
     "watch": "./node_modules/.bin/webpack -d --watch --colors",
     "start": "npm run watch",
-    "node-start": "cd ./server ; set -x NODE_ENV development ; npm install ; npm start",
-    "node-stop": "cd ./server ; npm run stop",
+    "node": "set -x NODE_ENV development ; node server/server.js",
     "sync": "./node_modules/.bin/prismic-express sync",
     "build": "./node_modules/.bin/prismic-express build",
-    "postbuild": "./bin/deploy-staging",
     "postinstall": "cd ./node_modules/properjs-hobo && npm install && npm run build -- 'is eq not filter detach append remove parent children'"
   },
   "devDependencies": {
@@ -37,12 +35,12 @@
     "paramalama": "~0.2",
     "postcss-cli": "^2.1.0",
     "postcss-loader": "^0.9.1",
-    "prismic-express": "^0.1.3",
+    "prismic-express": "^0.2",
     "properjs-controller": "~0.2",
     "properjs-debounce": "^0.2.0",
     "properjs-easing": "~0.2",
     "properjs-hobo": "^0.3.10",
-    "properjs-imageloader": ">=0.2.1",
+    "properjs-imageloader": ">=0.3.1",
     "properjs-matchelement": "~0.2",
     "properjs-mediabox": "~0.3",
     "properjs-pagecontroller": "~0.3",
@@ -57,10 +55,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/kitajchuk/theindex.la.git"
+    "url": "git://github.com/theindex-la/theindex.la-www.git"
   },
   "bugs": {
-    "url": "https://github.com/kitajchuk/theindex.la/issues"
+    "url": "https://github.com/theindex-la/theindex.la-www/issues"
   },
   "license": "MIT",
   "keywords": [],

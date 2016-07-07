@@ -1,0 +1,31 @@
+general:
+  branches:
+    only:
+      - master
+
+machine:
+  node:
+    version: 6.1.0
+  timezone:
+    America/Los_Angeles
+
+test:
+    override:
+        - node -v
+        - node -e 'console.log( "Node V8 version - " + process.versions.v8 );'
+        - mkdir db
+        - npm run lint
+        - npm run sync
+        - npm run build
+
+dependencies:
+  cache_directories:
+    - "node_modules"
+  override:
+    - npm install
+
+deployment:
+  production:
+    branch: master
+    commands:
+        - make -f Circlefile deploy_all

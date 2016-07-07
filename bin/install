@@ -16,4 +16,3 @@
 echo "$(tput setaf 2)Installing node_modules...$(tput sgr0)"
 npm install
 echo "$(tput setaf 2)Install complete!$(tput sgr0)"
-echo "$(tput setaf 3)Run npm start$(tput sgr0)"
