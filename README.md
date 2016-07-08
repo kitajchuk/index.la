@@ -32,7 +32,7 @@ This app is using AWS. The following bin scripts are for connecting and deployin
 * `./bin/connect-node` - Connect to node
 
 ### Deployment
-We use [Circle CI](https://circleci.com/gh/theindex-la/theindex.la-www) to deploy to these 3 instances.
+We use [Circle CI](https://circleci.com/gh/theindex-la/theindex.la-www) to deploy to these 3 instances. All pushes to the `master` branch will trigger a build and deploy with Circle CI.
 
 
 
