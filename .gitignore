@@ -16,7 +16,8 @@ npm-debug.log
 #config.js
 db
 build
-static
+static/css
+static/js
 test
 local
 splash/js
