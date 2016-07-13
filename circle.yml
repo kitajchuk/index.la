@@ -9,18 +9,19 @@ machine:
   timezone:
     America/Los_Angeles
 
+dependencies:
+  cache_directories:
+    - "node_modules"
+  override:
+    - npm install
+    - npm rebuild node-sass
+
 test:
     override:
         - mkdir db
         - npm run webpack # lint, babel, sass
         - npm run sync
         - npm run build
-
-dependencies:
-  cache_directories:
-    - "node_modules"
-  override:
-    - npm install
 
 deployment:
   production:
