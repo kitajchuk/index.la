@@ -12,7 +12,7 @@ machine:
 test:
     override:
         - mkdir db
-        - webpack -d # lint, babel, sass
+        - npm run webpack # lint, babel, sass
         - npm run sync
         - npm run build
 
