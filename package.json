@@ -12,6 +12,7 @@
     "node": "set -x NODE_ENV development ; node server/server.js",
     "sync": "./node_modules/.bin/prismic-express sync",
     "build": "./node_modules/.bin/prismic-express build",
+    "webpack": "./node_modules/.bin/webpack -d --colors",
     "postinstall": "cd ./node_modules/properjs-hobo && npm install && npm run build -- 'is eq not filter detach append remove parent closest children'"
   },
   "devDependencies": {
