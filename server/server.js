@@ -57,7 +57,7 @@ websocketServer.on( "connect", function ( connection ) {
         connection.sockets.success( "index-done" );
 
     }).catch(function ( error ) {
-        console.log( "Prismic data error." );
+        console.log( "Prismic data error.", error );
     });
 });
 websocketServer.on( "close", function ( connection ) {

@@ -4,50 +4,47 @@
         <!-- Meta -->
         <meta charset="utf-8" />
         <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1" />
+        <meta name="description" content="<%= locals.meta[ 0 ].data[ 'meta.description' ].value %>" />
+        <meta name="format-detection" content="telephone=no" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="apple-mobile-web-app-title" content="theindex.la" />
-        <meta name="format-detection" content="telephone=no" />
-        <meta name="description" content="" />
+        <meta name="apple-mobile-web-app-title" content="<%= locals.meta[ 0 ].data[ 'meta.title' ].value %>" />
 
-        <meta property="og:site_name" content="theindex.la" />
-        <meta property="og:title" content="theindex.la" />
-        <meta property="og:url" content="http://theindex.la" />
+        <meta property="og:site_name" content="<%= locals.meta[ 0 ].data[ 'meta.title' ].value %>" />
+        <meta property="og:title" content="<%= locals.meta[ 0 ].data[ 'meta.title' ].value %>" />
+        <meta property="og:url" content="<%= locals.meta[ 0 ].data[ 'meta.url' ].value %>" />
         <meta property="og:type" content="website" />
-        <meta property="og:description" content="" />
-        <meta property="og:image" content="" />
+        <meta property="og:description" content="<%= locals.meta[ 0 ].data[ 'meta.description' ].value %>" />
+        <meta property="og:image" content="<%= locals.meta[ 0 ].data[ 'meta.image' ].value.main.url %>" />
 
-        <meta itemprop="name" content="theindex.la" />
-        <meta itemprop="description" content="" />
-        <meta itemprop="url" content="http://theindex.la" />
-        <meta itemprop="thumbnailUrl" content="" />
-        <meta itemprop="image" content="" />
+        <meta itemprop="name" content="<%= locals.meta[ 0 ].data[ 'meta.title' ].value %>" />
+        <meta itemprop="description" content="<%= locals.meta[ 0 ].data[ 'meta.description' ].value %>" />
+        <meta itemprop="url" content="<%= locals.meta[ 0 ].data[ 'meta.url' ].value %>" />
+        <meta itemprop="thumbnailUrl" content="<%= locals.meta[ 0 ].data[ 'meta.image' ].value.main.url %>" />
+        <meta itemprop="image" content="<%= locals.meta[ 0 ].data[ 'meta.image' ].value.main.url %>" />
 
-        <meta name="twitter:title" content="theindex.la" />
-        <meta name="twitter:image" content="" />
-        <meta name="twitter:url" content="http://theindex.la" />
+        <meta name="twitter:title" content="<%= locals.meta[ 0 ].data[ 'meta.title' ].value %>" />
+        <meta name="twitter:image" content="<%= locals.meta[ 0 ].data[ 'meta.image' ].value.main.url %>" />
+        <meta name="twitter:url" content="<%= locals.meta[ 0 ].data[ 'meta.url' ].value %>" />
         <meta name="twitter:card" content="summary" />
-        <meta name="twitter:description" content="" />
+        <meta name="twitter:description" content="<%= locals.meta[ 0 ].data[ 'meta.description' ].value %>" />
 
-        <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="canonical" href="http://theindex.la" />
-        <link rel="image_src" href="" />
-        <link rel="apple-touch-icon-precomposed" href="/images/touchicon.png" />
+        <link rel="shortcut icon" type="image/x-icon" href="<%= locals.meta[ 0 ].data[ 'meta.favicon' ].value.main.url %>" />
+        <link rel="canonical" href="" />
+        <link rel="image_src" href="<%= locals.meta[ 0 ].data[ 'meta.image' ].value.main.url %>" />
+        <link rel="apple-touch-icon-precomposed" href="<%= locals.meta[ 0 ].data[ 'meta.touchicon' ].value.main.url %>" />
 
         <!-- Title -->
         <title>
             <% if ( locals.document ) { %>
                 <% if ( locals.document.type === 'artist' ) { %>
-                    <%= locals.document.data[ 'artist.name' ].value %> – theindex.la
+                    <%= locals.document.data[ 'artist.name' ].value %> –
                 <% } %>
                 <% if ( locals.document.type === 'feature' ) { %>
-                    <%= locals.document.data[ 'feature.name' ].value %> – theindex.la
+                    <%= locals.document.data[ 'feature.name' ].value %> –
                 <% } %>
-            <% } else if ( locals.page ) { %>
-                <%= locals.page.data[ 'page.title' ].value %> – theindex.la
-            <% } else { %>
-                theindex.la
             <% } %>
+            <%= locals.meta[ 0 ].data[ 'meta.title' ].value %>
         </title>
 
         <!-- Styles -->
@@ -102,7 +99,7 @@
                     <p class="p">Type</p>
                     <ul class="filter__set">
                         <% locals.type.forEach(function ( t ) { %>
-                            <li class="filter__opt p -grey js-filter-option" data-type="types" data-value="<%= t.data[ 'type.name' ].value %>"><%= t.data[ 'type.name' ].value %></li>
+                            <li class="filter__opt p -grey js-filter-option" data-type="types" data-custom-type="type" data-value="<%= t.data[ 'type.name' ].value %>"><%= t.data[ 'type.name' ].value %></li>
                         <% }) %>
                     </ul>
                 </div>
@@ -110,7 +107,7 @@
                     <p class="p">Category</p>
                     <ul class="filter__set">
                         <% locals.category.forEach(function ( c ) { %>
-                            <li class="filter__opt p -grey js-filter-option" data-type="categories" data-value="<%= c.data[ 'category.name' ].value %>"><%= c.data[ 'category.name' ].value %></li>
+                            <li class="filter__opt p -grey js-filter-option" data-type="categories" data-custom-type="category" data-value="<%= c.data[ 'category.name' ].value %>"><%= c.data[ 'category.name' ].value %></li>
                         <% }) %>
                     </ul>
                 </div>
@@ -132,7 +129,7 @@
 
         <!-- Splash -->
         <section class="intro js-intro screen ghost -text--center is-active">
-            <h1 class="intro__text h1 ghost__child -light">theindex.la</h1>
+            <h1 class="intro__text h1 ghost__child -light"><%= locals.meta[ 0 ].data[ 'meta.title' ].value %></h1>
             <div class="intro__load">
                 <div class="intro__load__fill js-intro-fill"></div>
             </div>
@@ -155,11 +152,11 @@
                     <div class="index__col index__name -column -text--left">
                         <a href="/artist/{{artist.slug}}/">
                             <p class="p">{{artist.data.name.value}}</p>
-                            <p class="p -grey" v-for="type in artist.data.types.value">{{type.value.data.name.value}}</p>
+                            <p class="p -grey" v-for="type in artist.data.types.value">{{type.type.value.data.name.value}}</p>
                         </a>
                     </div>
                     <div class="index__col index__categories -column -text--left">
-                        <p class="p -grey" v-for="category in artist.data.categories.value">{{category.value.data.name.value}}</p>
+                        <p class="p -grey" v-for="category in artist.data.categories.value">{{category.category.value.data.name.value}}</p>
                     </div>
                     <div class="index__col index__location -column -text--left">
                         <p class="p -grey">{{artist.data.city.value.data.name.value}}</p>
@@ -172,17 +169,25 @@
                 <div class="artist__info js-artist-info -text--left -wrap">
                     <div class="artist__info__item p">
                         <p class="artist__name">{{artist.data.name.value}}</p>
-                        <p class="artist__types -grey" v-for="type in artist.data.types.value">{{type.value.data.name.value}}</p>
+                        <p class="artist__types -grey" v-for="type in artist.data.types.value">{{type.type.value.data.name.value}}</p>
                     </div>
                     <div class="artist__info__item artist__categories p -grey">
-                        <p v-for="category in artist.data.categories.value">{{category.value.data.name.value}}</p>
+                        <p v-for="category in artist.data.categories.value">{{category.category.value.data.name.value}}</p>
                     </div>
                     <p class="artist__info__item artist__city p -grey">{{artist.data.city.value.data.name.value}}</p>
                     <a class="artist__info__item artist__website p a -grey" href="{{artist.data.website.value}}" target="_blank">Website</a>
                 </div>
                 <div class="artist__gallery -column -exp-b">
-                    <div v-for="galleryImage in artist.data.gallery.value" class="artist__gallery__image -exp">
-                        <img class="image image--{{parseInt( galleryImage.value.image.width, 10 ) > parseInt( galleryImage.value.image.height, 10 ) ? 'wide' : 'tall'}} js-lazy-image" data-img-src="{{galleryImage.value.image.url}}" />
+                    <div v-for="galleryItem in artist.data.gallery.value" class="artist__gallery__item -exp">
+                        <div v-if="galleryItem.video" class="artist__gallery__video js-artist-video" v-bind:style="{paddingBottom: galleryItem.video.value.oembed.height / galleryItem.video.value.oembed.width * 100 + '%'}">
+                            {{{galleryItem.video.value.oembed.html}}}
+                            <div class="artist__gallery__poster js-lazy-image -cover" data-img-src="{{galleryItem.image.value.image.url}}">
+                                <img class="artist__gallery__play js-lazy-image" data-img-src="/images/playicon.png" />
+                            </div>
+                        </div>
+                        <div v-else class="artist__gallery__image">
+                            <img class="image image--{{parseInt( galleryItem.image.value.image.width, 10 ) > parseInt( galleryItem.image.value.image.height, 10 ) ? 'wide' : 'tall'}} js-lazy-image" data-img-src="{{galleryItem.image.value.image.url}}" />
+                        </div>
                     </div>
                 </div>
                 <div class="h1 -wrap -exp">Other Artists</div>
@@ -198,7 +203,7 @@
                         <a class="artist__other__meta" href="/artist/{{otherArtist.slug}}/">
                             <p class="p">{{otherArtist.data.name.value}}</p>
                             <p class="p -grey">
-                                <span v-for="type in otherArtist.data.types.value">{{type.value.data.name.value}}</span>
+                                <span v-for="type in otherArtist.data.types.value">{{type.type.value.data.name.value}}</span>
                             </p>
                         </a>
                     </div>

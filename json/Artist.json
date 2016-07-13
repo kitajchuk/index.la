@@ -120,6 +120,13 @@
                             "select": "media",
                             "placeholder": "Add image..."
                         }
+                    },
+                    "video": {
+                        "type": "Embed",
+                        "fieldset": "Video",
+                        "config": {
+                            "placeholder": "Add video..."
+                        }
                     }
                 },
                 "repeat": true

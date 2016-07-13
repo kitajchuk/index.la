@@ -1,6 +1,3 @@
-var uuid = 0;
-
-
 /**
  *
  * @description Helper methods for prismic.io datas
@@ -9,32 +6,7 @@ var uuid = 0;
  *
  */
 var helpers = {
-    /**
-     *
-     * @public
-     * @method getLinkedDocumentBySlug
-     * @param {string} key The document type
-     * @param {string} slug The document SLUG
-     * @param {array} dict The array of documents of this type
-     * @memberof helpers
-     * @description Get a document by type from an array with its documents linked up.
-     * @returns {object}
-     *
-     */
-    getLinkedDocumentBySlug ( key, slug, dict ) {
-        var i = dict[ key ].length;
-        var ret = null;
-        var data = JSON.parse( JSON.stringify( dict ) );
-
-        for ( i; i--; ) {
-            if ( data[ key ][ i ].slug === slug ) {
-                ret = this._getDocumentWithLinks( data[ key ][ i ], data );
-                break;
-            }
-        }
-
-        return ret;
-    },
+    uuid: 0,
 
 
     /**
@@ -49,7 +21,7 @@ var helpers = {
      *
      */
     getLinkedDocuments ( docs, dict ) {
-        uuid = 0;
+        this.uuid = 0;
 
         const ret = [];
         const data = JSON.parse( JSON.stringify( dict ) );
@@ -118,6 +90,57 @@ var helpers = {
     /**
      *
      * @private
+     * @method _getDocumentGroup
+     * @param {object} docData data for a document
+     * @param {array} dict The array of documents to look in
+     * @memberof helpers
+     * @description Get the references for a `Group`
+     * @returns {object}
+     *
+     */
+    _getDocumentGroup ( docData, dict ) {
+        var elem = null;
+        var keys = null;
+        var ret = {
+            type: "Group",
+            value: []
+        };
+
+        docData.value.forEach(function ( value ) {
+            keys = Object.keys( value );
+            elem = null;
+
+            keys.forEach(function ( type ) {
+                elem = elem || {};
+
+                if ( !value[ type ].value.isBroken ) {
+                    if ( value[ type ].type === "Link.document" ) {
+                        elem[ type ] = {
+                            type: "Link.document",
+                            value: helpers._getDocumentLink( value[ type ].value.document, dict )
+                        };
+
+                    } else {
+                        elem[ type ] = value[ type ];
+                    }
+
+                } else {
+                    elem = null;
+                }
+            });
+
+            if ( elem !== null ) {
+                ret.value.push( elem );
+            }
+        });
+
+        return ret;
+    },
+
+
+    /**
+     *
+     * @private
      * @method _getDocumentWithLinks
      * @param {object} doc The Document
      * @param {array} dict The array of documents to look in
@@ -128,61 +151,32 @@ var helpers = {
      */
     _getDocumentWithLinks ( doc, dict ) {
         var i = null;
-        var k = null;
+        var key = null;
         var ret = {
             id: doc.id,
             slug: doc.slug,
             type: doc.type,
             data: {},
             show: true,
-            uuid: uuid++
+            uuid: this.uuid++
         };
 
         for ( i in doc.data ) {
             if ( doc.data.hasOwnProperty( i ) ) {
-                k = i.replace( doc.type + ".", "" );
+                key = i.replace( doc.type + ".", "" );
 
                 // Skip broken document links
                 if ( doc.data[ i ].type === "Link.document" && !doc.data[ i ].value.isBroken ) {
-                    ret.data[ k ] = {
+                    ret.data[ key ] = {
                         type: "Link.document",
                         value: this._getDocumentLink( doc.data[ i ].value.document, dict )
                     };
 
                 } else if ( doc.data[ i ].type === "Group" ) {
-                    var j = 0;
-                    var value = null;
-                    var type = null;
-                    var len = doc.data[ i ].value.length;
-                    var elem = null;
-
-                    ret.data[ k ] = {
-                        type: "Group",
-                        value: []
-                    };
-
-                    for ( j; j < len; j++ ) {
-                        value = doc.data[ i ].value[ j ];
-
-                        for ( type in value ) {
-                            if ( value.hasOwnProperty( type ) ) {
-                                // Skip broken document links
-                                if ( value[ type ].type === "Link.document" && !value[ type ].value.isBroken ) {
-                                    ret.data[ k ].value.push({
-                                        type: "Link.document",
-                                        value: this._getDocumentLink( value[ type ].value.document, dict )
-                                    });
-
-                                // Skip broken document links
-                                } else if ( !value[ type ].value.isBroken ) {
-                                    ret.data[ k ].value.push( value[ type ] );
-                                }
-                            }
-                        }
-                    }
+                    ret.data[ key ] = this._getDocumentGroup( doc.data[ i ], dict );
 
                 } else {
-                    ret.data[ k ] = doc.data[ i ];
+                    ret.data[ key ] = doc.data[ i ];
                 }
             }
         }

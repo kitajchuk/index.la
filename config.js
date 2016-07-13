@@ -33,6 +33,7 @@ module.exports = {
         "type",
         "city",
         "page",
+        "meta",
         "agency",
         "region",
         "artist",
@@ -47,6 +48,7 @@ module.exports = {
             "nav",
             "sort",
             "type",
+            "meta",
             "region",
             "social",
             "category"

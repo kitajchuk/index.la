@@ -1,0 +1,46 @@
+{
+    "Main": {
+        "url": {
+            "type": "Text",
+            "fieldset": "URL",
+            "config": {
+                "label": "URL"
+            }
+        },
+        "title": {
+            "type": "Text",
+            "fieldset": "Title",
+            "config": {
+                "label": "Title"
+            }
+        },
+        "description": {
+            "type": "Text",
+            "fieldset": "Description",
+            "config": {
+                "label": "Description"
+            }
+        },
+        "image": {
+            "type": "Image",
+            "fieldset": "Image",
+            "config": {
+                "placeholder": "Add image..."
+            }
+        },
+        "touchicon": {
+            "type": "Image",
+            "fieldset": "Touch Icon",
+            "config": {
+                "placeholder": "Add image..."
+            }
+        },
+        "favicon": {
+            "type": "Image",
+            "fieldset": "Favicon",
+            "config": {
+                "placeholder": "Add image..."
+            }
+        }
+    }
+}

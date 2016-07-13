@@ -69,6 +69,39 @@
 .artist__gallery {
     width: 40%;
     }
+.artist__gallery__video {
+    position: relative;
+
+    iframe {
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        }
+}
+.artist__gallery__video.is-active {
+    .artist__gallery__poster {
+        opacity: 0;
+        pointer-events: none;
+        }
+}
+.artist__gallery__poster {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    transition: opacity $base-duration $ease;
+    width: 100%;
+    }
+.artist__gallery__play {
+    height: 60px;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate3d( -50%, -50%, 0 );
+    width: 60px;
+    }
 .artist__other__thumbnail {
     max-width: none;
     }

@@ -1,3 +1,4 @@
+import $ from "properjs-hobo";
 import refine from "./refine";
 import router from "../router";
 import * as core from "../core";
@@ -80,6 +81,31 @@ const artist = {
         refine.resetFilters();
 
         this.bindScroll();
+        this.bindVideos();
+    },
+
+
+    /**
+     *
+     * @public
+     * @method bindVideos
+     * @memberof artist
+     * @description Handle any videos on the page. Ideally Vimeo.
+     *
+     */
+    bindVideos () {
+        core.dom.page.find( ".js-artist-video" ).on( "click", ( e ) => {
+            const $node = $( e.target ).closest( ".js-artist-video" );
+            const $iframe = $node.find( "iframe" );
+            const winnow = $iframe[ 0 ].contentWindow;
+
+            winnow.postMessage(
+                JSON.stringify( { method: "play" } ),
+                "*"
+            );
+
+            $node.addClass( "is-active" );
+        });
     },
 
 
@@ -141,7 +167,7 @@ const artist = {
 
         otherArtist.data.categories.value.forEach(( catA ) => {
             thisArtist.data.categories.value.forEach(( catB ) => {
-                if ( catA.value.data.name.value === catB.value.data.name.value ) {
+                if ( catA.category.value.data.name.value === catB.category.value.data.name.value ) {
                     ret = true;
                 }
             });
