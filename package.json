@@ -12,7 +12,7 @@
     "node": "set -x NODE_ENV development ; node server/server.js",
     "sync": "./node_modules/.bin/prismic-express sync",
     "build": "./node_modules/.bin/prismic-express build",
-    "postinstall": "cd ./node_modules/properjs-hobo && npm install && npm run build -- 'is eq not filter detach append remove parent children'"
+    "postinstall": "cd ./node_modules/properjs-hobo && npm install && npm run build -- 'is eq not filter detach append remove parent closest children'"
   },
   "devDependencies": {
     "autoprefixer": "^6.3.6",

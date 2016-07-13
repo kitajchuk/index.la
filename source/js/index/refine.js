@@ -257,7 +257,7 @@ const refine = {
         // Types
         if ( element.data.types ) {
             element.data.types.value.forEach(( type ) => {
-                if ( type.value.data.name.value.match( regex ) ) {
+                if ( type.type.value.data.name.value.match( regex ) ) {
                     element.show = true;
                 }
             });
@@ -266,7 +266,7 @@ const refine = {
         // Categories
         if ( element.data.categories ) {
             element.data.categories.value.forEach(( category ) => {
-                if ( category.value.data.name.value.match( regex ) ) {
+                if ( category.category.value.data.name.value.match( regex ) ) {
                     element.show = true;
                 }
             });
@@ -295,7 +295,7 @@ const refine = {
                 let i = element.data[ filterSet.type ].value.length;
 
                 for ( i; i--; ) {
-                    if ( element.data[ filterSet.type ].value[ i ].value.data.name.value === filterSet.value ) {
+                    if ( element.data[ filterSet.type ].value[ i ][ filterSet.customType ].value.data.name.value === filterSet.value ) {
                         has++;
                         break;
                     }
