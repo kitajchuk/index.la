@@ -34,6 +34,10 @@
     transition: opacity $base-duration $ease,
                 transform $base-duration $ease;
     }
+.intro__svg {
+    fill: $white;
+    height: 30px;
+    }
 .intro__load {
     bottom: 0;
     font-size: 0;

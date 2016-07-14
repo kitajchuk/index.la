@@ -23,12 +23,6 @@
         <meta itemprop="thumbnailUrl" content="<%= locals.meta[ 0 ].data[ 'meta.image' ].value.main.url %>" />
         <meta itemprop="image" content="<%= locals.meta[ 0 ].data[ 'meta.image' ].value.main.url %>" />
 
-        <meta name="twitter:title" content="<%= locals.meta[ 0 ].data[ 'meta.title' ].value %>" />
-        <meta name="twitter:image" content="<%= locals.meta[ 0 ].data[ 'meta.image' ].value.main.url %>" />
-        <meta name="twitter:url" content="<%= locals.meta[ 0 ].data[ 'meta.url' ].value %>" />
-        <meta name="twitter:card" content="summary" />
-        <meta name="twitter:description" content="<%= locals.meta[ 0 ].data[ 'meta.description' ].value %>" />
-
         <link rel="shortcut icon" type="image/x-icon" href="<%= locals.meta[ 0 ].data[ 'meta.favicon' ].value.main.url %>" />
         <link rel="canonical" href="" />
         <link rel="image_src" href="<%= locals.meta[ 0 ].data[ 'meta.image' ].value.main.url %>" />
@@ -129,7 +123,9 @@
 
         <!-- Splash -->
         <section class="intro js-intro screen ghost -text--center is-active">
-            <h1 class="intro__text h1 ghost__child -light"><%= locals.meta[ 0 ].data[ 'meta.title' ].value %></h1>
+            <h1 class="intro__text ghost__child">
+                <svg class="intro__svg" xmlns="http://www.w3.org/2000/svg" version="1.1" x="0" y="0" viewBox="-195.8 290.6 218.6 67.6" xml:space="preserve" enable-background="new -195.8 290.6 218.6 67.6"><path d="M-189.2 290.9c-3.6 0-6.5 3.1-6.6 6.7 0 3.7 3 6.6 6.6 6.6 3.7 0 6.7-3 6.7-6.6C-182.5 293.9-185.5 290.9-189.2 290.9z"/><rect x="-193.3" y="314" width="8.3" height="43.1"/><path d="M-146.7 312.9c-7.3 0-12.6 3.5-15.2 8.7V314h-8.3v43h8.3v-22.2c0-7.7 3.9-14.7 12.2-14.7 8.1 0 10.9 6.1 10.9 14.1v22.9h8.3v-25.4c0-6.1-0.9-9.9-3.3-13.1C-136.3 315-140.7 312.9-146.7 312.9zM-82.8 321.3c-2.8-5.2-8.8-8.5-15.1-8.5 -13.2 0-22.1 10.5-22.1 22.7s8.9 22.6 22.1 22.6c6.3 0 12.3-3.3 15.1-8.5v7.5h8.2v-66.5h-8.2V321.3zM-97.4 350.8c-8.7 0-14.4-6.9-14.4-15.2 0-8.3 5.7-15.3 14.4-15.3 8.9 0 14.6 7 14.6 15.3C-82.8 343.8-88.5 350.7-97.4 350.8zM-22 332.4c0-11-8.7-19.5-19.9-19.5 -13.6 0-21.3 9.7-21.3 22.7 0 12.4 7.1 22.6 21.6 22.6 10.8 0 17.9-6.5 19.3-13.8h-8.4c-1.3 3.7-4.4 6.8-10.9 6.8 -9.5 0-13-6.1-13.4-13.4h32.6C-22 335.4-22 333.6-22 332.4zM-54.9 331.5c0.2-7.8 5.4-12.3 12.8-12.2 7 0 12.2 4.7 12.2 12.2H-54.9z"/><polygon points="8.2 335.4 22.6 314 13.1 314 3.4 329 -6.3 314 -15.8 314 -1.4 335.4 -16 357.1 -6.5 357.1 3.4 341.8 13.3 357.1 22.8 357.1 "/></svg>
+            </h1>
             <div class="intro__load">
                 <div class="intro__load__fill js-intro-fill"></div>
             </div>

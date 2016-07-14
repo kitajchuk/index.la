@@ -34,7 +34,7 @@ module.exports = function ( connection ) {
             var purge = function ( doc ) {
                 delete doc.fragments;
                 delete doc.slugs;
-                delete doc.tags;
+                //delete doc.tags;
                 delete doc.href;
                 delete doc.uid;
 

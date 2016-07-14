@@ -36,12 +36,14 @@
 .splash.is-active {
     z-index: 1002;
     }
+.splash__svg {
+    fill: $white;
+    height: 80px;
+    }
 .splash__link {
     border-bottom: 1px solid $white;
     }
-.splash__title {
-    font-size: 92px;
-    }
+.splash__title {}
 .splash__coming {
     left: 0;
     position: absolute;
@@ -115,13 +117,13 @@
 
 
 @media only screen and ( max-width: $break-laptop-medium ) {
-    .splash__title {
-        font-size: 72px;
+    .splash__svg {
+        height: 60px;
         }
 }
 
 @media only screen and ( max-width: $break-mobile-full ) {
-    .splash__title {
-        font-size: 48px;
+    .splash__svg {
+        height: 40px;
         }
 }
