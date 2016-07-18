@@ -249,11 +249,6 @@ const refine = {
             element.show = true;
         }
 
-        // Agency
-        if ( element.data.agency && element.data.agency.value.data.name.value.match( regex ) ) {
-            element.show = true;
-        }
-
         // Types
         if ( element.data.types ) {
             element.data.types.value.forEach(( type ) => {
