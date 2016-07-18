@@ -1,5 +1,20 @@
 {
     "Main": {
+        "order": {
+            "type": "Number",
+            "fieldset": "Order",
+            "config": {
+                "label": "Order"
+            }
+        },
+        "style": {
+            "type": "Select",
+            "fieldset": "Nav Style",
+            "config": {
+                "label": "Style",
+                "options": ["primary", "tertiary"]
+            }
+        },
         "title": {
             "type": "Text",
             "fieldset": "Nav Title",
