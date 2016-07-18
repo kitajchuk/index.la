@@ -5,35 +5,35 @@ import * as core from "../core";
 /**
  *
  * @public
- * @namespace featured
+ * @namespace features
  * @description A nice description of what this module does...
  *
  */
-const featured = {
+const features = {
     /**
      *
      * @public
      * @member template
-     * @memberof featured
+     * @memberof features
      * @description The template context.
      *
      */
-    template: "featured",
+    template: "features",
 
 
     /**
      *
      * @public
      * @method init
-     * @memberof featured
+     * @memberof features
      * @description Method runs once when window loads.
      *
      */
     init () {
-        core.emitter.on( "app--view-featured", this.load.bind( this ) );
+        core.emitter.on( "app--view-features", this.load.bind( this ) );
         core.emitter.on( "app--view-teardown", this.teardown.bind( this ) );
 
-        core.log( "featured initialized" );
+        core.log( "features initialized" );
     },
 
 
@@ -41,7 +41,7 @@ const featured = {
      *
      * @public
      * @method load
-     * @memberof featured
+     * @memberof features
      * @description Method performs onloading actions for this module.
      *
      */
@@ -58,7 +58,7 @@ const featured = {
      *
      * @public
      * @method teardown
-     * @memberof featured
+     * @memberof features
      * @description Method performs cleanup after this module. Remmoves events, null vars etc...
      *
      */
@@ -69,4 +69,4 @@ const featured = {
 /******************************************************************************
  * Export
 *******************************************************************************/
-export default featured;
+export default features;

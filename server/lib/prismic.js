@@ -9,7 +9,6 @@ module.exports = function ( connection ) {
         type: [],
         city: [],
         page: [],
-        agency: [],
         region: [],
         feature: [],
         category: []
@@ -19,7 +18,6 @@ module.exports = function ( connection ) {
         "pages",
         "cities",
         "regions",
-        "agencies",
         "features",
         "categories"
     ];

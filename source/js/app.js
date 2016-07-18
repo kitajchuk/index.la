@@ -17,7 +17,7 @@ import about from "./index/about";
 import artist from "./index/artist";
 import refine from "./index/refine";
 import feature from "./index/feature";
-import featured from "./index/featured";
+import features from "./index/features";
 import templates from "./index/templates";
 
 
@@ -40,7 +40,7 @@ class App {
         this.router = router;
         this.artist = artist;
         this.feature = feature;
-        this.featured = featured;
+        this.features = features;
         this.templates = templates;
 
         // Intro splash screen
@@ -101,7 +101,7 @@ class App {
         this.about.init();
         this.artist.init();
         this.feature.init();
-        this.featured.init();
+        this.features.init();
 
         // Controller
         this.router.init();

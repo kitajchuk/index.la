@@ -36,15 +36,6 @@
                 "multi": "heading1,heading2,heading3,heading4,heading5,heading6,paragraph,strong,em,hyperlink,ulist,olist"
             }
         },
-        "agency": {
-            "type": "Link",
-            "fieldset": "Agency",
-            "config": {
-                "select": "document",
-                "customtypes": [ "agency" ],
-                "placeholder": "Add agency..."
-            }
-        },
         "categories": {
             "type": "Group",
             "fieldset": "Categories",
