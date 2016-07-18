@@ -20,7 +20,7 @@ module.exports = function ( connection ) {
         "cities",
         "regions",
         "agencies",
-        "featured",
+        "features",
         "categories"
     ];
     var statLength = linkTypes.length;
