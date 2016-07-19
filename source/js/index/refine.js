@@ -1,5 +1,7 @@
 import $ from "properjs-hobo";
 import * as core from "../core";
+import router from "../router";
+import Vue from "vue";
 
 
 /**
@@ -21,11 +23,39 @@ const refine = {
     init () {
         this.element = core.dom.body.find( ".js-refine" );
         this.trigger = core.dom.header.find( ".js-controller--refine" );
-        this.filters = this.element.find( ".js-filter-option" );
-        this.search = this.element.find( ".js-search-field" );
-        this.sorts = this.element.find( ".js-sort-option" );
         this.isOpen = false;
-        this.bind();
+        this.initView();
+    },
+
+
+    /**
+     *
+     * @public
+     * @method initView
+     * @memberof refine
+     * @description Render the refine view.
+     *
+     */
+    initView () {
+        const data = router.getState( "data" );
+        const viewData = {
+            sorts: data.sort,
+            types: data.type,
+            regions: data.region,
+            categories: data.category
+        };
+
+        this.view = new Vue({
+            el: this.element[ 0 ],
+            data: viewData,
+            replace: false,
+            compiled: () => {
+                this.filters = this.element.find( ".js-filter-option" );
+                this.search = this.element.find( ".js-search-field" );
+                this.sorts = this.element.find( ".js-sort-option" );
+                this.bindEvents();
+            }
+        });
     },
 
 
@@ -123,12 +153,12 @@ const refine = {
     /**
      *
      * @public
-     * @method bind
+     * @method bindEvents
      * @memberof refine
      * @description Initialize events
      *
      */
-    bind () {
+    bindEvents () {
         this.trigger.on( "click", onRefineTrigger );
         this.element.on( "click", ".js-filter-option", onFilterOption );
         this.element.on( "click", ".js-sort-option", onSortOption );

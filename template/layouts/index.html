@@ -68,11 +68,9 @@
         <!-- Nav -->
         <nav class="nav js-nav screen ghost -text--center is-hidden">
             <ul class="nav__menu ghost__child -exp">
-                <% locals.nav.forEach(function ( n ) { %>
-                    <li class="nav__menu__li">
-                        <a href="<%= n.data[ 'nav.url' ].value %>" class="nav__menu__a js-nav-item h1 -grey"><%= n.data[ 'nav.title' ].value %></a>
-                    </li>
-                <% }) %>
+                <li v-for="nav in navs" class="nav__menu__li">
+                    <a href="{{nav.data.url.value}}" class="nav__menu__a js-nav-item h1 -grey">{{nav.data.title.value}}</a>
+                </li>
             </ul>
         </nav>
 
@@ -85,33 +83,25 @@
                 <div class="filter__col">
                     <p class="p">Sort</p>
                     <ul class="filter__set">
-                        <% locals.sort.forEach(function ( s ) { %>
-                            <li class="filter__opt p -grey js-sort-option <% if ( s.data[ 'sort.value' ].value === 'uuid' ) { %>is-active<% } %>" data-value="<%= s.data[ 'sort.value' ].value %>"><%= s.data[ 'sort.label' ].value %></li>
-                        <% }) %>
+                        <li v-for="sort in sorts" class="filter__opt p -grey js-sort-option {{sort.data.value.value === 'uuid' ? 'is-active' : ''}}" data-value="{{sort.data.value.value}}">{{sort.data.label.value}}</li>
                     </ul>
                 </div>
                 <div class="filter__col">
                     <p class="p">Type</p>
                     <ul class="filter__set">
-                        <% locals.type.forEach(function ( t ) { %>
-                            <li class="filter__opt p -grey js-filter-option" data-type="types" data-custom-type="type" data-value="<%= t.data[ 'type.name' ].value %>"><%= t.data[ 'type.name' ].value %></li>
-                        <% }) %>
+                        <li v-for="type in types" class="filter__opt p -grey js-filter-option" data-type="types" data-custom-type="type" data-value="{{type.data.name.value}}">{{type.data.name.value}}</li>
                     </ul>
                 </div>
                 <div class="filter__col">
                     <p class="p">Category</p>
                     <ul class="filter__set">
-                        <% locals.category.forEach(function ( c ) { %>
-                            <li class="filter__opt p -grey js-filter-option" data-type="categories" data-custom-type="category" data-value="<%= c.data[ 'category.name' ].value %>"><%= c.data[ 'category.name' ].value %></li>
-                        <% }) %>
+                        <li v-for="category in categories" class="filter__opt p -grey js-filter-option" data-type="categories" data-custom-type="category" data-value="{{category.data.name.value}}">{{category.data.name.value}}</li>
                     </ul>
                 </div>
                 <div class="filter__col">
                     <p class="p">Location</p>
                     <ul class="filter__set">
-                        <% locals.region.forEach(function ( r ) { %>
-                            <li class="filter__opt p -grey js-filter-option" data-type="region" data-value="<%= r.data[ 'region.name' ].value %>"><%= r.data[ 'region.name' ].value %></li>
-                        <% }) %>
+                        <li v-for="region in regions" class="filter__opt p -grey js-filter-option" data-type="region" data-value="{{region.data.name.value}}">{{region.data.name.value}}</li>
                     </ul>
                 </div>
             </div>
@@ -136,7 +126,7 @@
         <div class="templates js-templates is-hidden">
             <!-- Index -->
             <section class="index js-index">
-                <div class="index__row -wrap -exp -f-zero -text--center" v-show="artist.show" v-for="artist in artists" data-uuid="{{artist.uuid}}">
+                <div v-show="artist.show" v-for="artist in artists" class="index__row -wrap -exp -f-zero -text--center" data-uuid="{{artist.uuid}}">
                     <div class="index__col index__feature -column -text--left">
                         <div class="index__thumbnail">
                             <figure class="index__figure">

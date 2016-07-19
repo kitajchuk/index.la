@@ -60,7 +60,7 @@ module.exports = function ( connection ) {
 
                             killLength--;
 
-                            connection.sockets.success( "index-data", {
+                            connection.sockets.success( "index-stream", {
                                 type: type,
                                 stat: 100 -  killLength / statLength * 100,
                                 value: linkDict[ type ]
@@ -85,7 +85,7 @@ module.exports = function ( connection ) {
 
                 killLength--;
 
-                connection.sockets.success( "index-data", {
+                connection.sockets.success( "index-stream", {
                     type: "artist",
                     stat: 100 - killLength / statLength * 100,
                     value: documents
@@ -112,6 +112,8 @@ module.exports = function ( connection ) {
                         query( (page + 1) );
 
                     } else {
+                        connection.sockets.success( "index-complete", {} );
+
                         resolve();
                     }
 
