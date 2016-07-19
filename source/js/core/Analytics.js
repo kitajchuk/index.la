@@ -21,8 +21,8 @@ let _instance = null;
 class Analytics {
     constructor () {
         if ( !_instance ) {
-            this.devUA = "";
-            this.prodUA = "";
+            this.devUA = "UA-80898881-1";
+            this.prodUA = "UA-80861567-1";
             this.GAScript = "//www.google-analytics.com/analytics.js";
             this.GAUATag = (env.isDev() ? this.devUA : this.prodUA);
 
