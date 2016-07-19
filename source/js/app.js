@@ -8,7 +8,6 @@ require( "../sass/screen.scss" );
 
 import index from "./index";
 import Socket from "./Socket";
-//import $ from "properjs-hobo";
 import router from "./router";
 import nav from "./menus/nav";
 import * as core from "./core";
@@ -30,7 +29,7 @@ import templates from "./index/templates";
  */
 class App {
     constructor () {
-        this.url = (core.env.isDev() ? "http://localhost:8000" : "http://node.theindex.la");
+        // Modules
         this.nav = nav;
         this.core = core;
         this.intro = intro;
@@ -43,38 +42,78 @@ class App {
         this.features = features;
         this.templates = templates;
 
+        // Data handling
+        this.data = {};
+        this.socket = new Socket();
+        this.url = (core.env.isDev() ? "http://localhost:8000" : "http://node.theindex.la");
+
         // Intro splash screen
         this.intro.init();
         this.intro.update( 5 );
 
-        // Initial empty data state
-        this.router.setState( "data", {}, true );
-
         // Open websocket server connection
-        this.socket = new Socket();
+        this.openConnection();
+    }
+
+
+    /**
+     *
+     * @public
+     * @instance
+     * @method openConnection
+     * @memberof App
+     * @description Open the websocket server connection.
+     *
+     */
+    openConnection () {
         this.socket.connect(() => {
             core.log( "Socket connected." );
 
-            this.socket.on( "index-data", ( data ) => {
-                core.log( "Socket data", data );
-
-                const rData = router.getState( "data" );
-
-                if ( !rData[ data.type ] ) {
-                    rData[ data.type ] = data.value;
-
-                } else {
-                    rData[ data.type ] = rData[ data.type ].concat( data.value );
-                }
-
-                this.intro.update( data.stat );
-                this.router.setState( "data", rData, true );
-            });
-
-            this.socket.on( "index-done", () => {
-                this.initModules();
-            });
+            this.socket.on( "index-stream", this.handleSocketStream.bind( this ) );
+            this.socket.on( "index-complete", this.handleSocketComplete.bind( this ) );
         });
+    }
+
+
+    /**
+     *
+     * @public
+     * @instance
+     * @method handleSocketStream
+     * @param {object} data The incoming socket data
+     * @memberof App
+     * @description Handle the incoming data stream.
+     *
+     */
+    handleSocketStream ( data ) {
+        core.log( "Socket data", data );
+
+        if ( !this.data[ data.type ] ) {
+            this.data[ data.type ] = data.value;
+
+        } else {
+            this.data[ data.type ] = this.data[ data.type ].concat( data.value );
+        }
+
+        this.intro.update( data.stat );
+    }
+
+
+    /**
+     *
+     * @public
+     * @instance
+     * @method handleSocketComplete
+     * @memberof App
+     * @description Handle the completion of the data stream.
+     *
+     */
+    handleSocketComplete () {
+        core.log( "Socket stream complete" );
+
+        this.router.setState( "data", this.data, true );
+
+        this.initModules();
     }
 
 

@@ -34,7 +34,6 @@ module.exports = {
         "city",
         "page",
         "meta",
-        "agency",
         "region",
         "artist",
         "social",
@@ -45,13 +44,7 @@ module.exports = {
 
     "mapping": {
         "*": [
-            "nav",
-            "sort",
-            "type",
-            "meta",
-            "region",
-            "social",
-            "category"
+            "meta"
         ]
     },
 

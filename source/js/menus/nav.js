@@ -1,6 +1,8 @@
 import $ from "properjs-hobo";
 import * as core from "../core";
 import Menu from "./Menu";
+import router from "../router";
+import Vue from "vue";
 
 
 /**
@@ -25,10 +27,32 @@ const nav = {
         this.trigger = core.dom.header.find( ".js-controller--nav" );
         this.items = this.element.find( ".js-nav-item" );
         this.menu = new Menu( this.element );
-        this.bind();
+        this.initView();
+        this.bindEvents();
         this.toggleActive();
 
         core.log( "nav initialized" );
+    },
+
+
+    /**
+     *
+     * @public
+     * @method initView
+     * @memberof menus.nav
+     * @description Render the nav view.
+     *
+     */
+    initView () {
+        const viewData = {
+            navs: router.getState( "data" ).nav
+        };
+
+        this.view = new Vue({
+            el: this.element[ 0 ],
+            data: viewData,
+            replace: false
+        });
     },
 
 
@@ -61,12 +85,12 @@ const nav = {
     /**
      *
      * @public
-     * @method bind
+     * @method bindEvents
      * @memberof menus.nav
      * @description Setup main interaction events for nav/header.
      *
      */
-    bind () {
+    bindEvents () {
         this.element.on( "click", onTapNavMenu );
         this.trigger.on( "click", onTapNavIcon );
     },

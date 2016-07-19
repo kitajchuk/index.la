@@ -1,5 +1,5 @@
 .screen {
-    background-color: rgba( 0, 0, 0, 0.9 );
+    background-color: rgba( 255, 255, 255, 0.9 );
     bottom: 0;
     left: 0;
     opacity: 0;
@@ -26,7 +26,7 @@
 
 
 .intro {
-    background-color: $spot;
+    background-color: $white;
     }
 .intro__text {
     opacity: 0;
@@ -35,13 +35,13 @@
                 transform $base-duration $ease;
     }
 .intro__svg {
-    fill: $white;
+    fill: $black;
     height: 30px;
     }
 .intro__load {
     bottom: 0;
     font-size: 0;
-    height: 5px;
+    height: 15px;
     left: 0;
     position: fixed;
     text-align: left;
@@ -49,7 +49,7 @@
     width: 100%;
     }
 .intro__load__fill {
-    background-color: $white;
+    background-color: $black;
     display: inline-block;
     height: 100%;
     transition: width $fast-duration $ease;
