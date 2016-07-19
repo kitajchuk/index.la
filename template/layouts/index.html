@@ -9,7 +9,7 @@
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="apple-mobile-web-app-title" content="<%= locals.meta[ 0 ].data[ 'meta.title' ].value %>" />
-        <!-- <meta name="google-site-verification" content="Vh3Illw1b-CLRJOCLhTnM5DUkdoFDcK1NORSrt1MATs" /> -->
+        <meta name="google-site-verification" content="fMUKkMfQlVhh8GcJdxDBzMZ-hGj3NPsqGb_98IA0qjc" />
 
         <meta property="og:site_name" content="<%= locals.meta[ 0 ].data[ 'meta.title' ].value %>" />
         <meta property="og:title" content="<%= locals.meta[ 0 ].data[ 'meta.title' ].value %>" />
@@ -176,9 +176,9 @@
                 </div>
                 <div class="artist__gallery -column -exp-b">
                     <div v-for="galleryItem in artist.data.gallery.value" class="artist__gallery__item -exp">
-                        <div v-if="galleryItem.video" class="artist__gallery__video js-artist-video" v-bind:style="{paddingBottom: galleryItem.video.value.oembed.height / galleryItem.video.value.oembed.width * 100 + '%'}">
-                            {{{galleryItem.video.value.oembed.html}}}
-                            <div class="artist__gallery__poster js-lazy-image -cover" data-img-src="{{galleryItem.image.value.image.url}}">
+                        <div v-if="galleryItem.video" class="artist__gallery__video js-artist-video" data-provider="{{galleryItem.video.value.oembed.provider_name.toLowerCase()}}" v-bind:style="{paddingBottom: galleryItem.video.value.oembed.height / galleryItem.video.value.oembed.width * 100 + '%'}">
+                            {{{galleryItem.video.value.oembed.html.replace( 'feature=oembed', 'enablejsapi=1' )}}}
+                            <div class="artist__gallery__poster js-lazy-image -cover" data-img-src="{{galleryItem.image ? galleryItem.image.value.image.url : galleryItem.video.value.oembed.thumbnail_url}}">
                                 <img class="artist__gallery__play js-lazy-image" data-img-src="/images/playicon.png" />
                             </div>
                         </div>

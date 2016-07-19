@@ -32,7 +32,7 @@ const artist = {
      * @description The `other artists` limit cap.
      *
      */
-    otherLimit: 12,
+    otherLimit: 6,
 
 
     /**
@@ -96,13 +96,12 @@ const artist = {
     bindVideos () {
         core.dom.page.find( ".js-artist-video" ).on( "click", ( e ) => {
             const $node = $( e.target ).closest( ".js-artist-video" );
+            const data = $node.data();
             const $iframe = $node.find( "iframe" );
             const winnow = $iframe[ 0 ].contentWindow;
+            const message = (data.provider === "youtube" ? '{"event":"command","func":"playVideo","args":""}' : '{"method":"play"}');
 
-            winnow.postMessage(
-                JSON.stringify( { method: "play" } ),
-                "*"
-            );
+            winnow.postMessage( message, "*" );
 
             $node.addClass( "is-active" );
         });
