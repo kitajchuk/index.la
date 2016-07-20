@@ -33,6 +33,10 @@
 
 
 
+.splash,
+.message {
+    background-color: rgba( 0, 0, 0, 0.9 );
+    }
 .splash.is-active {
     z-index: 1002;
     }
