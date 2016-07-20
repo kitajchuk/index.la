@@ -1,5 +1,6 @@
 const DEV = "development";
 const PROD = "production";
+const STAGE = "staging";
 
 
 /**
@@ -19,19 +20,45 @@ const env = {
      *              Looks at IP, localhost and staging for DEV, otherwise PROD
      *
      */
-    ENV: (/^localhost|^staging|^[0-9]{0,3}\.[0-9]{0,3}\.[0-9]{0,3}\.[0-9]{0,3}/g.test( document.domain ) ? DEV : PROD),
+    ENV: (/^localhost|^[0-9]{0,3}\.[0-9]{0,3}\.[0-9]{0,3}\.[0-9]{0,3}/g.test( document.domain ) ? DEV : /^staging/.test( document.domain ) ? STAGE : PROD),
 
 
     /**
      *
      * @method get
      * @memberof core.isDev
-     * @description Returns the dev mode status.
+     * @description Returns true for dev.
      * @returns {boolean}
      *
      */
     isDev () {
         return (this.ENV === DEV);
+    },
+
+
+    /**
+     *
+     * @method get
+     * @memberof core.isDev
+     * @description Returns true for production.
+     * @returns {boolean}
+     *
+     */
+    isProduction () {
+        return (this.ENV === PROD);
+    },
+
+
+    /**
+     *
+     * @method get
+     * @memberof core.isStaging
+     * @description Returns true for staging.
+     * @returns {boolean}
+     *
+     */
+    isStaging () {
+        return (this.ENV === STAGE);
     }
 };
 

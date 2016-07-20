@@ -45,7 +45,6 @@ class App {
         // Data handling
         this.data = {};
         this.socket = new Socket();
-        this.url = (core.env.isDev() ? "http://localhost:8000" : "http://node.theindex.la");
 
         // Intro splash screen
         this.intro.init();
