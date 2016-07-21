@@ -1,3 +1,62 @@
 /******************************************************************************
- * Abstract Classes
+ * Classes for things...
 *******************************************************************************/
+.about,
+.submit {
+    height: 100%;
+    }
+
+
+
+.submit__wrap {
+    position: relative;
+    }
+.submit__button {
+    background-color: transparent;
+    border: 1px solid $white;
+    border-radius: 3px;
+    bottom: 0;
+    color: $white;
+    cursor: pointer;
+    left: 50%;
+    opacity: 0;
+    outline: 0;
+    padding: 10px 20px;
+    pointer-events: none;
+    position: absolute;
+    transform: translateX( -50% ) translateY( 200% );
+    transition: background-color $base-duration $ease,
+                color $base-duration $ease,
+                opacity $base-duration $ease;
+    -webkit-appearance: none;
+
+    &:hover {
+        background-color: $white;
+        color: $black;
+        }
+    &:focus {
+        outline: 0;
+        }
+    }
+.submit__field {
+    background-color: transparent;
+    border: 0;
+    border-bottom: 1px solid $white;
+    color: $white;
+    max-width: 100%;
+    outline: 0;
+    padding-bottom: 10px;
+    text-align: center;
+    width: 300px;
+    -webkit-appearance: none;
+
+    &:focus {
+        outline: 0;
+        }
+    }
+.submit.is-valid-field {
+    .submit__button {
+        opacity: 1;
+        pointer-events: auto;
+        }
+}

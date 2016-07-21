@@ -164,14 +164,16 @@ const artist = {
     filterOtherArtists ( thisArtist, otherArtist ) {
         let ret = false;
 
-        otherArtist.data.categories.value.forEach(( catA ) => {
-            thisArtist.data.categories.value.forEach(( catB ) => {
-                if ( catA.category.value.data.name.value === catB.category.value.data.name.value ) {
-                    ret = true;
-                }
-            });
+        if ( thisArtist.id !== otherArtist.id ) {
+            otherArtist.data.categories.value.forEach(( catA ) => {
+                thisArtist.data.categories.value.forEach(( catB ) => {
+                    if ( catA.category.value.data.name.value === catB.category.value.data.name.value ) {
+                        ret = true;
+                    }
+                });
 
-        });
+            });
+        }
 
         return ret;
     },

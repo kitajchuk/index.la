@@ -7,10 +7,10 @@ var apiAccess = "https://index-la.cdn.prismic.io/api";
 module.exports = function ( connection ) {
     var linkDict = {
         nav: [],
+        meta: [],
         sort: [],
         type: [],
         city: [],
-        page: [],
         social: [],
         region: [],
         feature: [],
@@ -18,9 +18,9 @@ module.exports = function ( connection ) {
     };
     var linkTypes = [
         "navs",
+        "meta",
         "sorts",
         "types",
-        "pages",
         "cities",
         "socials",
         "regions",

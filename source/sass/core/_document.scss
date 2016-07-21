@@ -6,7 +6,8 @@ html {
     box-sizing: border-box;
     overflow-x: hidden;
     overflow-y: auto;
-    transition: opacity $base-duration $ease;
+    transition: opacity $base-duration $ease,
+                background-color $base-duration $ease;
 
     &.is-inactive {
         opacity: 0;

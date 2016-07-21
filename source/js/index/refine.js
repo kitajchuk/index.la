@@ -243,7 +243,7 @@ const refine = {
     processKeyword ( keyword, element ) {
         element.show = false;
 
-        const regex = new RegExp( keyword, "i" );
+        const regex = new RegExp( keyword, "gi" );
 
         // Name
         if ( element.data.name && element.data.name.value.match( regex ) ) {
@@ -292,6 +292,15 @@ const refine = {
         if ( element.data.categories ) {
             element.data.categories.value.forEach(( category ) => {
                 if ( category.category.value.data.name.value.match( regex ) ) {
+                    element.show = true;
+                }
+            });
+        }
+
+        // Tags
+        if ( element.tags ) {
+            element.tags.forEach(( tag ) => {
+                if ( tag.match( regex ) ) {
                     element.show = true;
                 }
             });

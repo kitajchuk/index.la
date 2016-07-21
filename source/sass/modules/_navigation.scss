@@ -11,3 +11,9 @@
         margin-left: $expander-one;
         }
     }
+.nav__menu__a {
+    cursor: pointer;
+    }
+.nav__menu__primary + .nav__menu__tertiary {
+    margin-top: 30px;
+    }

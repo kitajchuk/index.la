@@ -56,29 +56,11 @@
         width: 8px;
         }
     }
-.icon--back {
-    background-color: $black;
-    height: 2px;
-    width: 24px;
-
-    &:after,
-    &:before {
-        background-color: $black;
-        content: "";
-        height: 13px;
-        left: 4px;
-        position: absolute;
-        width: 2px;
-        }
-    &:after {
-        top: -10px;
-        transform: rotate( 45deg );
-        }
-    &:before {
-        top: -1px;
-        transform: rotate( -45deg );
-        }
-    }
+// .icon--back {
+//     background-color: $black;
+//     height: 2px;
+//     width: 24px;
+//     }
 .icon--arrow {
     &:after,
     &:before {
@@ -94,10 +76,10 @@
         transform: rotate( 45deg );
         }
     &:before {
-        top: -1px;
+        top: -2px;
         transform: rotate( -45deg );
         }
-    }
+}
 
 
 

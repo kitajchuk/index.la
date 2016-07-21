@@ -55,7 +55,7 @@
                         <span class="icon icon--arrow"></span>
                     </span>
                     <a href="/" class="target--back icon-wrap">
-                        <span class="icon icon--back"></span>
+                        <span class="icon icon--arrow"></span>
                     </a>
                 </div>
                 <div class="-wrap-r -column -column--2of4 -text--right">
@@ -74,8 +74,9 @@
                 </div>
                 <div class="-column -column--2of4 -text--right">
                     <ul class="nav__menu ghost__child -exp">
-                        <li v-for="nav in navs" class="nav__menu__li">
-                            <a href="{{nav.data.url.value}}" class="nav__menu__a js-nav-item -grey {{nav.data.style.value === 'primary' ? 'h1' : 'p'}}">{{nav.data.title.value}}</a>
+                        <li v-for="nav in navs" class="nav__menu__li nav__menu__{{nav.data.style.value}}">
+                            <a v-if="(nav.data.title.value !== 'Submit')" href="{{nav.data.url.value}}" class="nav__menu__a js-nav-item -grey {{nav.data.style.value === 'primary' ? 'h1' : 'p'}}">{{nav.data.title.value}}</a>
+                            <span v-else class="nav__menu__a js-controller--submit -grey h1">Submit</span>
                         </li>
                         <li v-for="social in socials" class="nav__menu__li">
                             <a href="{{social.data.url.value}}" class="nav__menu__a js-nav-item -grey p" target="_blank">{{social.data.title.value}}</a>
@@ -133,6 +134,14 @@
             </div>
         </section>
 
+        <!-- Submit -->
+        <section class="submit js-submit screen screen--dark ghost -text--center">
+            <div class="submit__wrap ghost__child">
+                <input class="submit__field js-submit-field p" type="text" placeholder="enter artist name or website" />
+                <button class="submit__button js-submit-button p">Submit</button>
+            </div>
+        </section>
+
         <!-- Templates -->
         <div class="templates js-templates is-hidden">
             <!-- Index -->
@@ -173,7 +182,14 @@
                         <p v-for="category in artist.data.categories.value">{{category.category.value.data.name.value}}</p>
                     </div>
                     <p class="artist__info__item artist__city p -grey">{{artist.data.city.value.data.name.value}}</p>
-                    <a class="artist__info__item artist__website p a -grey" href="{{artist.data.website.value}}" target="_blank">Website</a>
+                    <div class="artist__info__item">
+                        <p v-if="artist.data.website">
+                            <a class="artist__website p a -grey" href="{{artist.data.website.value}}" target="_blank">Website</a>
+                        </p>
+                        <p v-if="artist.data.instagram">
+                            <a class="artist__instagram p a -grey" href="{{artist.data.instagram.value}}" target="_blank">Instagram</a>
+                        </p>
+                    </div>
                 </div>
                 <div class="artist__gallery -column -exp-b">
                     <div v-for="galleryItem in artist.data.gallery.value" class="artist__gallery__item -exp">
@@ -209,8 +225,8 @@
             </article>
 
             <!-- Featured -->
-            <section class="featured js-featured -wrap -exp -text--center">
-                <h1 class="h1">Featured</h1>
+            <section class="features js-features -wrap -exp -text--center">
+                <h1 class="h1">Features</h1>
             </section>
 
             <!-- Feature -->
@@ -219,8 +235,10 @@
             </article>
 
             <!-- About -->
-            <section class="about js-about -wrap -exp -text--center">
-                <h1 class="h1">About</h1>
+            <section class="about js-about -wrap -exp ghost">
+                <div class="ghost__child -column--2of4">
+                    <div class="h1">{{data.description.value}}</div>
+                </div>
             </section>
         </div>
 

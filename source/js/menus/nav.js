@@ -104,8 +104,8 @@ const nav = {
      *
      */
     bindEvents () {
-        this.element.on( "click", onTapNavMenu );
-        this.trigger.on( "click", onTapNavIcon );
+        this.element.on( "click", onHitMenu );
+        this.trigger.on( "click", onHitIcon );
     },
 
 
@@ -132,13 +132,13 @@ const nav = {
 /**
  *
  * @private
- * @method onTapNavMenu
+ * @method onHitMenu
  * @param {object} e The Event object
  * @memberof menus.nav
  * @description Handles list icon event.
  *
  */
-const onTapNavMenu = function ( e ) {
+const onHitMenu = function ( e ) {
     const $target = $( e.target );
 
     if ( $target.is( ".js-nav" ) ) {
@@ -150,12 +150,12 @@ const onTapNavMenu = function ( e ) {
 /**
  *
  * @private
- * @method onTapNavIcon
+ * @method onHitIcon
  * @memberof menus.nav
  * @description Handles list icon event.
  *
  */
-const onTapNavIcon = function () {
+const onHitIcon = function () {
     nav.open();
 };
 
