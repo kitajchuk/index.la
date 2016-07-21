@@ -21,7 +21,7 @@ const submit = {
      *
      */
     init () {
-        this.scriptUrl = "";
+        this.scriptUrl = "https://script.google.com/macros/s/AKfycby_yOLDcfYSBgEW0aSP3yvHRCDPOhinfDs4QBIbk5jstVPJT2c/exec";
         this.element = core.dom.body.find( ".js-submit" );
         this.field = this.element.find( ".js-submit-field" );
         this.button = this.element.find( ".js-submit-button" );
@@ -80,23 +80,21 @@ const submit = {
 const ajaxGoogle = function () {
     submit.element.removeClass( "is-valid-field" );
 
-    core.log( "ajax google script here" );
-
-    // $.ajax({
-    //     url: submit.scriptUrl,
-    //     data: {
-    //         submission: submit.field[ 0 ].value
-    //     },
-    //     dataType: "jsonp"
-    // })
-    // .then(() => {
-    //     submit.close();
-    // });
+    $.ajax({
+        url: submit.scriptUrl,
+        data: {
+            submission: submit.field[ 0 ].value
+        },
+        dataType: "jsonp"
+    })
+    .then(() => {
+        submit.close();
+    });
 };
 
 
 const onKeyField = function ( e ) {
-    if ( submit.field[ 0 ].value ) {
+    if ( submit.field[ 0 ].value !== "" ) {
         submit.element.addClass( "is-valid-field" );
 
         if ( e.keyCode === 13 ) {
