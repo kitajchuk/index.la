@@ -3,11 +3,17 @@
 *******************************************************************************/
 .nav__menu {}
 .nav__menu__li {
-    display: inline-block;
+    display: block;
     text-transform: capitalize;
     vertical-align: middle;
 
     &:not( :first-child ) {
         margin-left: $expander-one;
         }
+    }
+.nav__menu__a {
+    cursor: pointer;
+    }
+.nav__menu__primary + .nav__menu__tertiary {
+    margin-top: 30px;
     }

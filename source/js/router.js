@@ -148,12 +148,16 @@ const router = {
         core.dom.html.removeClass( `is-${this.template}-page` );
 
         // @this.view
-        this.view.$destroy();
-        this.view = null;
+        if ( this.view ) {
+            this.view.$destroy();
+            this.view = null;
+        }
 
         // @this.imageController
-        this.imageController.destroy();
-        this.imageController = null;
+        if ( this.imageController ) {
+            this.imageController.destroy();
+            this.imageController = null;
+        }
 
         // @this.template
         this.template = null;

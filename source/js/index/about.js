@@ -46,13 +46,7 @@ const about = {
      *
      */
     load () {
-        const data = {
-            page: router.getState( "data" ).page.find(( el ) => {
-                return (el.slug === "about");
-            })
-        };
-
-        router.setView( this.template, data );
+        router.setView( this.template, router.getState( "data" ).meta[ 0 ] );
     },
 
 

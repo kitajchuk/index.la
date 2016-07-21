@@ -6,7 +6,7 @@
     left: 0;
     max-height: 100%;
     overflow: auto;
-    padding-top: calc( #{$header-height} - 1px );
+    padding-top: $header-height;
     top: 0;
     transition: padding-left $long-duration $ease-cubic-sharp,
                 transform $long-duration $ease-cubic-sharp;

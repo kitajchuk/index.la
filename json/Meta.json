@@ -21,6 +21,13 @@
                 "label": "Description"
             }
         },
+        "email": {
+            "type": "Text",
+            "fieldset": "Email",
+            "config": {
+                "label": "Email"
+            }
+        },
         "image": {
             "type": "Image",
             "fieldset": "Image",

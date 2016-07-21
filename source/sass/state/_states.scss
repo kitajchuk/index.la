@@ -21,14 +21,6 @@
     overflow: hidden;
 }
 
-.is-scrolling {
-    pointer-events: none;
-}
-
-.is-scrolling-up {}
-
-.is-scrolling-down {}
-
 .is-menu-open {
     .page {
         pointer-events: none;
@@ -43,10 +35,14 @@
     .header {
         padding-left: $filter-width;
         }
-    .icon--refine {
-        border-color: $grey-text;
+    .icon--search {
+        display: none;
+        }
+    .icon--arrow {
+        display: inline-block;
 
-        &:after {
+        &:after,
+        &:before {
             background-color: $grey-text;
             }
         }

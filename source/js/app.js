@@ -10,6 +10,7 @@ import index from "./index";
 import Socket from "./Socket";
 import router from "./router";
 import nav from "./menus/nav";
+import submit from "./menus/submit";
 import * as core from "./core";
 import intro from "./menus/intro";
 import about from "./index/about";
@@ -31,6 +32,7 @@ class App {
     constructor () {
         // Modules
         this.nav = nav;
+        this.submit = submit;
         this.core = core;
         this.intro = intro;
         this.index = index;
@@ -131,6 +133,7 @@ class App {
 
         // Utility
         this.nav.init();
+        this.submit.init();
         this.refine.init();
         this.templates.init();
 
