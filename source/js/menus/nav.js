@@ -44,8 +44,21 @@ const nav = {
      *
      */
     initView () {
+        const data = router.getState( "data" );
         const viewData = {
-            navs: router.getState( "data" ).nav
+            navs: data.nav.sort(( navA, navB ) => {
+                let ret = 0;
+
+                if ( navA.data.order.value < navB.data.order.value ) {
+                    ret = -1;
+
+                } else {
+                    ret = 1;
+                }
+
+                return ret;
+            }),
+            socials: data.social
         };
 
         this.view = new Vue({

@@ -43,10 +43,14 @@
     .header {
         padding-left: $filter-width;
         }
-    .icon--refine {
-        border-color: $grey-text;
+    .icon--search {
+        display: none;
+        }
+    .icon--arrow {
+        display: inline-block;
 
-        &:after {
+        &:after,
+        &:before {
             background-color: $grey-text;
             }
         }

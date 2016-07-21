@@ -37,7 +37,7 @@
         top: 50%;
         }
     }
-.icon--refine {
+.icon--search {
     border: 2px solid $black;
     border-radius: 100%;
     height: 18px;
@@ -79,6 +79,25 @@
         transform: rotate( -45deg );
         }
     }
+.icon--arrow {
+    &:after,
+    &:before {
+        background-color: $black;
+        content: "";
+        height: 13px;
+        left: 4px;
+        position: absolute;
+        width: 2px;
+        }
+    &:after {
+        top: -10px;
+        transform: rotate( 45deg );
+        }
+    &:before {
+        top: -1px;
+        transform: rotate( -45deg );
+        }
+    }
 
 
 
@@ -86,3 +105,8 @@
 .target--refine {
     display: none;
     }
+.target--refine {
+    .icon--arrow {
+        display: none;
+        }
+}
