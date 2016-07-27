@@ -138,11 +138,11 @@ class App {
         this.templates.init();
 
         // Views
-        this.index.init();
-        this.about.init();
-        this.artist.init();
-        this.feature.init();
-        this.features.init();
+        this.index.init( this );
+        this.about.init( this );
+        this.artist.init( this );
+        this.feature.init( this );
+        this.features.init( this );
 
         // Controller
         this.router.init();

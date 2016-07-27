@@ -1,5 +1,4 @@
 import $ from "properjs-hobo";
-import refine from "./refine";
 import router from "../router";
 import * as core from "../core";
 import Controller from "properjs-controller";
@@ -39,11 +38,14 @@ const artist = {
      *
      * @public
      * @method init
+     * @param {App} app The App Instance
      * @memberof artist
      * @description Method runs once when window loads.
      *
      */
-    init () {
+    init ( app ) {
+        this.app = app;
+
         core.emitter.on( "app--view-artist", this.load.bind( this ) );
         core.emitter.on( "app--view-teardown", this.teardown.bind( this ) );
 
@@ -61,24 +63,44 @@ const artist = {
      *
      */
     load ( slug ) {
-        const data = router.getState( "data" );
-        const viewArtist = data.artist.find(( el ) => {
+        const documents = router.getState( "artists" );
+
+        if ( documents ) {
+            this.view( slug );
+
+        } else {
+            this.app.socket.get( "index-documents", { type: "artists" }, ( data ) => {
+                router.setState( "artists", data, true );
+
+                this.view( slug );
+            });
+        }
+    },
+
+
+    /**
+     *
+     * @public
+     * @method view
+     * @param {string} slug The uri slug
+     * @memberof artist
+     * @description Method renders the view.
+     *
+     */
+    view ( slug ) {
+        const documents = router.getState( "artists" );
+        const viewArtist = documents.find(( el ) => {
             return (el.slug === slug);
         });
-        // Shuffle the array of other artists
-        const otherArtists = core.util.shuffle( data.artist )
-                                // Filter out only artists with matching categories
-                                .filter( this.filterOtherArtists.bind( this, viewArtist ) )
-                                // Slice the top dozen off the matched artists
-                                .slice( 0, this.otherLimit );
-        const viewData = {
-            artist: viewArtist,
-            otherArtists: otherArtists
-        };
 
-        router.setView( this.template, viewData );
-        refine.resetSearch();
-        refine.resetFilters();
+        router.setView( this.template, {
+            artist: viewArtist,
+            otherArtists: core.util.shuffle( documents )
+                                    // Filter out only artists with matching categories
+                                    .filter( this.filterOtherArtists.bind( this, viewArtist ) )
+                                    // Slice the top dozen off the matched artists
+                                    .slice( 0, this.otherLimit )
+        });
 
         this.bindScroll();
         this.bindVideos();

@@ -25,11 +25,8 @@ const nav = {
     init () {
         this.element = core.dom.body.find( ".js-nav" );
         this.trigger = core.dom.header.find( ".js-controller--nav" );
-        this.items = this.element.find( ".js-nav-item" );
         this.menu = new Menu( this.element );
         this.initView();
-        this.bindEvents();
-        this.toggleActive();
 
         core.log( "nav initialized" );
     },
@@ -64,7 +61,12 @@ const nav = {
         this.view = new Vue({
             el: this.element[ 0 ],
             data: viewData,
-            replace: false
+            replace: false,
+            compiled: () => {
+                this.items = this.element.find( ".js-nav-item" );
+                this.bindEvents();
+                this.toggleActive();
+            }
         });
     },
 
@@ -120,10 +122,10 @@ const nav = {
     toggleActive () {
         const $navi = this.items.filter( `[href='${window.location.pathname}']` );
 
-        this.items.removeClass( "-light" );
+        this.items.removeClass( "is-active" );
 
         if ( $navi.length ) {
-            $navi.addClass( "-light" );
+            $navi.addClass( "is-active" );
         }
     }
 };

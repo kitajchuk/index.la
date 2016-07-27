@@ -25,11 +25,14 @@ const feature = {
      *
      * @public
      * @method init
+     * @param {App} app The App Instance
      * @memberof feature
      * @description Method runs once when window loads.
      *
      */
-    init () {
+    init ( app ) {
+        this.app = app;
+
         core.emitter.on( "app--view-feature", this.load.bind( this ) );
         core.emitter.on( "app--view-teardown", this.teardown.bind( this ) );
 
@@ -47,13 +50,38 @@ const feature = {
      *
      */
     load ( slug ) {
-        const data = {
-            feature: router.getState( "data" ).feature.find(( el ) => {
+        const documents = router.getState( "features" );
+
+        if ( documents ) {
+            this.view( slug );
+
+        } else {
+            this.app.socket.get( "index-documents", { type: "features" }, ( data ) => {
+                router.setState( "features", data, true );
+
+                this.view( slug );
+            });
+        }
+    },
+
+
+    /**
+     *
+     * @public
+     * @method view
+     * @param {string} slug The uri slug
+     * @memberof feature
+     * @description Method renders the view.
+     *
+     */
+    view ( slug ) {
+        const documents = router.getState( "features" );
+
+        router.setView( this.template, {
+            feature: documents.find(( el ) => {
                 return (el.slug === slug);
             })
-        };
-
-        router.setView( this.template, data );
+        });
     },
 
 

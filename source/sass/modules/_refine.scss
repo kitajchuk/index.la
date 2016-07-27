@@ -13,6 +13,10 @@
     z-index: $z_layer_10;
     -webkit-overflow-scrolling: touch;
     }
+.refine-label {
+    margin-left: 30px;
+    transition: opacity $base-duration $ease;
+    }
 
 
 

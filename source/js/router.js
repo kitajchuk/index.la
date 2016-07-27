@@ -374,6 +374,8 @@ const router = {
 
         core.util.disableMouseWheel( false );
         core.util.disableTouchMove( false );
+
+        core.emitter.fire( "app--analytics-pageview" );
     }
 };
 

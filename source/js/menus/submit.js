@@ -42,6 +42,7 @@ const submit = {
      */
     open () {
         this.menu.open();
+        this.field[ 0 ].focus();
     },
 
 

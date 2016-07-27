@@ -4,10 +4,6 @@
 .index__row {
     border-top: 1px solid $grey-light;
     display: block;
-
-    &:first-child {
-        border-top: 0;
-        }
     }
 .index__thumbnail {
     max-width: 300px;

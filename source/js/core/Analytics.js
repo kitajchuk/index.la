@@ -1,4 +1,3 @@
-import $ from "properjs-hobo";
 import log from "./log";
 import env from "./env";
 import loadJS from "fg-loadjs";
@@ -28,7 +27,7 @@ class Analytics {
 
             this.initGoogleAnalytics();
 
-            emitter.on( "app--analytics-push", this.pushTrack.bind( this ) );
+            emitter.on( "app--analytics-pageview", this.track.bind( this ) );
 
             log( "Analytics initialized", this );
 
@@ -85,50 +84,10 @@ class Analytics {
      *
      */
     track () {
-        log( "Analytics track pageview" );
+        log( "Analytics pageview", window.location.href );
 
         // Google Analytics
         window.ga( "send", "pageview", window.location.href );
-    }
-
-
-    /**
-     *
-     * @public
-     * @method pushTrack
-     * @param {string} html The full responseText from an XHR request
-     * @param {Hobo} $doc Optional document node to receive and work with
-     * @memberof core.Analytics
-     * @description Parse static context from responseText and track it.
-     *
-     */
-    pushTrack ( html, $doc ) {
-        let $title = null;
-
-        $doc = ($doc || $( html ));
-        $title = $doc.find( "title" );
-
-        if ( !$title.length ) {
-            $title = $doc.filter( "title" );
-        }
-
-        this.track();
-
-        this.setDocumentTitle( $title[ 0 ].innerText );
-    }
-
-
-    /**
-     *
-     * @public
-     * @method setDocumentTitle
-     * @param {string} title The new title for the document
-     * @memberof core.Analytics
-     * @description Update the documents title.
-     *
-     */
-    setDocumentTitle ( title ) {
-        document.title = title;
     }
 }
 

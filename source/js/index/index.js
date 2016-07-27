@@ -26,11 +26,14 @@ const index = {
      *
      * @public
      * @method init
+     * @param {App} app The App Instance
      * @memberof index
      * @description Method runs once when window loads.
      *
      */
-    init () {
+    init ( app ) {
+        this.app = app;
+
         core.emitter.on( "app--view-index", this.load.bind( this ) );
         core.emitter.on( "app--view-teardown", this.teardown.bind( this ) );
 
@@ -47,12 +50,36 @@ const index = {
      *
      */
     load () {
-        const data = {
-            artists: router.getState( "data" ).artist
-        };
+        const documents = router.getState( "artists" );
 
-        router.setView( this.template, data );
-        refine.setData( data.artists );
+        if ( documents ) {
+            this.view();
+
+        } else {
+            this.app.socket.get( "index-documents", { type: "artists" }, ( data ) => {
+                router.setState( "artists", data, true );
+
+                this.view();
+            });
+        }
+    },
+
+
+    /**
+     *
+     * @public
+     * @method view
+     * @memberof index
+     * @description Method renders the view and sets refine data.
+     *
+     */
+    view () {
+        const documents = router.getState( "artists" );
+
+        refine.setData( documents );
+        router.setView( this.template, {
+            artists: documents
+        });
     },
 
 

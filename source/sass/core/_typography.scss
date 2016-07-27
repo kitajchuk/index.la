@@ -49,20 +49,6 @@
 .a {
     @include a();
     }
-.a-link {
-    color: $black;
-    border-bottom: 1px solid transparent;
-    display: inline;
-    transition: color $fast-duration $ease;
-
-    &.is-active {
-        color: $grey-text;
-        }
-
-    p {
-        display: inline;
-        }
-    }
 
 
 /******************************************************************************
