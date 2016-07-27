@@ -17,6 +17,12 @@
  *     secret:      {string}
  * }
  *
+ * WebSocketServer Event Names:
+ * index-stream
+ * index-complete
+ * index-document
+ * index-documents
+ *
  */
 var prismic = require( "./lib/prismic" );
 var sockets = require( "./lib/sockets" );
@@ -50,33 +56,48 @@ websocketServer.on( "connect", function ( connection ) {
     console.log( "WebSocketServer: Connected" );
 
     connection.sockets = new sockets.Class( connection );
+    connection.prismic = new prismic.Class( connection );
 
-    prismic( connection ).then(function () {
-        console.log( "Prismic data done." );
+    // connection.sockets.on( "index-document", function ( getData ) {
+    //     connection.prismic.getDocumentBySlug( getData.slug, getData.type ).then(function ( resData ) {
+    //         connection.sockets.success( "index-document", resData );
+    //
+    //     }).catch(function ( error ) {
+    //         console.log( "Get document data error.", error );
+    //     });
+    // });
 
-        connection.sockets.success( "index-done" );
+    connection.sockets.on( "index-documents", function ( getData ) {
+        connection.prismic.getDocumentsByType( getData.type ).then(function ( resData ) {
+            connection.sockets.success( "index-documents", resData );
+
+        }).catch(function ( error ) {
+            console.log( "Get documents data error.", error );
+        });
+    });
+
+    connection.prismic.getTertiarySiteData().then(function () {
+        connection.sockets.success( "index-complete", {} );
 
     }).catch(function ( error ) {
-        console.log( "Prismic data error.", error );
+        console.log( "Tertiary site data error.", error );
     });
 });
 websocketServer.on( "close", function ( connection ) {
     console.log( "WebSocketServer: Closed" );
 
-    connection.sockets = null;
-    connection = null;
+    // connection.sockets = null;
+    // connection.prismic = null;
+    // connection = null;
 });
 
 
 
 expressApp.use( bodyParser.json( {limit: "100mb"} ) );
 expressApp.use( bodyParser.urlencoded( {limit: "100mb", extended: true} ) );
-// expressApp.get( "/", checkOrigin, function ( req, res ) {
-//     prismic( req, res );
+// expressApp.get( "/publish", checkOrigin, function ( req, res ) {
+//     console.log( req.body );
 // });
-expressApp.get( "/publish", checkOrigin, function ( req, res ) {
-    console.log( req.body );
-});
 serverApp.listen( expressPort );
 
 

@@ -21,8 +21,6 @@ var helpers = {
      *
      */
     getLinkedDocuments ( docs, dict ) {
-        this.uuid = 0;
-
         const ret = [];
         const data = JSON.parse( JSON.stringify( dict ) );
 
@@ -156,6 +154,7 @@ var helpers = {
             id: doc.id,
             slug: doc.slug,
             type: doc.type,
+            tags: doc.tags,
             data: {},
             show: true,
             uuid: this.uuid++
@@ -165,8 +164,12 @@ var helpers = {
             if ( doc.data.hasOwnProperty( i ) ) {
                 key = i.replace( doc.type + ".", "" );
 
+                // Skip linked document without dict references
+                if ( doc.data[ i ].type === "Link.document" && !dict[ doc.data[ i ].value.document.type ] ) {
+                    ret.data[ key ] = doc.data[ i ];
+
                 // Skip broken document links
-                if ( doc.data[ i ].type === "Link.document" && !doc.data[ i ].value.isBroken ) {
+                } else if ( doc.data[ i ].type === "Link.document" && !doc.data[ i ].value.isBroken ) {
                     ret.data[ key ] = {
                         type: "Link.document",
                         value: this._getDocumentLink( doc.data[ i ].value.document, dict )

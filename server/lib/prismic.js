@@ -4,8 +4,38 @@ var apiAccess = "https://index-la.cdn.prismic.io/api";
 
 
 
-module.exports = function ( connection ) {
-    var linkDict = {
+/**
+ *
+ * @description Delete what will not be used on a document
+ * @method purge
+ * @param {object} doc The document
+ * @returns {object}
+ * @private
+ *
+ */
+var purge = function ( doc ) {
+    delete doc.fragments;
+    delete doc.slugs;
+    delete doc.href;
+    delete doc.uid;
+
+    return doc;
+};
+
+
+
+/**
+ *
+ * @description Create the prismic utility class
+ * @class Class
+ * @param {object} connection The WebSocketServer connection
+ * @public
+ *
+ */
+var Class = function ( connection ) {
+    this.api = null;
+    this.connection = connection;
+    this.linkDict = {
         nav: [],
         meta: [],
         sort: [],
@@ -13,108 +43,116 @@ module.exports = function ( connection ) {
         city: [],
         social: [],
         region: [],
-        feature: [],
         category: []
     };
-    var linkTypes = [
-        "navs",
-        "meta",
-        "sorts",
-        "types",
-        "cities",
-        "socials",
-        "regions",
-        "features",
-        "categories"
-    ];
-    var statLength = linkTypes.length;
-    var killLength = linkTypes.length;
+};
 
-    return new Promise(function ( resolve, reject ) {
-        prismic.api( apiAccess, undefined ).then(function ( api ) {
-            //console.log( api );
 
-            // Delete what will not be used on a document
-            var purge = function ( doc ) {
-                delete doc.fragments;
-                delete doc.slugs;
-                //delete doc.tags;
-                delete doc.href;
-                delete doc.uid;
 
-                return doc;
-            };
+Class.prototype = {
+    /**
+     *
+     * @public
+     * @instance
+     * @method getTertiarySiteData
+     * @memberof Class
+     * @description Get all tertiary data to populate the client application.
+     * @returns {Promise}
+     *
+     */
+    getTertiarySiteData: function () {
+        var self = this;
+        var linkTypes = [
+            "navs",
+            "meta",
+            "sorts",
+            "types",
+            "cities",
+            "socials",
+            "regions",
+            "categories"
+        ];
+        var statLength = linkTypes.length;
+        var killLength = linkTypes.length;
 
-            // Get all types that will be `Link.document`
-            var links = function () {
-                return new Promise(function ( res, rej ) {
-                    var link = function ( form ) {
-                        api.form( form ).ref( api.master() ).page( 1 ).pageSize( 100 ).submit().then(function ( json ) {
-                            var type = json.results[ 0 ].type;
+        return new Promise(function ( resolve, reject ) {
+            prismic.api( apiAccess, undefined ).then(function ( api ) {
+                // Store api for later use
+                self.api = api;
 
-                            json.results.forEach(function ( document ) {
-                                document.data = helpers._cleanDataKeys( document.data );
+                // Build document link dictionary for later use
+                var links = function () {
+                    return new Promise(function ( res, rej ) {
+                        var link = function ( form ) {
+                            api.form( form ).ref( api.master() ).page( 1 ).pageSize( 100 ).submit().then(function ( json ) {
+                                var type = json.results[ 0 ].type;
 
-                                linkDict[ type ].push( purge( document ) );
+                                json.results.forEach(function ( document ) {
+                                    document.data = helpers._cleanDataKeys( document.data );
+
+                                    self.linkDict[ type ].push( purge( document ) );
+                                });
+
+                                killLength--;
+
+                                self.connection.sockets.success( "index-stream", {
+                                    type: type,
+                                    stat: 100 -  killLength / statLength * 100,
+                                    value: self.linkDict[ type ]
+                                });
+
+                                if ( !linkTypes.length ) {
+                                    res();
+
+                                } else {
+                                    link( linkTypes.pop() );
+                                }
                             });
+                        };
 
-                            killLength--;
-
-                            connection.sockets.success( "index-stream", {
-                                type: type,
-                                stat: 100 -  killLength / statLength * 100,
-                                value: linkDict[ type ]
-                            });
-
-                            if ( !linkTypes.length ) {
-                                res();
-
-                            } else {
-                                link( linkTypes.pop() );
-                            }
-                        });
-                    };
-
-                    link( linkTypes.pop() );
-                });
-            };
-
-            // Handle linking documents for aritsts
-            var handle = function ( documents ) {
-                documents = helpers.getLinkedDocuments( documents, linkDict );
-
-                killLength--;
-
-                connection.sockets.success( "index-stream", {
-                    type: "artist",
-                    stat: 100 - killLength / statLength * 100,
-                    value: documents
-                });
-            };
-
-            // Query a page of artists
-            var query = function ( page ) {
-                api.form( "artists" ).ref( api.master() ).page( page ).pageSize( 100 ).submit().then(function ( json ) {
-                    var documents = [];
-
-                    if ( !killLength ) {
-                        killLength += json.total_pages;
-                        statLength += json.total_pages;
-                    }
-
-                    json.results.forEach(function ( document ) {
-                        documents.push( purge( document ) );
+                        link( linkTypes.pop() );
                     });
+                };
 
-                    handle( documents );
+                links().then(function () {
+                    resolve();
+                });
+
+            }).catch(function ( error ) {
+                reject( error );
+            });
+        });
+    },
+
+
+    /**
+     *
+     * @public
+     * @instance
+     * @method getDocumentsByType
+     * @memberof Class
+     * @description Get a list of documents by their type.
+     * @returns {Promise}
+     *
+     */
+    getDocumentsByType: function ( type ) {
+        var self = this;
+        var response = [];
+
+        return new Promise(function ( resolve, reject ) {
+            var query = function ( page ) {
+                self.api.form( type ).ref( self.api.master() ).page( page ).pageSize( 100 ).submit().then(function ( json ) {
+                    var documents = helpers.getLinkedDocuments( json.results, self.linkDict );
+
+                    documents.forEach(function ( document ) {
+                        response.push( purge( document ) );
+                    });
 
                     if ( json.next_page ) {
                         query( (page + 1) );
 
                     } else {
-                        connection.sockets.success( "index-complete", {} );
-
-                        resolve();
+                        resolve( response );
                     }
 
                 }).catch(function ( error ) {
@@ -122,12 +160,49 @@ module.exports = function ( connection ) {
                 });
             };
 
-            links().then(function () {
-                query( 1 );
-            });
-
-        }).catch(function ( error ) {
-            reject( error );
+            query( 1 );
         });
-    });
+    },
+
+
+    /**
+     *
+     * @public
+     * @instance
+     * @method getDocumentBySlug
+     * @memberof Class
+     * @description Get a document by its slug and type.
+     * @returns {Promise}
+     *
+     */
+    // getDocumentBySlug: function ( slug, type ) {
+    //     var self = this;
+    //     var response = [];
+    //     var query = [
+    //         prismic.Predicates.at( "document.type", type ),
+    //         prismic.Predicates.fulltext( "document", slug )
+    //     ];
+    //
+    //     return new Promise(function ( resolve, reject ) {
+    //         console.log( slug, type );
+    //         self.api.query( query ).then(function ( json ) {
+    //             var documents = helpers.getLinkedDocuments( json.results, self.linkDict );
+    //
+    //             documents.forEach(function ( document ) {
+    //                 response.push( purge( document ) );
+    //             });
+    //
+    //             resolve( response[ 0 ] );
+    //
+    //         }).catch(function ( error ) {
+    //             reject( error );
+    //         });
+    //     });
+    // }
+};
+
+
+
+module.exports = {
+    Class: Class
 };

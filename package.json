@@ -13,7 +13,7 @@
     "sync": "./node_modules/.bin/prismic-express sync",
     "build": "./node_modules/.bin/prismic-express build",
     "webpack": "./node_modules/.bin/webpack -d --colors",
-    "postinstall": "cd ./node_modules/properjs-hobo && npm install && npm run build -- 'is eq not filter detach append remove parent closest children'"
+    "postinstall": "cd ./node_modules/properjs-hobo && npm install && npm run build -- 'is eq not filter detach append remove parent trigger closest children'"
   },
   "devDependencies": {
     "autoprefixer": "^6.3.6",

@@ -1,10 +1,15 @@
 /******************************************************************************
  * Nav Menu
 *******************************************************************************/
-.nav__menu {}
+.nav__wrap {
+    pointer-events: none;
+    }
+.nav__logo,
+.nav__menu {
+    pointer-events: auto;
+    }
 .nav__menu__li {
     display: block;
-    text-transform: capitalize;
     vertical-align: middle;
 
     &:not( :first-child ) {
@@ -13,6 +18,10 @@
     }
 .nav__menu__a {
     cursor: pointer;
+
+    &.is-active {
+        color: $black;
+        }
     }
 .nav__menu__primary + .nav__menu__tertiary {
     margin-top: 30px;

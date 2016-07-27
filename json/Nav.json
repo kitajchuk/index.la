@@ -12,7 +12,8 @@
             "fieldset": "Nav Style",
             "config": {
                 "label": "Style",
-                "options": ["primary", "tertiary"]
+                "options": ["primary", "tertiary"],
+                "placeholder": "primary"
             }
         },
         "title": {

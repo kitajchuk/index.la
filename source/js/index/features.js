@@ -25,11 +25,14 @@ const features = {
      *
      * @public
      * @method init
+     * @param {App} app The App Instance
      * @memberof features
      * @description Method runs once when window loads.
      *
      */
-    init () {
+    init ( app ) {
+        this.app = app;
+
         core.emitter.on( "app--view-features", this.load.bind( this ) );
         core.emitter.on( "app--view-teardown", this.teardown.bind( this ) );
 
@@ -46,11 +49,35 @@ const features = {
      *
      */
     load () {
-        const data = {
-            features: router.getState( "data" ).feature
-        };
+        const documents = router.getState( "features" );
 
-        router.setView( this.template, data );
+        if ( documents ) {
+            this.view();
+
+        } else {
+            this.app.socket.get( "index-documents", { type: "features" }, ( data ) => {
+                router.setState( "features", data, true );
+
+                this.view();
+            });
+        }
+    },
+
+
+    /**
+     *
+     * @public
+     * @method view
+     * @memberof features
+     * @description Method renders the view and sets refine data.
+     *
+     */
+    view () {
+        const documents = router.getState( "features" );
+
+        router.setView( this.template, {
+            features: documents
+        });
     },
 
 

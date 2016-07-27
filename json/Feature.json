@@ -23,21 +23,62 @@
                 "placeholder": "Add image..."
             }
         },
-        "gallery": {
-            "type": "Group",
-            "fieldset": "Gallery",
+        "body": {
+            "type": "Slices",
+            "fieldset": "Body",
             "config": {
-                "fields": {
-                    "image": {
-                        "type": "Link",
+                "choices": {
+                    "text": {
+                        "type": "StructuredText",
+                        "fieldset": "Text",
+                        "config": {
+                            "placeholder": "Add text...",
+                            "multi": "heading1,heading2,heading3,heading4,heading5,heading6,paragraph,strong,em,hyperlink,ulist,olist"
+                        }
+                    },
+                    "single-image": {
+                        "type": "Group",
                         "fieldset": "Image",
                         "config": {
-                            "select": "media",
-                            "placeholder": "Add image..."
+                            "fields": {
+                                "style": {
+                                    "type": "Select",
+                                    "fieldset": "Image style",
+                                    "config": {
+                                        "label": "Image Style",
+                                        "options": ["fullwidth", "constrained"],
+                                        "placeholder": "constrained"
+                                    }
+                                },
+                                "image": {
+                                    "type": "Image"
+                                },
+                                "caption": {
+                                    "type": "StructuredText",
+                                    "fieldset": "Text",
+                                    "config": {
+                                        "placeholder": "Add caption...",
+                                        "multi": "paragraph,hyperlink"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "diptych": {
+                        "type": "Group",
+                        "fieldset": "Diptych",
+                        "config": {
+                            "fields": {
+                                "left-image": {
+                                    "type": "Image"
+                                },
+                                "right-image": {
+                                    "type": "Image"
+                                }
+                            }
                         }
                     }
-                },
-                "repeat": true
+                }
             }
         }
     }

@@ -22,6 +22,7 @@ const refine = {
      */
     init () {
         this.element = core.dom.body.find( ".js-refine" );
+        this.label = core.dom.body.find( ".js-refine-label" );
         this.trigger = core.dom.header.find( ".js-controller--refine" );
         this.isOpen = false;
         this.initView();
@@ -38,23 +39,34 @@ const refine = {
      */
     initView () {
         const data = router.getState( "data" );
-        const viewData = {
-            sorts: data.sort,
-            types: data.type,
-            regions: data.region,
-            categories: data.category
-        };
 
-        this.view = new Vue({
+        this.viewMenu = new Vue({
             el: this.element[ 0 ],
-            data: viewData,
+            data: {
+                sorts: data.sort,
+                types: data.type,
+                regions: data.region,
+                categories: data.category
+            },
             replace: false,
             compiled: () => {
                 this.filters = this.element.find( ".js-filter-option" );
                 this.search = this.element.find( ".js-search-field" );
                 this.sorts = this.element.find( ".js-sort-option" );
+                this.active = {
+                    sort: this.sorts.eq( 0 ).data(),
+                    label: "",
+                    search: null,
+                    filters: null
+                };
                 this.bindEvents();
             }
+        });
+
+        this.viewLabel = new Vue({
+            el: this.label[ 0 ],
+            data: this.active,
+            replace: false
         });
     },
 
@@ -70,6 +82,55 @@ const refine = {
      */
     setData ( data ) {
         this.data = data;
+        this.applyState();
+    },
+
+
+    /**
+     *
+     * @public
+     * @method applyState
+     * @memberof refine
+     * @description Apply the saved refinement state
+     *
+     */
+    applyState () {
+        if ( this.active.sort ) {
+            this.sortBy( this.active.sort );
+        }
+
+        if ( this.active.filters ) {
+            this.filterBy( this.active.filters );
+        }
+
+        if ( this.active.search ) {
+            this.search[ 0 ].value = this.active.search;
+            this.searchBy( this.active.search );
+        }
+    },
+
+
+    /**
+     *
+     * @public
+     * @method applyLabel
+     * @memberof refine
+     * @description Set the visual label for refinement selections
+     *
+     */
+    applyLabel () {
+        const label = [];
+
+        if ( this.active.filters ) {
+            this.active.filters.forEach(( filterSet ) => {
+                label.push( filterSet.value );
+            });
+
+        } else if ( this.active.search ) {
+            label.push( this.active.search );
+        }
+
+        this.active.label = label.join( " / " );
     },
 
 
@@ -83,6 +144,7 @@ const refine = {
      */
     resetSearch () {
         this.search[ 0 ].value = "";
+        this.active.search = null;
     },
 
 
@@ -95,8 +157,9 @@ const refine = {
      *
      */
     resetFilters () {
-        this.sorts.removeClass( "is-active" );
         this.filters.removeClass( "is-active" );
+        this.active.filters = null;
+        this.active.sort = this.sorts.eq( 0 ).data();
         this.showAll();
     },
 
@@ -188,13 +251,13 @@ const refine = {
      *
      * @public
      * @method sortBy
-     * @param {string} key The type of sort to perform
+     * @param {object} data The sort label and value
      * @memberof refine
      * @description Sort by a criteria
      *
      */
-    sortBy ( key ) {
-        this.processSort( key );
+    sortBy ( data ) {
+        this.processSort( data );
     },
 
 
@@ -305,6 +368,8 @@ const refine = {
                 }
             });
         }
+
+        this.active.search = keyword;
     },
 
 
@@ -345,6 +410,8 @@ const refine = {
             }
         });
 
+        this.active.filters = filters;
+
         if ( has === needs ) {
             element.show = true;
         }
@@ -355,17 +422,19 @@ const refine = {
      *
      * @public
      * @method processSort
-     * @param {string} key The sorting order
+     * @param {object} data The sort label and value
      * @memberof refine
      * @description Process a documents against a sorting order
      *
      */
-    processSort ( key ) {
+    processSort ( data ) {
+        this.active.sort = data;
+
         this.data.sort(( a, b ) => {
             let ret = 0;
 
-            a = (a[ key ] !== undefined ? a[ key ] : typeof a.data[ key ].value === "object" ? a.data[ key ].value.data.name.value : a.data[ key ].value);
-            b = (b[ key ] !== undefined ? b[ key ] : typeof b.data[ key ].value === "object" ? b.data[ key ].value.data.name.value : b.data[ key ].value);
+            a = (a[ data.value ] !== undefined ? a[ data.value ] : typeof a.data[ data.value ].value === "object" ? a.data[ data.value ].value.data.name.value : a.data[ data.value ].value);
+            b = (b[ data.value ] !== undefined ? b[ data.value ] : typeof b.data[ data.value ].value === "object" ? b.data[ data.value ].value.data.name.value : b.data[ data.value ].value);
 
             if ( a < b ) {
                 ret = -1;
@@ -409,39 +478,35 @@ const onSearchKey = function ( e ) {
         refine.resetFilters();
         refine.searchBy( this.value );
         refine.resetScroll();
+        refine.applyLabel();
     }
 };
 
 
 const onSortOption = function ( e ) {
     const $target = $( e.target );
-    let value = $target.data( "value" );
+    const data = $target.data();
 
-    if ( $target.is( ".is-active" ) ) {
-        value = "uuid";
-        $target.removeClass( "is-active" );
-
-    } else {
+    if ( !$target.is( ".is-active" ) ) {
         refine.sorts.removeClass( "is-active" );
         $target.addClass( "is-active" );
-    }
 
-    refine.resetSearch();
-    refine.sortBy( value );
-    refine.resetScroll();
+        refine.resetSearch();
+        refine.sortBy( data );
+        refine.resetScroll();
+        refine.applyLabel();
+    }
 };
 
 
 const onFilterOption = function ( e ) {
     const $target = $( e.target );
-    const $filters = $target.parent().children();
     const filters = [];
 
     if ( $target.is( ".is-active" ) ) {
         $target.removeClass( "is-active" );
 
     } else {
-        $filters.removeClass( "is-active" );
         $target.addClass( "is-active" );
     }
 
@@ -454,6 +519,7 @@ const onFilterOption = function ( e ) {
     refine.resetSearch();
     refine.filterBy( filters );
     refine.resetScroll();
+    refine.applyLabel();
 };
 
 

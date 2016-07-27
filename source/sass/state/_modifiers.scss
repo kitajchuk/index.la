@@ -8,6 +8,9 @@
 .-exp-t {
     padding-top: $expander-one;
     }
+.-exp-tt {
+    padding-top: $expander-one * 2;
+    }
 .-exp-b {
     padding-bottom: $expander-one;
     }
@@ -28,6 +31,9 @@
     }
 .-wrap-r {
     padding-right: $wrapper-padding;
+    }
+.-bump {
+    margin-top: $mobile-padding;
     }
 
 

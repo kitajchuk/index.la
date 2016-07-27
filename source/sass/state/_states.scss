@@ -1,11 +1,7 @@
 /******************************************************************************
  * Document States
 *******************************************************************************/
-.is-hoverable {
-    .a-link:hover {
-        color: $grey-text;
-        }
-}
+.is-hoverable {}
 
 .is-hidden {
     display: none;
@@ -30,6 +26,9 @@
 .is-refine-open {
     .refine {
         transform: translate3d( 0, 0, 0 );
+        }
+    .refine-label {
+        opacity: 0;
         }
     .page,
     .header {
@@ -57,5 +56,21 @@
 .is-artist-page {
     .target--back {
         display: inline-block;
+        }
+}
+
+.is-black-page {
+    background-color: $black;
+
+    .header {
+        background-color: transparent;
+        }
+    .icon--list {
+        border-top-color: $white;
+
+        &:after,
+        &:before {
+            background-color: $white;
+            }
         }
 }

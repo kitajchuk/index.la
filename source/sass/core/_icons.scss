@@ -62,21 +62,24 @@
 //     width: 24px;
 //     }
 .icon--arrow {
+    height: 18px;
+    width: 18px;
+
     &:after,
     &:before {
         background-color: $black;
         content: "";
-        height: 13px;
+        height: 15px;
         left: 4px;
         position: absolute;
         width: 2px;
         }
     &:after {
-        top: -10px;
+        top: -3px;
         transform: rotate( 45deg );
         }
     &:before {
-        top: -2px;
+        bottom: -3px;
         transform: rotate( -45deg );
         }
 }
