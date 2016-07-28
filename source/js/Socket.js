@@ -22,7 +22,6 @@ class Socket {
 
     /**
      *
-     * @global
      * @instance
      * @method on
      * @param {string} evt The {@link Socket.broadcast} event
@@ -42,7 +41,6 @@ class Socket {
 
     /**
      *
-     * @global
      * @instance
      * @method get
      * @param {string} evt The {@link Socket.broadcast} event
@@ -74,7 +72,6 @@ class Socket {
 
     /**
      *
-     * @global
      * @instance
      * @method post
      * @param {string} evt The {@link Socket.broadcast} event
@@ -91,7 +88,6 @@ class Socket {
 
     /**
      *
-     * @global
      * @instance
      * @method send
      * @param {object} dt The data to pass to the server
@@ -110,7 +106,6 @@ class Socket {
 
     /**
      *
-     * @global
      * @instance
      * @method emit
      * @param {string} evt The {@link Socket.broadcast} event
@@ -132,7 +127,6 @@ class Socket {
 
     /**
      *
-     * @global
      * @instance
      * @method connect
      * @param {function} cb The callback to fire on connected
@@ -206,7 +200,6 @@ class Socket {
 
     /**
      *
-     * @global
      * @instance
      * @method disconnect
      * @description Close the WebSocket client connection.

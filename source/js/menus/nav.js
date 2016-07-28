@@ -1,7 +1,6 @@
 import $ from "properjs-hobo";
 import * as core from "../core";
 import Menu from "./Menu";
-import router from "../router";
 import Vue from "vue";
 
 
@@ -41,7 +40,7 @@ const nav = {
      *
      */
     initView () {
-        const data = router.getState( "data" );
+        const data = core.cache.get( "data" );
         const viewData = {
             navs: data.nav.sort(( navA, navB ) => {
                 let ret = 0;
@@ -106,8 +105,25 @@ const nav = {
      *
      */
     bindEvents () {
-        this.element.on( "click", onHitMenu );
-        this.trigger.on( "click", onHitIcon );
+        this.element.on( "click", ( e ) => {
+            const $target = $( e.target );
+
+            if ( $target.is( ".js-nav" ) ) {
+                this.close();
+            }
+        });
+
+        this.trigger.on( "click", () => {
+            this.open();
+        });
+
+        core.emitter.on( "app--scrollup", () => {
+            core.dom.header.removeClass( "is-inactive" );
+        });
+
+        core.emitter.on( "app--scrolldown", () => {
+            core.dom.header.addClass( "is-inactive" );
+        });
     },
 
 
@@ -128,37 +144,6 @@ const nav = {
             $navi.addClass( "is-active" );
         }
     }
-};
-
-
-/**
- *
- * @private
- * @method onHitMenu
- * @param {object} e The Event object
- * @memberof menus.nav
- * @description Handles list icon event.
- *
- */
-const onHitMenu = function ( e ) {
-    const $target = $( e.target );
-
-    if ( $target.is( ".js-nav" ) ) {
-        nav.close();
-    }
-};
-
-
-/**
- *
- * @private
- * @method onHitIcon
- * @memberof menus.nav
- * @description Handles list icon event.
- *
- */
-const onHitIcon = function () {
-    nav.open();
 };
 
 

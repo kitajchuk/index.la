@@ -1,6 +1,7 @@
 import Vue from "vue";
 import nav from "./menus/nav";
 import * as core from "./core";
+import Animator from "./Animator";
 import refine from "./index/refine";
 import templates from "./index/templates";
 import PageController from "properjs-pagecontroller";
@@ -34,17 +35,6 @@ const router = {
      *
      */
     template: null,
-
-
-    /**
-     *
-     * @public
-     * @member state
-     * @memberof router
-     * @description The internal state module.
-     *
-     */
-    state: {},
 
 
     /**
@@ -159,6 +149,12 @@ const router = {
             this.imageController = null;
         }
 
+        // @this.animController
+        if ( this.animController ) {
+            this.animController.destroy();
+            this.animController = null;
+        }
+
         // @this.template
         this.template = null;
     },
@@ -170,6 +166,7 @@ const router = {
      * @method setView
      * @param {string} tpl The template access ID
      * @param {object} data The PageController data object
+     * @param {function} cb The callback for view ready
      * @memberof router
      * @description Handle creating the new current view.
      *
@@ -185,6 +182,9 @@ const router = {
             compiled: () => {
                 // @this.imageController
                 this.imageController = core.images.handleImages();
+
+                // @this.animController
+                this.animController = new Animator( core.dom.page.find( ".js-animate" ) );
             },
             ready: () => {
                 core.dom.html.removeClass( "is-inactive" );
@@ -196,81 +196,6 @@ const router = {
         });
 
         core.dom.html.addClass( `is-${this.template}-page` );
-    },
-
-
-    /**
-     *
-     * @public
-     * @method setState
-     * @memberof router
-     * @param {string} name The access key
-     * @param {mixed} value The storage value
-     * @param {boolean} keep Optional - will actually persist the state ref
-     * @description Non-persistent state.
-     *              This state object will persist for one router cycle.
-     *              The next router cycle will delete this state object.
-     *
-     */
-    setState ( name, value, keep ) {
-        this.state[ name ] = {
-            checked: false,
-            keep,
-            name,
-            value
-        };
-    },
-
-
-    /**
-     *
-     * @public
-     * @method getState
-     * @memberof router
-     * @param {string} name The access key
-     * @description Access a state object ref by its name.
-     * @returns {mixed}
-     *
-     */
-    getState ( name ) {
-        let id = null;
-        let ret = null;
-
-        for ( id in this.state ) {
-            if ( this.state.hasOwnProperty( id ) ) {
-                if ( this.state[ id ].name === name ) {
-                    ret = this.state[ id ].value;
-                    break;
-                }
-            }
-        }
-
-        return ret;
-    },
-
-
-    /**
-     *
-     * @public
-     * @method checkState
-     * @memberof router
-     * @description Process state objects.
-     *              Objects that have already been `checked` are deleted.
-     *
-     */
-    checkState () {
-        let id = null;
-
-        for ( id in this.state ) {
-            if ( this.state.hasOwnProperty( id ) ) {
-                if ( this.state[ id ].checked && !this.state[ id ].keep ) {
-                    delete this.state[ id ];
-
-                } else {
-                    this.state[ id ].checked = true;
-                }
-            }
-        }
     },
 
 
@@ -300,7 +225,6 @@ const router = {
      */
     push ( path, cb ) {
         this.controller.routeSilently( path, (cb || core.util.noop) );
-        this.checkState();
     },
 
 
@@ -328,9 +252,6 @@ const router = {
     changePageOut () {
         core.dom.html.addClass( "is-inactive" );
 
-        core.util.disableMouseWheel( true );
-        core.util.disableTouchMove( true );
-
         setTimeout( () => {
             nav.close();
             refine.close();
@@ -354,9 +275,6 @@ const router = {
      */
     changeContent ( data ) {
         this.viewChange( data );
-
-        // Check state before cycle finishes so `checked` state can be deleted
-        this.checkState();
     },
 
 
@@ -371,9 +289,6 @@ const router = {
      */
     changePageIn ( /* data */ ) {
         nav.toggleActive();
-
-        core.util.disableMouseWheel( false );
-        core.util.disableTouchMove( false );
 
         core.emitter.fire( "app--analytics-pageview" );
     }

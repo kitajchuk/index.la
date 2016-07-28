@@ -50,14 +50,14 @@ const index = {
      *
      */
     load () {
-        const documents = router.getState( "artists" );
+        const documents = core.cache.get( "artists" );
 
         if ( documents ) {
             this.view();
 
         } else {
             this.app.socket.get( "index-documents", { type: "artists" }, ( data ) => {
-                router.setState( "artists", data, true );
+                core.cache.set( "artists", data );
 
                 this.view();
             });
@@ -74,7 +74,7 @@ const index = {
      *
      */
     view () {
-        const documents = router.getState( "artists" );
+        const documents = core.cache.get( "artists" );
         const viewData = {
             documents: documents,
             noresults: false

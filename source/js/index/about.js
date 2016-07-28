@@ -46,7 +46,7 @@ const about = {
      *
      */
     load () {
-        const data = router.getState( "data" );
+        const data = core.cache.get( "data" );
 
         router.setView( this.template, {
             meta: data.meta[ 0 ],

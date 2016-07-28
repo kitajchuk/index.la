@@ -44,22 +44,22 @@ const feature = {
      *
      * @public
      * @method load
-     * @param {string} slug The document slug
+     * @param {string} uri The document uri
      * @memberof feature
      * @description Method performs onloading actions for this module.
      *
      */
-    load ( slug ) {
-        const documents = router.getState( "features" );
+    load ( uri ) {
+        const documents = core.cache.get( "features" );
 
         if ( documents ) {
-            this.view( slug );
+            this.view( uri );
 
         } else {
             this.app.socket.get( "index-documents", { type: "features" }, ( data ) => {
-                router.setState( "features", data, true );
+                core.cache.set( "features", data );
 
-                this.view( slug );
+                this.view( uri );
             });
         }
     },
@@ -69,17 +69,17 @@ const feature = {
      *
      * @public
      * @method view
-     * @param {string} slug The uri slug
+     * @param {string} uri The uri slug
      * @memberof feature
      * @description Method renders the view.
      *
      */
-    view ( slug ) {
-        const documents = router.getState( "features" );
+    view ( uri ) {
+        const documents = core.cache.get( "features" );
 
         router.setView( this.template, {
             feature: documents.find(( el ) => {
-                return (el.slug === slug);
+                return (el.uri === uri);
             })
         });
     },

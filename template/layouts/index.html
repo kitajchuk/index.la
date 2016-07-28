@@ -56,7 +56,9 @@
                         <span class="icon p -grey refine-label js-refine-label">{{label}}</span>
                     </span>
                     <a href="/" class="target--back icon-wrap">
-                        <span class="icon icon--arrow"></span>
+                        <span class="icon icon--back">
+                            <span></span>
+                        </span>
                     </a>
                 </div>
                 <div class="-wrap-r -column -column--2of4 -text--right">
@@ -155,18 +157,18 @@
                 <div v-if="noresults" class="-wrap -exp -f-zero">
                     <div class="h4">No Artists</div>
                 </div>
-                <div v-for="artist in documents" class="index__row -wrap -exp -f-zero -text--center {{artist.show ? 'is-active' : 'is-hidden'}}" data-uuid="{{artist.uuid}}">
+                <div v-for="artist in documents" class="index__row -wrap -exp -f-zero -text--center {{artist.show ? 'animate animate--fade js-animate' : 'is-hidden'}}" data-uuid="{{artist.uuid}}">
                     <div class="index__col index__feature -column -text--left">
                         <div class="index__thumbnail">
                             <figure class="index__figure">
-                                <a href="/artist/{{artist.slug}}/">
+                                <a href="/artist/{{artist.uri}}/">
                                     <img class="index__image image image--{{artist.data.featureImage.value.main.dimensions.width > artist.data.featureImage.value.main.dimensions.height ? 'wide' : 'tall'}} js-lazy-image" data-img-src="{{artist.data.featureImage.value.main.url}}" />
                                 </a>
                             </figure>
                         </div>
                     </div>
                     <div class="index__col index__name -column -text--left">
-                        <a href="/artist/{{artist.slug}}/">
+                        <a href="/artist/{{artist.uri}}/">
                             <p class="p">{{artist.data.name.value}}</p>
                             <p class="p -grey" v-for="type in artist.data.types.value">{{type.type.value.data.name.value}}</p>
                         </a>
@@ -201,7 +203,7 @@
                     </div>
                 </div>
                 <div class="artist__gallery -column">
-                    <div v-for="galleryItem in artist.data.gallery.value" class="artist__gallery__item -exp">
+                    <div v-for="galleryItem in artist.data.gallery.value" class="artist__gallery__item -exp animate animate--fade js-animate">
                         <div v-if="galleryItem.video" class="artist__gallery__video js-artist-video" data-provider="{{galleryItem.video.value.oembed.provider_name.toLowerCase()}}" v-bind:style="{paddingBottom: galleryItem.video.value.oembed.height / galleryItem.video.value.oembed.width * 100 + '%'}">
                             {{{galleryItem.video.value.oembed.html.replace( 'feature=oembed', 'enablejsapi=1' )}}}
                             <div class="artist__gallery__poster js-lazy-image -cover" data-img-src="{{galleryItem.image ? galleryItem.image.value.image.url : galleryItem.video.value.oembed.thumbnail_url}}">
@@ -214,16 +216,14 @@
                     </div>
                 </div>
                 <div class="artist__related__label h3 -wrap">Related Artists</div>
-                <div class="artist__related js-artist-related -wrap-w">
-                    <div v-for="relatedArtist in relatedArtists" class="artist__related__col -wrap -exp -column -column--1of3">
-                        <div class="index__thumbnail artist__related__thumbnail">
-                            <figure class="index__figure">
-                                <a href="/artist/{{relatedArtist.slug}}/">
-                                    <img class="index__image image image--{{relatedArtist.data.featureImage.value.main.dimensions.width > relatedArtist.data.featureImage.value.main.dimensions.height ? 'wide' : 'tall'}} js-lazy-image" data-img-src="{{relatedArtist.data.featureImage.value.main.url}}" />
-                                </a>
+                <div class="artist__related js-artist-related -wrap">
+                    <div v-for="relatedArtist in relatedArtists" class="squaregrid__item artist__related__col -column--1of3 -exp-b animate animate--fade js-animate">
+                        <a class="squaregrid__photo" href="/artist/{{relatedArtist.uri}}/">
+                            <figure class="squaregrid__figure">
+                                <img class="squaregrid__image image image--{{relatedArtist.data.featureImage.value.main.dimensions.width > relatedArtist.data.featureImage.value.main.dimensions.height ? 'wide' : 'tall'}} js-lazy-image" data-img-src="{{relatedArtist.data.featureImage.value.main.url}}" />
                             </figure>
-                        </div>
-                        <a class="artist__related__meta" href="/artist/{{relatedArtist.slug}}/">
+                        </a>
+                        <a class="artist__related__meta" href="/artist/{{relatedArtist.uri}}/">
                             <p class="p">{{relatedArtist.data.name.value}}</p>
                             <p class="p -grey">
                                 <span v-for="type in relatedArtist.data.types.value">{{type.type.value.data.name.value}}</span>
@@ -236,7 +236,7 @@
             <!-- Features -->
             <section class="features js-features -wrap -exp -text--center">
                 <div v-for="feature in features" class="features__item -exp">
-                    <a href="/feature/{{feature.slug}}/">
+                    <a href="/feature/{{feature.uri}}/">
                         <img class="image image--{{feature.data.featureImage.value.main.dimensions.width > feature.data.featureImage.value.main.dimensions.height ? 'wide' : 'tall'}} js-lazy-image" data-img-src="{{feature.data.featureImage.value.main.url}}" />
                     </a>
                     <p class="p">{{feature.data.name.value}}</p>
@@ -248,7 +248,7 @@
                 <div class="feature__title -exp">
                     <div class="h3">{{feature.data.name.value}}</div>
                     <p class="p">
-                        <a href="/artist/{{feature.data.artist.value.document.slug}}">Artist</a>
+                        <a href="/artist/{{feature.data.artist.value.document.uri}}">Artist</a>
                     </p>
                 </div>
                 <div class="feature__image">

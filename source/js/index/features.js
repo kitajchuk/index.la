@@ -49,14 +49,14 @@ const features = {
      *
      */
     load () {
-        const documents = router.getState( "features" );
+        const documents = core.cache.get( "features" );
 
         if ( documents ) {
             this.view();
 
         } else {
             this.app.socket.get( "index-documents", { type: "features" }, ( data ) => {
-                router.setState( "features", data, true );
+                core.cache.set( "features", data );
 
                 this.view();
             });
@@ -73,7 +73,7 @@ const features = {
      *
      */
     view () {
-        const documents = router.getState( "features" );
+        const documents = core.cache.get( "features" );
 
         router.setView( this.template, {
             features: documents
