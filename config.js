@@ -20,6 +20,10 @@ module.exports = {
             "page",
             "artist",
             "feature"
+        ],
+        "staticPages": [
+            "about",
+            "features"
         ]
     },
 

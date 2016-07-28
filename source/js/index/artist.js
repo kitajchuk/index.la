@@ -57,22 +57,22 @@ const artist = {
      *
      * @public
      * @method load
-     * @param {string} slug The document slug
+     * @param {string} uri The document uri
      * @memberof artist
      * @description Method performs onloading actions for this module.
      *
      */
-    load ( slug ) {
-        const documents = router.getState( "artists" );
+    load ( uri ) {
+        const documents = core.cache.get( "artists" );
 
         if ( documents ) {
-            this.view( slug );
+            this.view( uri );
 
         } else {
             this.app.socket.get( "index-documents", { type: "artists" }, ( data ) => {
-                router.setState( "artists", data, true );
+                core.cache.set( "artists", data );
 
-                this.view( slug );
+                this.view( uri );
             });
         }
     },
@@ -82,15 +82,15 @@ const artist = {
      *
      * @public
      * @method view
-     * @param {string} slug The uri slug
+     * @param {string} uri The uri slug
      * @memberof artist
      * @description Method renders the view.
      *
      */
-    view ( slug ) {
-        const documents = router.getState( "artists" );
+    view ( uri ) {
+        const documents = core.cache.get( "artists" );
         const viewArtist = documents.find(( el ) => {
-            return (el.slug === slug);
+            return (el.uri === uri);
         });
 
         router.setView( this.template, {

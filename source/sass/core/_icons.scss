@@ -41,7 +41,7 @@
     border: 2px solid $black;
     border-radius: 100%;
     height: 18px;
-    transition: border-color $long-duration $ease-cubic-sharp;
+    transition: border-color $base-duration $ease-cubic-sharp;
     width: 18px;
 
     &:after {
@@ -52,15 +52,11 @@
         position: absolute;
         right: -5px;
         transform: rotate( 45deg );
-        transition: background-color $long-duration $ease-cubic-sharp;
+        transition: background-color $base-duration $ease-cubic-sharp;
         width: 8px;
         }
     }
-// .icon--back {
-//     background-color: $black;
-//     height: 2px;
-//     width: 24px;
-//     }
+.icon--back,
 .icon--arrow {
     height: 18px;
     width: 18px;
@@ -81,6 +77,17 @@
     &:before {
         bottom: -3px;
         transform: rotate( -45deg );
+        }
+}
+.icon--back {
+    > span {
+        background-color: $black;
+        height: 2px;
+        left: 1px;
+        position: absolute;
+        top: 50%;
+        transform: translateY( -50% );
+        width: 24px;
         }
 }
 

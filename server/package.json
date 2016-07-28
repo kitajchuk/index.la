@@ -14,13 +14,14 @@
       "email": "kitajchuk@gmail.com",
       "url": "http://blkpdx.com"
     }
-],
+  ],
   "license": "MIT",
   "dependencies": {
+    "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "forever": "^0.15.2",
     "prismic.io": "^3.1.3",
-    "body-parser": "^1.15.2",
+    "slug": "^0.9.1",
     "websocket": "^1.0.23"
   }
 }

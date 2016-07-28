@@ -1,4 +1,5 @@
 import log from "./log";
+import * as util from "./util";
 
 
 // Singleton
@@ -9,6 +10,9 @@ let _initialized = false;
 let _cache = {};
 const _access = "app-cache";
 const _session = window.sessionStorage;
+const _immutable = function ( val ) {
+    return JSON.parse( JSON.stringify( val ) );
+};
 
 
 /**
@@ -95,25 +99,6 @@ class Store {
      *
      * @public
      * @instance
-     * @method slug
-     * @param {string} uri The string to slugify
-     * @memberof Store
-     * @description Slug a uri string
-     * @returns {string}
-     *
-     */
-    slug ( uri ) {
-        uri = uri.replace( /^\/|\/$/g, "" ).replace( /\/|\?|\&|=|\s/g, "-" ).toLowerCase();
-        uri = uri === "" ? "homepage" : uri;
-
-        return uri;
-    }
-
-
-    /**
-     *
-     * @public
-     * @instance
      * @method set
      * @param {string} id The index key
      * @param {mixed} val The value to store
@@ -122,7 +107,7 @@ class Store {
      *
      */
     set ( id, val ) {
-        id = this.slug( id );
+        id = util.slugify( id );
 
         _cache[ id ] = val;
 
@@ -142,27 +127,9 @@ class Store {
      *
      */
     get ( id ) {
-        id = (id && this.slug( id ));
+        id = (id ? util.slugify( id ) : null);
 
-        return (id ? this.getValue( _cache[ id ] ) : _cache);
-    }
-
-
-    /**
-     *
-     * @public
-     * @instance
-     * @method getValue
-     * @param {mixed} val The accessed value
-     * @memberof Store
-     * @description Get a value so cache is non-mutable from outside
-     * @returns {mixed}
-     *
-     */
-    getValue ( val ) {
-        const ret = val;
-
-        return ret;
+        return (id ? (typeof _cache[ id ] === "object" ? _immutable( _cache[ id ] ) : _cache[ id ]) : _immutable( _cache ));
     }
 
 

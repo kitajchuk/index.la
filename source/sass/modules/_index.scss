@@ -4,7 +4,6 @@
 .index__row {
     border-top: 1px solid $grey-light;
     display: block;
-    transition: padding $long-duration $ease-cubic-sharp;
     }
 .index__thumbnail {
     max-width: 300px;
@@ -114,9 +113,6 @@
     border-bottom: 1px solid $grey-light;
     padding-bottom: $expander-two;
     margin-bottom: $expander-one;
-    }
-.artist__related__thumbnail {
-    max-width: none;
     }
 .artist__related__meta {
     display: inline-block;

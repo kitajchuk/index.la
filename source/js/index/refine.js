@@ -1,6 +1,5 @@
 import $ from "properjs-hobo";
 import * as core from "../core";
-import router from "../router";
 import Vue from "vue";
 
 
@@ -38,7 +37,7 @@ const refine = {
      *
      */
     initView () {
-        const data = router.getState( "data" );
+        const data = core.cache.get( "data" );
 
         this.viewMenu = new Vue({
             el: this.element[ 0 ],

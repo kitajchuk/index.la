@@ -16,7 +16,7 @@ var apiAccess = "https://index-la.cdn.prismic.io/api";
 var purge = function ( doc ) {
     delete doc.fragments;
     delete doc.slugs;
-    //delete doc.slug;
+    delete doc.slug;
     delete doc.href;
     delete doc.uid;
 

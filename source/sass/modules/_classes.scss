@@ -1,6 +1,41 @@
 /******************************************************************************
  * Classes for things...
 *******************************************************************************/
+.squaregrid__item {
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    }
+.squaregrid__figure {
+    font-size: 0;
+    width: 100%;
+    }
+.squaregrid__photo {
+    cursor: default;
+    display: inline-block;
+    padding-bottom: 100%;
+    position: relative;
+    width: 100%;
+
+    .image {
+        cursor: pointer;
+        left: 50%;
+        position: absolute;
+        top: 50%;
+        transform: translate3d( -50%, -50%, 0 );
+        }
+    .image--tall {
+        height: calc( 100% - #{$expander-one} * 2 );
+        width: auto;
+        }
+    .image--wide {
+        height: auto;
+        width: calc( 100% - #{$expander-one} * 2 );
+        }
+}
+
+
+
 .about,
 .submit {
     height: 100%;

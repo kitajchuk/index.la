@@ -1,3 +1,7 @@
+var slug = require( "slug" );
+
+
+
 /**
  *
  * @description Helper methods for prismic.io datas
@@ -152,9 +156,7 @@ var helpers = {
         var key = null;
         var ret = {
             id: doc.id,
-            slug: doc.slugs.find(function ( slug ) {
-                return !/^\d/.test( slug );
-            }),
+            uri: null,
             type: doc.type,
             tags: doc.tags,
             data: {},
@@ -165,6 +167,11 @@ var helpers = {
         for ( i in doc.data ) {
             if ( doc.data.hasOwnProperty( i ) ) {
                 key = i.replace( doc.type + ".", "" );
+
+                // Generate a unique uri slug for the document
+                if ( key === "name" ) {
+                    ret.uri = slug( doc.data[ i ].value ).toLowerCase();
+                }
 
                 // Skip linked document without dict references
                 if ( doc.data[ i ].type === "Link.document" && !dict[ doc.data[ i ].value.document.type ] ) {

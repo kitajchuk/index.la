@@ -7,8 +7,8 @@
     position: fixed;
     top: 0;
     transform: translate3d( -100%, 0, 0 );
-    transition: width $long-duration $ease-cubic-sharp,
-                transform $long-duration $ease-cubic-sharp;
+    transition: width $base-duration $ease-cubic-sharp,
+                transform $base-duration $ease-cubic-sharp;
     width: $filter-width;
     z-index: $z_layer_10;
     -webkit-overflow-scrolling: touch;
@@ -35,7 +35,7 @@
     padding-left: $expander-two;
     position: absolute;
     top: 0;
-    transition: padding-left $long-duration $ease-cubic-sharp;
+    transition: padding-left $base-duration $ease-cubic-sharp;
     width: 100%;
     -webkit-appearance: none;
 
@@ -48,7 +48,7 @@
 
 .filter {
     padding-left: $expander-two;
-    transition: padding-left $long-duration $ease-cubic-sharp;
+    transition: padding-left $base-duration $ease-cubic-sharp;
     }
 .filter__opt {
     cursor: pointer;

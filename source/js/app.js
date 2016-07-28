@@ -8,14 +8,15 @@ require( "../sass/screen.scss" );
 
 import index from "./index";
 import Socket from "./Socket";
+import Scroller from "./Scroller";
 import router from "./router";
 import nav from "./menus/nav";
-import submit from "./menus/submit";
 import * as core from "./core";
 import intro from "./menus/intro";
 import about from "./index/about";
 import artist from "./index/artist";
 import refine from "./index/refine";
+import submit from "./menus/submit";
 import feature from "./index/feature";
 import features from "./index/features";
 import templates from "./index/templates";
@@ -32,17 +33,20 @@ class App {
     constructor () {
         // Modules
         this.nav = nav;
-        this.submit = submit;
         this.core = core;
         this.intro = intro;
         this.index = index;
         this.about = about;
+        this.submit = submit;
         this.refine = refine;
         this.router = router;
         this.artist = artist;
         this.feature = feature;
         this.features = features;
         this.templates = templates;
+
+        // Scroll handling
+        this.scroller = new Scroller( this.core.dom.page[ 0 ] );
 
         // Data handling
         this.data = {};
@@ -112,9 +116,36 @@ class App {
     handleSocketComplete () {
         core.log( "Socket stream complete" );
 
-        this.router.setState( "data", this.data, true );
+        this.core.cache.set( "data", this.data );
+
+        delete this.data;
 
         this.initModules();
+        this.bindScroller();
+    }
+
+
+    /**
+     *
+     * @public
+     * @instance
+     * @method bindScroller
+     * @memberof App
+     * @description Bind events for page scrolling.
+     *
+     */
+    bindScroller () {
+        this.scroller.on( "scroll", () => {
+            this.core.emitter.fire( "app--scroll", this.scroller.getScrollY() );
+        });
+
+        this.scroller.on( "scrollup", () => {
+            this.core.emitter.fire( "app--scrollup", this.scroller.getScrollY() );
+        });
+
+        this.scroller.on( "scrolldown", () => {
+            this.core.emitter.fire( "app--scrolldown", this.scroller.getScrollY() );
+        });
     }
 
 

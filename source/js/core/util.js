@@ -8,40 +8,8 @@
  */
 import $ from "properjs-hobo";
 import ImageLoader from "properjs-imageloader";
-import dom from "./dom";
 import config from "./config";
-import detect from "./detect";
 import emitter from "./emitter";
-
-
-/**
- *
- * @description Add pixel units when inline styling
- * @method px
- * @param {string} str The value to pixel-ify
- * @memberof core.util
- * @returns {string}
- *
- */
-const px = function ( str ) {
-    return `${str}px`;
-};
-
-
-/**
- *
- * @description Apply a translate3d transform
- * @method translate3d
- * @param {object} el The element to transform
- * @param {string|number} x The x value
- * @param {string|number} y The y value
- * @param {string|number} z The z value
- * @memberof core.util
- *
- */
-const translate3d = function ( el, x, y, z ) {
-    el.style[ detect.getPrefixed( "transform" ) ] = `translate3d( ${x}, ${y}, ${z} )`;
-};
 
 
 /**
@@ -144,42 +112,6 @@ const loadImages = function ( images, handler ) {
 
 /**
  *
- * @description Toggle on/off scrollability
- * @method disableMouseWheel
- * @param {boolean} enable Flag to enable/disable
- * @memberof core.util
- *
- */
-const disableMouseWheel = function ( enable ) {
-    if ( enable ) {
-        dom.doc.on( "DOMMouseScroll mousewheel", preNoop );
-
-    } else {
-        dom.doc.off( "DOMMouseScroll mousewheel" );
-    }
-};
-
-
-/**
- *
- * @description Toggle on/off touch movement
- * @method disableTouchMove
- * @param {boolean} enable Flag to enable/disable
- * @memberof core.util
- *
- */
-const disableTouchMove = function ( enable ) {
-    if ( enable ) {
-        dom.doc.on( "touchmove", preNoop );
-
-    } else {
-        dom.doc.off( "touchmove" );
-    }
-};
-
-
-/**
- *
  * @description Get the applied transition duration from CSS
  * @method getTransitionDuration
  * @param {object} el The DOMElement
@@ -220,22 +152,6 @@ const noop = function () {
 
 /**
  *
- * @description Noop a preventDefault() for event handlers
- * @method preNoop
- * @memberof core.util
- * @param {object} e The event object
- * @returns {boolean}
- *
- */
-const preNoop = function ( e ) {
-    e.preventDefault();
-    return false;
-};
-
-
-
-/**
- *
  * @description Randomize array element order in-place.
  * Using Fisher-Yates shuffle algorithm.
  * @method shuffle
@@ -261,6 +177,29 @@ const shuffle = function ( arr ) {
 };
 
 
+/**
+ *
+ * @public
+ * @method slugify
+ * @memberof util
+ * @param {string} str The string to slug
+ * @description Slugify a string
+ * @returns {string}
+ *
+ */
+const slugify = function ( str ) {
+    return str.toString().toLowerCase().trim()
+        // Replace & with "and"
+        .replace( /&/g, "-and-" )
+
+        // Replace spaces, non-word characters and dashes with a single dash (-)
+        .replace( /[\s\W-]+/g, "-" )
+
+        // Replace leading trailing slashes with an empty string - nothing
+        .replace( /^[-]+|[-]+$/g, "" );
+};
+
+
 
 /******************************************************************************
  * Export
@@ -272,14 +211,9 @@ export {
     isElementLoadable,
     isElementVisible,
 
-    // Disabling
-    disableTouchMove,
-    disableMouseWheel,
-
     // Random
-    px,
     noop,
     shuffle,
-    translate3d,
+    slugify,
     getTransitionDuration
 };
