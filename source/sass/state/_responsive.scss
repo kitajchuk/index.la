@@ -1,6 +1,17 @@
 /******************************************************************************
  * Responsive
 *******************************************************************************/
+@media only screen and ( min-width: $break-laptop-full ) {
+    .index__row {
+        padding-left: $wrapper-padding-big;
+        padding-right: $wrapper-padding-big;
+        }
+}
+@media only screen and ( max-width: $break-laptop-full ) {
+    .artist__gallery {
+        margin-left: $wrapper-padding;
+        }
+}
 @media only screen and ( max-width: ($break-laptop-medium + 1px) ) {
     $header-height: 90px;
 
@@ -17,7 +28,8 @@
     .refine {
         width: 320px;
         }
-    .filter {
+    .filter,
+    .search__field {
         padding-left: $expander-one;
         }
     .is-refine-open {
@@ -33,14 +45,7 @@
 @media only screen and ( max-width: $break-tablet-medium ) {
     .index .p,
     .refine .p {
-        font-size: $meta-size;
-        }
-    .artist__info {
-        padding-bottom: $expander-one;
-        padding-top: $expander-one;
-        position: relative;
-        top: auto;
-        transform: none;
+        font-size: $m-size;
         }
     .is-refine-open {
         .page,
@@ -49,11 +54,29 @@
             transform: translate3d( 320px, 0, 0 );
             }
     }
+    .artist__info {
+        padding-bottom: $expander-one;
+        padding-top: $expander-one;
+        position: relative;
+        top: auto;
+        transform: none;
+        }
+    .artist__gallery {
+        margin-left: 0;
+        padding-left: $wrapper-padding;
+        padding-right: $wrapper-padding;
+        width: 100%;
+        }
+    .artist__gallery .image {
+        width: 100%;
+        }
 }
 
 
 
 @media only screen and ( max-width: $break-mobile-full ) {
+    $header-height: 80px;
+
     .-wrap {
         padding-left: $expander-mobile;
         padding-right: $expander-mobile;
@@ -84,7 +107,7 @@
         }
     .header,
     .search {
-        height: 80px;
+        height: $header-height;
         }
     .refine {
         width: 80%;
@@ -94,12 +117,11 @@
         padding-top: $expander-mobile;
     }
     .page {
-        padding-top: calc( 80px - 1px );
+        padding-top: $header-height;
         }
     .artist__gallery {
         padding-left: $expander-mobile;
         padding-right: $expander-mobile;
-        width: 100%;
         }
     .artist__gallery__image {
         padding-bottom: 0;

@@ -4,6 +4,10 @@
 .nav__wrap {
     pointer-events: none;
     }
+.nav__svg {
+    fill: $white;
+    height: 30px;
+    }
 .nav__logo,
 .nav__menu {
     pointer-events: auto;
@@ -20,9 +24,12 @@
     cursor: pointer;
 
     &.is-active {
-        color: $black;
+        color: $white;
         }
     }
 .nav__menu__primary + .nav__menu__tertiary {
     margin-top: 30px;
+    }
+.nav__menu__tertiary .nav__menu__a {
+    line-height: 2;
     }

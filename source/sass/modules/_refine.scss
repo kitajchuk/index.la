@@ -32,9 +32,10 @@
     height: 100%;
     left: 0;
     outline: 0;
-    padding-left: $expander-one;
+    padding-left: $expander-two;
     position: absolute;
     top: 0;
+    transition: padding-left $long-duration $ease-cubic-sharp;
     width: 100%;
     -webkit-appearance: none;
 
@@ -51,6 +52,7 @@
     }
 .filter__opt {
     cursor: pointer;
+    line-height: 1.6;
     position: relative;
 
     &.is-active {

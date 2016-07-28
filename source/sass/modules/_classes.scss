@@ -11,6 +11,10 @@
 
 
 
+.about__wrap {
+    max-width: 860px;
+    width: 100%;
+    }
 .about__footer {
     bottom: $expander-one;
     position: absolute;
@@ -23,7 +27,7 @@
     }
 .submit__button {
     background-color: transparent;
-    border: 1px solid $white;
+    border: 0;
     border-radius: 3px;
     bottom: 0;
     color: $white;
@@ -31,7 +35,7 @@
     left: 50%;
     opacity: 0;
     outline: 0;
-    padding: 10px 20px;
+    padding: 8px 20px;
     pointer-events: none;
     position: absolute;
     transform: translateX( -50% ) translateY( 200% );
@@ -57,16 +61,28 @@
     outline: 0;
     padding-bottom: 10px;
     text-align: center;
-    width: 300px;
+    max-width: 560px;
+    width: 100%;
     -webkit-appearance: none;
 
     &:focus {
         outline: 0;
         }
     }
+.submit__message {
+    display: none;
+    }
 .submit.is-valid-field {
     .submit__button {
         opacity: 1;
         pointer-events: auto;
+        }
+}
+.submit.is-submit {
+    .submit__message {
+        display: inline-block;
+        }
+    .submit__form {
+        display: none;
         }
 }

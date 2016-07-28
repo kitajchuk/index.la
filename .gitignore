@@ -19,6 +19,7 @@ build
 static/css
 static/js
 test
+test.js
 local
 splash/js
 splash/css

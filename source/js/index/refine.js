@@ -137,6 +137,31 @@ const refine = {
     /**
      *
      * @public
+     * @method applyNone
+     * @memberof refine
+     * @description Handle the NO results
+     *
+     */
+    applyNone () {
+        let shown = 0;
+
+        this.data.noresults = false;
+
+        this.data.documents.forEach(( element ) => {
+            if ( element.show ) {
+                shown++;
+            }
+        });
+
+        if ( !shown ) {
+            this.data.noresults = true;
+        }
+    },
+
+
+    /**
+     *
+     * @public
      * @method resetSearch
      * @memberof refine
      * @description Clear search field
@@ -187,6 +212,7 @@ const refine = {
      */
     open () {
         this.isOpen = true;
+        this.search[ 0 ].focus();
 
         core.dom.html.addClass( "is-refine-open" );
         core.dom.page.on( "click", ( e ) => {
@@ -240,7 +266,7 @@ const refine = {
      */
     showAll () {
         if ( this.data ) {
-            this.data.forEach(( element ) => {
+            this.data.documents.forEach(( element ) => {
                 element.show = true;
             });
         }
@@ -271,7 +297,7 @@ const refine = {
      *
      */
     filterBy ( filters ) {
-        this.data.forEach(( element ) => {
+        this.data.documents.forEach(( element ) => {
             this.processFilters( filters, element );
         });
     },
@@ -287,7 +313,7 @@ const refine = {
      *
      */
     searchBy ( value ) {
-        this.data.forEach(( element ) => {
+        this.data.documents.forEach(( element ) => {
             this.processKeyword( value, element );
         });
     },
@@ -430,7 +456,7 @@ const refine = {
     processSort ( data ) {
         this.active.sort = data;
 
-        this.data.sort(( a, b ) => {
+        this.data.documents.sort(( a, b ) => {
             let ret = 0;
 
             a = (a[ data.value ] !== undefined ? a[ data.value ] : typeof a.data[ data.value ].value === "object" ? a.data[ data.value ].value.data.name.value : a.data[ data.value ].value);
@@ -479,6 +505,7 @@ const onSearchKey = function ( e ) {
         refine.searchBy( this.value );
         refine.resetScroll();
         refine.applyLabel();
+        refine.applyNone();
     }
 };
 
@@ -491,10 +518,10 @@ const onSortOption = function ( e ) {
         refine.sorts.removeClass( "is-active" );
         $target.addClass( "is-active" );
 
-        refine.resetSearch();
         refine.sortBy( data );
         refine.resetScroll();
         refine.applyLabel();
+        refine.applyNone();
     }
 };
 
@@ -520,6 +547,7 @@ const onFilterOption = function ( e ) {
     refine.filterBy( filters );
     refine.resetScroll();
     refine.applyLabel();
+    refine.applyNone();
 };
 
 

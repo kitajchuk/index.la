@@ -45,8 +45,8 @@ $expander-mobile: 30px;
 
 // Horizontal
 $mobile-padding: 30px;
-$image-padding: 13.671875%;
-$wrapper-padding: 7.03125%;
+$wrapper-padding: 9%;
+$wrapper-padding-big: 18%;
 
 
 
@@ -57,7 +57,7 @@ $logo-aspect: 5.7142857143;
 $reel-aspect: 41.875%;
 $cinema-aspect: 56.25%;
 $filter-width: 480px;
-$header-height: 120px;
+$header-height: 100px;
 
 
 
@@ -65,9 +65,12 @@ $header-height: 120px;
 /******************************************************************************
  * Typography
 *******************************************************************************/
+$m-size: 16px;
 $p-size: 18px;
-$meta-size: 16px;
-$h1-size: 32px;
+$h1-size: 60px;
+$h2-size: 44px;
+$h3-size: 32px;
+$h4-size: 28px;
 
 
 
