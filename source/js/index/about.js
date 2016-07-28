@@ -52,8 +52,6 @@ const about = {
             meta: data.meta[ 0 ],
             socials: data.social
         });
-
-        core.dom.html.addClass( "is-black-page" );
     },
 
 
@@ -65,9 +63,7 @@ const about = {
      * @description Method performs cleanup after this module. Remmoves events, null vars etc...
      *
      */
-    teardown () {
-        core.dom.html.removeClass( "is-black-page" );
-    }
+    teardown () {}
 };
 
 

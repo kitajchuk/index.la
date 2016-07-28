@@ -75,11 +75,13 @@ const index = {
      */
     view () {
         const documents = router.getState( "artists" );
+        const viewData = {
+            documents: documents,
+            noresults: false
+        };
 
-        refine.setData( documents );
-        router.setView( this.template, {
-            artists: documents
-        });
+        refine.setData( viewData );
+        router.setView( this.template, viewData );
     },
 
 

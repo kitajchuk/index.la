@@ -1,5 +1,5 @@
 .screen {
-    background-color: rgba( 255, 255, 255, 0.9 );
+    background-color: $black;
     bottom: 0;
     left: 0;
     opacity: 0;
@@ -15,9 +15,6 @@
         opacity: 1;
         -webkit-overflow-scrolling: touch;
         }
-    }
-.screen--dark {
-    background-color: $black;
     }
 
 

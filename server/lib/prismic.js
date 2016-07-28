@@ -16,6 +16,7 @@ var apiAccess = "https://index-la.cdn.prismic.io/api";
 var purge = function ( doc ) {
     delete doc.fragments;
     delete doc.slugs;
+    //delete doc.slug;
     delete doc.href;
     delete doc.uid;
 
@@ -138,6 +139,9 @@ Class.prototype = {
     getDocumentsByType: function ( type ) {
         var self = this;
         var response = [];
+
+        // Reset the UUID
+        helpers.uuid = 0;
 
         return new Promise(function ( resolve, reject ) {
             var query = function ( page ) {

@@ -152,7 +152,9 @@ var helpers = {
         var key = null;
         var ret = {
             id: doc.id,
-            slug: doc.slug,
+            slug: doc.slugs.find(function ( slug ) {
+                return !/^\d/.test( slug );
+            }),
             type: doc.type,
             tags: doc.tags,
             data: {},

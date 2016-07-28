@@ -26,12 +26,12 @@ const artist = {
     /**
      *
      * @public
-     * @member otherLimit
+     * @member relatedLimit
      * @memberof artist
      * @description The `other artists` limit cap.
      *
      */
-    otherLimit: 6,
+    relatedLimit: 6,
 
 
     /**
@@ -95,11 +95,11 @@ const artist = {
 
         router.setView( this.template, {
             artist: viewArtist,
-            otherArtists: core.util.shuffle( documents )
+            relatedArtists: core.util.shuffle( documents )
                                     // Filter out only artists with matching categories
-                                    .filter( this.filterOtherArtists.bind( this, viewArtist ) )
+                                    .filter( this.filterRelatedArtists.bind( this, viewArtist ) )
                                     // Slice the top dozen off the matched artists
-                                    .slice( 0, this.otherLimit )
+                                    .slice( 0, this.relatedLimit )
         });
 
         this.bindScroll();
@@ -140,11 +140,11 @@ const artist = {
      */
     bindScroll () {
         const info = core.dom.page.find( ".js-artist-info" );
-        const others = core.dom.page.find( ".js-artist-others" );
+        const related = core.dom.page.find( ".js-artist-related" );
 
         this.scroller = new Controller();
         this.scroller.go(() => {
-            if ( core.util.isElementVisible( others[ 0 ] ) ) {
+            if ( core.util.isElementVisible( related[ 0 ] ) ) {
                 info.addClass( "is-inactive" );
 
             } else {
@@ -175,19 +175,19 @@ const artist = {
     /**
      *
      * @public
-     * @method filterOtherArtists
+     * @method filterRelatedArtists
      * @memberof artist
      * @param {object} thisArtist The @this artist document
-     * @param {object} otherArtist The document object
+     * @param {object} relatedArtist The document object
      * @description Get other artists from the index that have matching categories
      * @returns {boolean}
      *
      */
-    filterOtherArtists ( thisArtist, otherArtist ) {
+    filterRelatedArtists ( thisArtist, relatedArtist ) {
         let ret = false;
 
-        if ( thisArtist.id !== otherArtist.id ) {
-            otherArtist.data.categories.value.forEach(( catA ) => {
+        if ( thisArtist.id !== relatedArtist.id ) {
+            relatedArtist.data.categories.value.forEach(( catA ) => {
                 thisArtist.data.categories.value.forEach(( catB ) => {
                     if ( catA.category.value.data.name.value === catB.category.value.data.name.value ) {
                         ret = true;

@@ -58,19 +58,3 @@
         display: inline-block;
         }
 }
-
-.is-black-page {
-    background-color: $black;
-
-    .header {
-        background-color: transparent;
-        }
-    .icon--list {
-        border-top-color: $white;
-
-        &:after,
-        &:before {
-            background-color: $white;
-            }
-        }
-}

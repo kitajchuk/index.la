@@ -46,8 +46,7 @@
                                     "fieldset": "Image style",
                                     "config": {
                                         "label": "Image Style",
-                                        "options": ["fullwidth", "constrained"],
-                                        "placeholder": "constrained"
+                                        "options": ["fullwidth", "wide-landscape", "tite-landscape", "wide-vertical", "tite-vertical"]
                                     }
                                 },
                                 "image": {
@@ -76,6 +75,13 @@
                                     "type": "Image"
                                 }
                             }
+                        }
+                    },
+                    "video": {
+                        "type": "Embed",
+                        "fieldset": "Video",
+                        "config": {
+                            "placeholder": "Add video..."
                         }
                     }
                 }

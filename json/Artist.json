@@ -7,13 +7,6 @@
                 "label": "Name"
             }
         },
-        "timestamp" : {
-            "type" : "Timestamp",
-            "fieldset" : "timestamp",
-            "config" : {
-                "label" : "Timestamp"
-            }
-        },
         "email": {
             "type": "Text",
             "fieldset": "Artist email",

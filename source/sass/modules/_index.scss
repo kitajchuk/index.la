@@ -4,6 +4,7 @@
 .index__row {
     border-top: 1px solid $grey-light;
     display: block;
+    transition: padding $long-duration $ease-cubic-sharp;
     }
 .index__thumbnail {
     max-width: 300px;
@@ -103,14 +104,25 @@
     transform: translate3d( -50%, -50%, 0 );
     width: 60px;
     }
-.artist__other__thumbnail {
+.artist__gallery {
+    padding-bottom: $expander-three;
+    }
+.artist__related {
+    padding-bottom: $expander-three;
+    }
+.artist__related__label {
+    border-bottom: 1px solid $grey-light;
+    padding-bottom: $expander-two;
+    margin-bottom: $expander-one;
+    }
+.artist__related__thumbnail {
     max-width: none;
     }
-.artist__other__meta {
+.artist__related__meta {
     display: inline-block;
     padding-top: $mobile-padding;
     }
-.artist__other__col {
+.artist__related__col {
     span + span {
         &:before {
             content: " / ";

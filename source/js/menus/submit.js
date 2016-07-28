@@ -21,6 +21,7 @@ const submit = {
      *
      */
     init () {
+        this.isSubmit = false;
         this.scriptUrl = "https://script.google.com/macros/s/AKfycby_yOLDcfYSBgEW0aSP3yvHRCDPOhinfDs4QBIbk5jstVPJT2c/exec";
         this.element = core.dom.body.find( ".js-submit" );
         this.field = this.element.find( ".js-submit-field" );
@@ -56,8 +57,12 @@ const submit = {
      */
     close () {
         this.menu.close();
-        this.field[ 0 ].value = "";
-        this.element.removeClass( "is-valid-field" );
+
+        setTimeout(() => {
+            this.field[ 0 ].value = "";
+            this.element.removeClass( "is-valid-field is-submit" );
+
+        }, 500 );
     },
 
 
@@ -79,7 +84,17 @@ const submit = {
 
 
 const ajaxGoogle = function () {
-    submit.element.removeClass( "is-valid-field" );
+    if ( this.isSubmit ) {
+        return;
+    }
+
+    submit.isSubmit = true;
+    submit.element.addClass( "is-submit" );
+
+    setTimeout(() => {
+        submit.close();
+
+    }, 2000 );
 
     $.ajax({
         url: submit.scriptUrl,
@@ -89,7 +104,7 @@ const ajaxGoogle = function () {
         dataType: "jsonp"
     })
     .then(() => {
-        submit.close();
+        submit.isSubmit = false;
     });
 };
 

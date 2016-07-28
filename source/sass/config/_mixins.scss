@@ -23,28 +23,41 @@
 /******************************************************************************
  * Type
 *******************************************************************************/
-@mixin meta() {
-    color: $grey-text;
-    font-size: inherit;
+@mixin m() {
+    font-size: $m-size;
     @include font-sans-text();
 }
 @mixin p() {
     font-size: $p-size;
-    line-height: 1.8;
+    line-height: 1.444444;
     @include font-sans-text();
 }
 @mixin a() {
-    //border-bottom: 1px solid $black;
     color: $black;
     display: inline;
     font-size: $p-size;
     text-decoration: none;
     @include font-sans-text();
 }
+@mixin h() {
+    line-height: 1.6;
+    @include font-sans-text();
+}
 @mixin h1() {
     font-size: $h1-size;
-    line-height: 1.5;
-    @include font-sans-text();
+    @include h();
+}
+@mixin h2() {
+    font-size: $h2-size;
+    @include h();
+}
+@mixin h3() {
+    font-size: $h3-size;
+    @include h();
+}
+@mixin h4() {
+    font-size: $h4-size;
+    @include h();
 }
 @mixin li() {
     padding-left: 20px;
