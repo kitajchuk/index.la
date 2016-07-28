@@ -247,9 +247,6 @@
             <article class="feature js-feature -wrap -exp -text--center">
                 <div class="feature__title -exp">
                     <div class="h3">{{feature.data.name.value}}</div>
-                    <p class="p">
-                        <a href="/artist/{{feature.data.artist.value.document.uri}}">Artist</a>
-                    </p>
                 </div>
                 <div class="feature__image">
                     <img class="image image--{{feature.data.featureImage.value.main.dimensions.width > feature.data.featureImage.value.main.dimensions.height ? 'wide' : 'tall'}} js-lazy-image" data-img-src="{{feature.data.featureImage.value.main.url}}" />
@@ -275,7 +272,7 @@
                             <a href="{{social.data.url.value}}" class="-grey" target="_blank">{{social.data.title.value}}</a>
                         </p>
                     </div>
-                    <div class="about__footer m -exp-t -grey">&copy; Index 2016 / All Images &copy; of their respective owners</div>
+                    <div class="about__footer m -exp-t -grey">&copy; Index {{new Date().getFullYear()}} / All Images &copy; of their respective owners</div>
                 </div>
             </section>
         </div>

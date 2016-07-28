@@ -167,4 +167,13 @@
             transform: translateX( 80% );
             }
     }
+    .about {
+        height: auto;
+        padding-top: 10vh;
+        }
+    .about__footer {
+        bottom: auto;
+        padding-bottom: $expander-one;
+        position: relative;
+        }
 }

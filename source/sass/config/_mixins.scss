@@ -25,6 +25,7 @@
 *******************************************************************************/
 @mixin m() {
     font-size: $m-size;
+    line-height: 1.4;
     @include font-sans-text();
 }
 @mixin p() {
