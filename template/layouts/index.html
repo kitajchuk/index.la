@@ -204,10 +204,10 @@
                 </div>
                 <div class="artist__gallery -column">
                     <div v-for="galleryItem in artist.data.gallery.value" class="artist__gallery__item -exp animate animate--fade js-animate">
-                        <div v-if="galleryItem.video" class="artist__gallery__video js-artist-video" data-provider="{{galleryItem.video.value.oembed.provider_name.toLowerCase()}}" v-bind:style="{paddingBottom: galleryItem.video.value.oembed.height / galleryItem.video.value.oembed.width * 100 + '%'}">
+                        <div v-if="galleryItem.video" class="video js-video" data-provider="{{galleryItem.video.value.oembed.provider_name.toLowerCase()}}" v-bind:style="{paddingBottom: galleryItem.video.value.oembed.height / galleryItem.video.value.oembed.width * 100 + '%'}">
                             {{{galleryItem.video.value.oembed.html.replace( 'feature=oembed', 'enablejsapi=1' )}}}
-                            <div class="artist__gallery__poster js-lazy-image -cover" data-img-src="{{galleryItem.image ? galleryItem.image.value.image.url : galleryItem.video.value.oembed.thumbnail_url}}">
-                                <img class="artist__gallery__play js-lazy-image" data-img-src="/images/playicon.png" />
+                            <div class="video__poster js-lazy-image -cover" data-img-src="{{galleryItem.image ? galleryItem.image.value.image.url : galleryItem.video.value.oembed.thumbnail_url}}">
+                                <img class="video__play js-lazy-image" data-img-src="/images/playicon.png" />
                             </div>
                         </div>
                         <div v-else class="artist__gallery__image">
@@ -244,15 +244,50 @@
             </section>
 
             <!-- Feature -->
-            <article class="feature js-feature -wrap -exp -text--center">
-                <div class="feature__title -exp">
-                    <div class="h3">{{feature.data.name.value}}</div>
+            <article class="feature js-feature -text--center">
+                <div class="feature__cover cover cover--pull -cover js-lazy-image ghost -text--center" data-img-src="{{feature.data.cover.value[ 0 ].image.value.main.url}}">
+                    <div class="h1 ghost__child -light -col">
+                        <span v-for="block in feature.data.cover.value[ 0 ].title.value">
+                            {{block.text}}
+                        </span>
+                    </div>
                 </div>
-                <div class="feature__image">
-                    <img class="image image--{{feature.data.featureImage.value.main.dimensions.width > feature.data.featureImage.value.main.dimensions.height ? 'wide' : 'tall'}} js-lazy-image" data-img-src="{{feature.data.featureImage.value.main.url}}" />
-                </div>
-                <div v-for="slice in feature.data.body.value" class="feature__slice">
-                    <p class="p">{{slice.slice_type}}</p>
+                <div v-for="slice in feature.data.body.value" class="feature__slice feature__{{slice.slice_type}} -expp animate animate--fade js-animate">
+                    <div v-if="slice.slice_type === 'text'" class="{{slice.slice_type}}">
+                        <div class="-col -text--left">
+                            <div v-for="block in slice.value.value" class="{{block.type.replace( 'eading', '' ).replace( 'aragraph', '' )}}">
+                                {{block.text}}
+                            </div>
+                        </div>
+                    </div>
+                    <div v-if="slice.slice_type === 'video'" class="{{slice.slice_type}}">
+                        <div class="video js-video" data-provider="{{slice.value.value.oembed.provider_name.toLowerCase()}}" v-bind:style="{paddingBottom: slice.value.value.oembed.height / slice.value.value.oembed.width * 100 + '%'}">
+                            {{{slice.value.value.oembed.html.replace( 'feature=oembed', 'enablejsapi=1' )}}}
+                            <div class="video__poster js-lazy-image -cover" data-img-src="{{slice.value.value.oembed.thumbnail_url}}">
+                                <img class="video__play js-lazy-image" data-img-src="/images/playicon.png" />
+                            </div>
+                        </div>
+                    </div>
+                    <div v-if="slice.slice_type === 'diptych'" class="{{slice.slice_type}}">
+                        <div class="-wrap">
+                            <div class="diptych__image diptych__left">
+                                <img class="image js-lazy-image" data-img-src="{{slice.value.value[ 0 ][ 'left-image' ].value.main.url}}" />
+                            </div>
+                            <div class="diptych__image diptych__right">
+                                <img class="image js-lazy-image" data-img-src="{{slice.value.value[ 0 ][ 'right-image' ].value.main.url}}" />
+                            </div>
+                        </div>
+                    </div>
+                    <div v-if="slice.slice_type === 'single-image'" class="{{slice.slice_type}}">
+                        <div class="{{slice.value.value[ 0 ].style.value}}">
+                            <img class="image js-lazy-image" data-img-src="{{slice.value.value[ 0 ].image.value.main.url}}" />
+                            <div v-if="slice.value.value[ 0 ].caption" class="caption">
+                                <div v-for="block in slice.value.value[ 0 ].caption.value" class="m -grey -text--left">
+                                    {{block.text}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </article>
 

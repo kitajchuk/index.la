@@ -64,44 +64,10 @@
     display: block;
     }
 .artist__info__item + .artist__info__item {
-    margin-top: $mobile-padding;
+    margin-top: $expander-mobile;
     }
 .artist__gallery {
     width: 40%;
-    }
-.artist__gallery__video {
-    position: relative;
-
-    iframe {
-        height: 100%;
-        left: 0;
-        position: absolute;
-        top: 0;
-        width: 100%;
-        }
-}
-.artist__gallery__video.is-active {
-    .artist__gallery__poster {
-        opacity: 0;
-        pointer-events: none;
-        }
-}
-.artist__gallery__poster {
-    cursor: pointer;
-    height: 100%;
-    left: 0;
-    position: absolute;
-    top: 0;
-    transition: opacity $base-duration $ease;
-    width: 100%;
-    }
-.artist__gallery__play {
-    height: 60px;
-    left: 50%;
-    position: absolute;
-    top: 50%;
-    transform: translate3d( -50%, -50%, 0 );
-    width: 60px;
     }
 .artist__gallery {
     padding-bottom: $expander-three;
@@ -116,7 +82,7 @@
     }
 .artist__related__meta {
     display: inline-block;
-    padding-top: $mobile-padding;
+    padding-top: $expander-mobile;
     }
 .artist__related__col {
     span + span {

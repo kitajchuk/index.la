@@ -1,0 +1,34 @@
+.feature__video {
+    display: inline-block;
+    width: 100% - $wrapper-padding-big;
+}
+
+
+
+// Slices...
+.single-image {
+    .image {
+        width: 100%;
+        }
+}
+.caption {
+    padding-left: 20px;
+    padding-top: $expander-mobile;
+    }
+.fullwidth {}
+.wide-landscape {
+    padding-left: $wrapper-padding;
+    padding-right: $wrapper-padding;
+}
+.tite-landscape {
+    padding-left: $wrapper-padding-big;
+    padding-right: $wrapper-padding-big;
+}
+.wide-vertical {
+    padding-left: 24%;
+    padding-right: 24%;
+    }
+.tite-vertical {
+    padding-left: 36%;
+    padding-right: 36%;
+    }

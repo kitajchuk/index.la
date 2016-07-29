@@ -1,4 +1,3 @@
-import $ from "properjs-hobo";
 import router from "../router";
 import * as core from "../core";
 import Controller from "properjs-controller";
@@ -103,30 +102,6 @@ const artist = {
         });
 
         this.bindScroll();
-        this.bindVideos();
-    },
-
-
-    /**
-     *
-     * @public
-     * @method bindVideos
-     * @memberof artist
-     * @description Handle any videos on the page. Ideally Vimeo.
-     *
-     */
-    bindVideos () {
-        core.dom.page.find( ".js-artist-video" ).on( "click", ( e ) => {
-            const $node = $( e.target ).closest( ".js-artist-video" );
-            const data = $node.data();
-            const $iframe = $node.find( "iframe" );
-            const winnow = $iframe[ 0 ].contentWindow;
-            const message = (data.provider === "youtube" ? '{"event":"command","func":"playVideo","args":""}' : '{"method":"play"}');
-
-            winnow.postMessage( message, "*" );
-
-            $node.addClass( "is-active" );
-        });
     },
 
 
