@@ -25,9 +25,6 @@
 
 
 
-.intro {
-    background-color: $white;
-    }
 .intro__text {
     opacity: 0;
     transform: translate3d( 0, $expander-one / 2, 0 );
@@ -35,8 +32,8 @@
                 transform $base-duration $ease;
     }
 .intro__svg {
-    fill: $black;
-    height: 30px;
+    fill: $white;
+    height: 80px;
     }
 .intro__load {
     bottom: 0;
@@ -49,7 +46,7 @@
     width: 100%;
     }
 .intro__load__fill {
-    background-color: $black;
+    background-color: $white;
     display: inline-block;
     height: 100%;
     transition: width $fast-duration $ease;

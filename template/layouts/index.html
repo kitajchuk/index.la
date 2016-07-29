@@ -234,12 +234,11 @@
             </article>
 
             <!-- Features -->
-            <section class="features js-features -wrap -exp -text--center">
-                <div v-for="feature in features" class="features__item -exp">
+            <section class="features js-features -wrap -text--center">
+                <div v-for="feature in features" class="features__item -expp">
                     <a href="/feature/{{feature.uri}}/">
                         <img class="image image--{{feature.data.featureImage.value.main.dimensions.width > feature.data.featureImage.value.main.dimensions.height ? 'wide' : 'tall'}} js-lazy-image" data-img-src="{{feature.data.featureImage.value.main.url}}" />
                     </a>
-                    <p class="p">{{feature.data.name.value}}</p>
                 </div>
             </section>
 
