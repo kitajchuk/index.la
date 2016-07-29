@@ -1,6 +1,71 @@
 /******************************************************************************
  * Classes for things...
 *******************************************************************************/
+.diptych {
+    font-size: 0;
+    }
+.diptych__image {
+    display: inline-block;
+    vertical-align: middle;
+    width: 50%;
+
+    .image {
+        width: 100%;
+        }
+    }
+.diptych__left {
+    padding-right: $wrapper-padding / 2;
+    }
+.diptych__right {
+    padding-left: $wrapper-padding / 2;
+    }
+
+
+
+.video {
+    position: relative;
+
+    iframe {
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        }
+}
+.video.is-active {
+    .video__poster {
+        opacity: 0;
+        pointer-events: none;
+        }
+}
+.video__poster {
+    cursor: pointer;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    transition: opacity $base-duration $ease;
+    width: 100%;
+    }
+.video__play {
+    height: 60px;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate3d( -50%, -50%, 0 );
+    width: 60px;
+    }
+
+
+
+.cover {
+    height: 100vh;
+    width: 100%;
+    }
+
+
+
 .squaregrid__item {
     display: inline-block;
     position: relative;
@@ -47,7 +112,7 @@
 
 
 .about__wrap {
-    max-width: 860px;
+    max-width: 880px;
     width: 100%;
     }
 .about__footer {

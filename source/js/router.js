@@ -2,6 +2,7 @@ import Vue from "vue";
 import nav from "./menus/nav";
 import * as core from "./core";
 import Animator from "./Animator";
+import Movies from "./Movies";
 import refine from "./index/refine";
 import templates from "./index/templates";
 import PageController from "properjs-pagecontroller";
@@ -155,6 +156,12 @@ const router = {
             this.animController = null;
         }
 
+        // @this.movieController
+        if ( this.movieController ) {
+            this.movieController.destroy();
+            this.movieController = null;
+        }
+
         // @this.template
         this.template = null;
     },
@@ -184,7 +191,10 @@ const router = {
                 this.imageController = core.images.handleImages();
 
                 // @this.animController
-                this.animController = new Animator( core.dom.page.find( ".js-animate" ) );
+                this.animController = new Animator( core.dom.page.find( core.config.animSelector ) );
+
+                // @this.movieController
+                this.movieController = new Movies( core.dom.page.find( core.config.videoSelector ) );
             },
             ready: () => {
                 core.dom.html.removeClass( "is-inactive" );

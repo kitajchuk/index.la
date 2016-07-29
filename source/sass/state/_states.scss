@@ -58,3 +58,12 @@
         display: inline-block;
         }
 }
+
+.is-feature-page {
+    .page {
+        padding-top: 0
+        }
+    .header {
+        background-color: transparent;
+        }
+}
