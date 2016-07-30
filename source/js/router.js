@@ -212,35 +212,6 @@ const router = {
     /**
      *
      * @public
-     * @method route
-     * @param {string} path The uri to route to
-     * @memberof router
-     * @description Trigger app to route a specific page. [Reference]{@link https://github.com/ProperJS/Router/blob/master/Router.js#L222}
-     *
-     */
-    route ( path ) {
-        this.controller.getRouter().trigger( path );
-    },
-
-
-    /**
-     *
-     * @public
-     * @method push
-     * @param {string} path The uri to route to
-     * @param {function} cb Optional callback to fire
-     * @memberof router
-     * @description Trigger a silent route with a supplied callback.
-     *
-     */
-    push ( path, cb ) {
-        this.controller.routeSilently( path, (cb || core.util.noop) );
-    },
-
-
-    /**
-     *
-     * @public
      * @method bindEmptyHashLinks
      * @memberof router
      * @description Suppress #hash links.

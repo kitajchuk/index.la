@@ -1,3 +1,4 @@
+// Menu...
 .refine {
     background-color: $grey-back;
     border-right: 1px solid $grey-light;
@@ -20,6 +21,7 @@
 
 
 
+// Search field...
 .search {
     border-bottom: 1px solid transparent;
     height: $header-height;
@@ -46,6 +48,7 @@
 
 
 
+// Filter / sort options...
 .filter {
     padding-left: $expander-two;
     transition: padding-left $base-duration $ease-cubic-sharp;

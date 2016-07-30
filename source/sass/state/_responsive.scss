@@ -13,7 +13,7 @@
     .index__row {
         padding-left: $wrapper-padding-big;
         padding-right: $wrapper-padding-big;
-        }
+    }
 }
 
 
@@ -22,7 +22,18 @@
     .artist__gallery {
         margin-left: $wrapper-padding;
         }
-
+    .h3 {
+        font-size: 28px;
+        }
+    .h4 {
+        font-size: 24px;
+        }
+    .about__wrap {
+        max-width: 850px;
+        }
+    .intro__svg {
+        height: 60px;
+        }
 }
 
 
@@ -209,5 +220,14 @@
         }
     .diptych__right {
         padding-left: 0;
+        }
+    .intro__svg {
+        height: 40px;
+        }
+    .nav__logo {
+        display: none;
+        }
+    .artist__gallery {
+        padding-bottom: $expander-two;
         }
 }

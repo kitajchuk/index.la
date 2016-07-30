@@ -1,8 +1,6 @@
 .animate {
     opacity: 0;
-    transform: translate3d( 0, $bump-size, 0 );
-    transition: opacity $base-duration $ease-out,
-                transform $base-duration $ease-out;
+    transition: opacity $base-duration $ease-out;
 
     &.is-animate {
         opacity: 1;
@@ -14,16 +12,9 @@
 }
 
 
-.animate--delayed {
-    transition-delay: $base-duration;
-    }
 
-
-.animate--fade {
-    transform: translate3d( 0, 0, 0 );
-    }
-
-
-.animate--horz {
-    transform: translate3d( $bump-size, 0, 0 );
+.animate--lift {
+    transform: translate3d( 0, $expander-one / 2, 0 );
+    transition: opacity $base-duration $ease,
+                transform $base-duration $ease;
     }

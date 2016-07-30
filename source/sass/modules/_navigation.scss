@@ -22,9 +22,32 @@
     }
 .nav__menu__a {
     cursor: pointer;
+    transition: color $base-duration $ease;
 
+    &:hover,
     &.is-active {
         color: $white;
+        }
+    }
+.nav__menu__a.is-coming-soon {
+    position: relative;
+
+    &:before {
+        @include p();
+        content: "Coming Soon";
+        opacity: 0;
+        padding-right: 30px;
+        position: absolute;
+        right: 100%;
+        text-align: right;
+        top: 50%;
+        transition: opacity $base-duration $ease,
+                    transform $base-duration $ease;
+        white-space: nowrap;
+        }
+    &:hover:before {
+        opacity: 1;
+        transform: translateY( -50% );
         }
     }
 .nav__menu__primary + .nav__menu__tertiary {
@@ -33,3 +56,12 @@
 .nav__menu__tertiary .nav__menu__a {
     line-height: 2;
     }
+
+
+
+.nav.is-active  {
+    .nav__wrap {
+        opacity: 1;
+        transform: translate3d( 0, 0, 0 );
+        }
+}

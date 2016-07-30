@@ -84,7 +84,7 @@ const submit = {
 
 
 const ajaxGoogle = function () {
-    if ( this.isSubmit ) {
+    if ( submit.isSubmit ) {
         return;
     }
 

@@ -135,7 +135,7 @@
     left: 50%;
     opacity: 0;
     outline: 0;
-    padding: 8px 20px;
+    padding: 9px 20px;
     pointer-events: none;
     position: absolute;
     transform: translateX( -50% ) translateY( 200% );
@@ -170,8 +170,14 @@
         }
     }
 .submit__message {
-    display: none;
+    pointer-events: none;
     }
+.submit.is-active {
+    .submit__form {
+        opacity: 1;
+        transform: translate3d( 0, 0, 0 );
+        }
+}
 .submit.is-valid-field {
     .submit__button {
         opacity: 1;
@@ -180,7 +186,8 @@
 }
 .submit.is-submit {
     .submit__message {
-        display: inline-block;
+        opacity: 1;
+        transform: translate3d( 0, 0, 0 );
         }
     .submit__form {
         display: none;
