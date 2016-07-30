@@ -1,5 +1,12 @@
 {
     "Main": {
+        "title": {
+            "type": "Text",
+            "fieldset": "Nav Title",
+            "config": {
+                "label": "Title"
+            }
+        },
         "order": {
             "type": "Number",
             "fieldset": "Order",
@@ -7,20 +14,12 @@
                 "label": "Order"
             }
         },
-        "style": {
-            "type": "Select",
-            "fieldset": "Nav Style",
-            "config": {
-                "label": "Style",
-                "options": ["primary", "tertiary"],
-                "placeholder": "primary"
-            }
-        },
-        "title": {
-            "type": "Text",
-            "fieldset": "Nav Title",
-            "config": {
-                "label": "Title"
+        "state" : {
+            "type" : "Select",
+            "fieldset" : "State of navigation item",
+            "config" : {
+                "label" : "State",
+                "options" : [ "active", "coming-soon" ]
             }
         },
         "url": {

@@ -48,6 +48,11 @@
 *******************************************************************************/
 .a {
     @include a();
+    transition: color $base-duration $ease;
+
+    &:hover {
+        color: $black;
+        }
     }
 
 

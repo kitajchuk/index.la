@@ -1,6 +1,7 @@
 import $ from "properjs-hobo";
 import * as core from "../core";
 import Vue from "vue";
+import paramalama from "paramalama";
 
 
 /**
@@ -94,17 +95,31 @@ const refine = {
      *
      */
     applyState () {
-        if ( this.active.sort ) {
-            this.sortBy( this.active.sort );
-        }
+        const params = paramalama( window.location.search );
 
-        if ( this.active.filters ) {
-            this.filterBy( this.active.filters );
-        }
+        if ( params && params.type && params.customType && params.value ) {
+            this.resetSearch();
+            this.resetFilters();
+            this.resetScroll();
+            this.filterBy( [params] );
+            this.applyLabel();
+            this.applyNone();
 
-        if ( this.active.search ) {
-            this.search[ 0 ].value = this.active.search;
-            this.searchBy( this.active.search );
+            this.filters.filter( `[data-value='${params.value}']` ).addClass( "is-active" );
+
+        } else {
+            if ( this.active.sort ) {
+                this.sortBy( this.active.sort );
+            }
+
+            if ( this.active.filters ) {
+                this.filterBy( this.active.filters );
+            }
+
+            if ( this.active.search ) {
+                this.search[ 0 ].value = this.active.search;
+                this.searchBy( this.active.search );
+            }
         }
     },
 

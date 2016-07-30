@@ -91,8 +91,15 @@ const artist = {
         const viewArtist = documents.find(( el ) => {
             return (el.uri === uri);
         });
+        let mobile = null;
+
+        if ( core.detect.isDevice() ) {
+            mobile = viewArtist.data.gallery.value[ 0 ];
+            viewArtist.data.gallery.value = viewArtist.data.gallery.value.slice( 1, viewArtist.data.gallery.value.length );
+        }
 
         router.setView( this.template, {
+            mobile: mobile,
             artist: viewArtist,
             relatedArtists: core.util.shuffle( documents )
                                     // Filter out only artists with matching categories
