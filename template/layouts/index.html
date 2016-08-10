@@ -159,7 +159,7 @@
                 <div v-if="noresults" class="-wrap -exp -f-zero">
                     <div class="h4">No Artists</div>
                 </div>
-                <div v-for="artist in documents" class="index__row -wrap -exp -f-zero -text--center {{artist.show ? 'animate js-animate' : 'is-hidden'}}" data-uuid="{{artist.uuid}}">
+                <div v-for="artist in documents" class="index__row -wrap -exp -f-zero -text--center animate js-animate {{artist.show ? '' : 'is-hidden'}}" data-uuid="{{artist.uuid}}">
                     <div class="index__col index__feature -column -text--left">
                         <div class="index__thumbnail">
                             <figure class="index__figure">
