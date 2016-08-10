@@ -472,11 +472,19 @@ const refine = {
 
         this.data.documents.sort(( a, b ) => {
             let ret = 0;
+            let cond = null;
 
             a = (a[ data.value ] !== undefined ? a[ data.value ] : typeof a.data[ data.value ].value === "object" ? a.data[ data.value ].value.data.name.value : a.data[ data.value ].value);
             b = (b[ data.value ] !== undefined ? b[ data.value ] : typeof b.data[ data.value ].value === "object" ? b.data[ data.value ].value.data.name.value : b.data[ data.value ].value);
 
-            if ( a < b ) {
+            if ( data.order === "desc" ) {
+                cond = (a > b);
+
+            } else {
+                cond = (a < b);
+            }
+
+            if ( cond ) {
                 ret = -1;
 
             } else {

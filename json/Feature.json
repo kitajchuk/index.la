@@ -7,6 +7,13 @@
                 "label": "Name"
             }
         },
+        "order": {
+            "type": "Number",
+            "fieldset": "Order",
+            "config": {
+                "label": "Order"
+            }
+        },
         "artist": {
             "type": "Link",
             "fieldset": "Artist",

@@ -102,7 +102,7 @@
                 <div class="filter__col">
                     <p class="p">Sort</p>
                     <ul class="filter__set">
-                        <li v-for="sort in sorts" class="filter__opt p -grey js-sort-option {{sort.data.value.value === 'uuid' ? 'is-active' : ''}}" data-label="{{sort.data.label.value}}" data-value="{{sort.data.value.value}}">{{sort.data.label.value}}</li>
+                        <li v-for="sort in sorts" class="filter__opt p -grey js-sort-option {{sort.data.value.value === 'uuid' ? 'is-active' : ''}}" data-order="{{sort.data.value.value === 'uuid' ? 'desc' : 'asc'}}" data-label="{{sort.data.label.value}}" data-value="{{sort.data.value.value}}">{{sort.data.label.value}}</li>
                     </ul>
                 </div>
                 <div class="filter__col">

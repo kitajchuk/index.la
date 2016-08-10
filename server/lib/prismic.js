@@ -140,9 +140,6 @@ Class.prototype = {
         var self = this;
         var response = [];
 
-        // Reset the UUID
-        helpers.uuid = 0;
-
         return new Promise(function ( resolve, reject ) {
             var query = function ( page ) {
                 self.api.form( type ).ref( self.api.master() ).page( page ).pageSize( 100 ).submit().then(function ( json ) {
