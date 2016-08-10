@@ -10,9 +10,6 @@ var slug = require( "slug" );
  *
  */
 var helpers = {
-    uuid: 0,
-
-
     /**
      *
      * @public
@@ -161,7 +158,7 @@ var helpers = {
             tags: doc.tags,
             data: {},
             show: true,
-            uuid: this.uuid++
+            uuid: 0
         };
 
         for ( i in doc.data ) {
@@ -171,6 +168,11 @@ var helpers = {
                 // Generate a unique uri slug for the document
                 if ( key === "name" ) {
                     ret.uri = slug( doc.data[ i ].value ).toLowerCase();
+                }
+
+                // Generate a unique UUID for the document to sort by
+                if ( key === "order" ) {
+                    ret.uuid = doc.data[ i ].value;
                 }
 
                 // Skip linked document without dict references

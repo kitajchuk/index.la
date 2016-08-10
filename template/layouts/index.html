@@ -4,7 +4,7 @@
         <!-- Meta -->
         <meta charset="utf-8" />
         <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1" />
-        <meta name="description" content="<%= locals.meta[ 0 ].data[ 'meta.description' ].value %>" />
+        <meta name="description" content="<%= locals.meta[ 0 ].data[ 'meta.description' ].value[ 0 ].text %>" />
         <meta name="format-detection" content="telephone=no" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
@@ -15,11 +15,11 @@
         <meta property="og:title" content="<%= locals.meta[ 0 ].data[ 'meta.title' ].value %>" />
         <meta property="og:url" content="<%= locals.meta[ 0 ].data[ 'meta.url' ].value %>" />
         <meta property="og:type" content="website" />
-        <meta property="og:description" content="<%= locals.meta[ 0 ].data[ 'meta.description' ].value %>" />
+        <meta property="og:description" content="<%= locals.meta[ 0 ].data[ 'meta.description' ].value[ 0 ].text %>" />
         <meta property="og:image" content="<%= locals.meta[ 0 ].data[ 'meta.image' ].value.main.url %>" />
 
         <meta itemprop="name" content="<%= locals.meta[ 0 ].data[ 'meta.title' ].value %>" />
-        <meta itemprop="description" content="<%= locals.meta[ 0 ].data[ 'meta.description' ].value %>" />
+        <meta itemprop="description" content="<%= locals.meta[ 0 ].data[ 'meta.description' ].value[ 0 ].text %>" />
         <meta itemprop="url" content="<%= locals.meta[ 0 ].data[ 'meta.url' ].value %>" />
         <meta itemprop="thumbnailUrl" content="<%= locals.meta[ 0 ].data[ 'meta.image' ].value.main.url %>" />
         <meta itemprop="image" content="<%= locals.meta[ 0 ].data[ 'meta.image' ].value.main.url %>" />
@@ -102,7 +102,7 @@
                 <div class="filter__col">
                     <p class="p">Sort</p>
                     <ul class="filter__set">
-                        <li v-for="sort in sorts" class="filter__opt p -grey js-sort-option {{sort.data.value.value === 'uuid' ? 'is-active' : ''}}" data-label="{{sort.data.label.value}}" data-value="{{sort.data.value.value}}">{{sort.data.label.value}}</li>
+                        <li v-for="sort in sorts" class="filter__opt p -grey js-sort-option {{sort.data.value.value === 'uuid' ? 'is-active' : ''}}" data-order="{{sort.data.value.value === 'uuid' ? 'desc' : 'asc'}}" data-label="{{sort.data.label.value}}" data-value="{{sort.data.value.value}}">{{sort.data.label.value}}</li>
                     </ul>
                 </div>
                 <div class="filter__col">
