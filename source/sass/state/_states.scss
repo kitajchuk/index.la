@@ -71,7 +71,14 @@
         }
 }
 
+.is-grid-view {
+    .icon--grid:after {
+        display: none;
+        }
+}
+
 .is-index-page {
+    .target--grid,
     .target--refine {
         display: inline-block;
         }

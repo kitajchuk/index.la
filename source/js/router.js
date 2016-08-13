@@ -3,7 +3,6 @@ import nav from "./menus/nav";
 import * as core from "./core";
 import Animator from "./Animator";
 import Movies from "./Movies";
-// import loader from "./loader";
 import refine from "./index/refine";
 import templates from "./index/templates";
 import PageController from "properjs-pagecontroller";
@@ -171,6 +170,31 @@ const router = {
     /**
      *
      * @public
+     * @method execControllers
+     * @memberof router
+     * @description Instantiate controllers for loading, animation etc...
+     *
+     */
+    execControllers () {
+        // @this.imageController
+        this.imageController = new core.ImageController( core.dom.page.find( core.config.lazyImageSelector ) );
+        this.imageController.on( "preloaded", () => {
+            core.dom.html.removeClass( "is-page-inactive" );
+
+            core.emitter.fire( "app--intro-teardown" );
+        });
+
+        // @this.animController
+        this.animController = new Animator( core.dom.page.find( core.config.animSelector ) );
+
+        // @this.movieController
+        this.movieController = new Movies( core.dom.page.find( core.config.videoSelector ) );
+    },
+
+
+    /**
+     *
+     * @public
      * @method setView
      * @param {string} tpl The template access ID
      * @param {object} data The PageController data object
@@ -188,28 +212,14 @@ const router = {
             el: core.dom.page[ 0 ],
             data: data,
             compiled: () => {
-                // @this.imageController
-                this.imageController = new core.ImageController( core.dom.page.find( core.config.lazyImageSelector ) );
-                // this.imageController.on( "preload", ( obj ) => {
-                //     loader.update( obj.done / obj.total * 100 );
-                // });
-                this.imageController.on( "preloaded", () => {
-                    // loader.teardown();
-
-                    core.dom.html.removeClass( "is-page-inactive" );
-
-                    core.emitter.fire( "app--intro-teardown" );
-                });
-
-                // @this.animController
-                this.animController = new Animator( core.dom.page.find( core.config.animSelector ) );
-
-                // @this.movieController
-                this.movieController = new Movies( core.dom.page.find( core.config.videoSelector ) );
+                this.execControllers();
             },
             // ready: () => {},
             replace: false,
             template: templates.get( tpl )
+        });
+        this.view.$watch( "isgridview", ( /* oldVal, newVal */ ) => {
+            this.execControllers();
         });
 
         core.dom.html.addClass( `is-${this.template}-page` );

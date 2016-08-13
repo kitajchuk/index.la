@@ -25,7 +25,7 @@ class ImageController extends Controller {
 
         } else {
             setTimeout(() => {
-                this.fire( "preload" );
+                this.fire( "preloaded" );
 
             }, 0 );
         }

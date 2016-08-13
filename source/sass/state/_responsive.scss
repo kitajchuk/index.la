@@ -237,4 +237,9 @@
     .artist__gallery {
         padding-bottom: $expander-two;
         }
+    .is-index-page {
+        .target--grid {
+            display: none;
+            }
+    }
 }

@@ -34,10 +34,6 @@
     padding-top: $expander-mobile;
     }
 .artist__related__col {
-    &:hover {
-        opacity: 0.8;
-        }
-
     span + span {
         &:before {
             content: " / ";

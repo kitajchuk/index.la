@@ -14,6 +14,17 @@ const index = {
     /**
      *
      * @public
+     * @member isgridview
+     * @memberof index
+     * @description Flag on for `grid` view.
+     *
+     */
+    isGridView: false,
+
+
+    /**
+     *
+     * @public
      * @member template
      * @memberof index
      * @description The template context.
@@ -33,7 +44,9 @@ const index = {
      */
     init ( app ) {
         this.app = app;
+        this.gridIcon = core.dom.header.find( ".js-controller--grid" );
 
+        this.gridIcon.on( "click", this.toggleView.bind( this ) );
         core.emitter.on( "app--view-index", this.load.bind( this ) );
         core.emitter.on( "app--view-teardown", this.teardown.bind( this ) );
 
@@ -75,13 +88,36 @@ const index = {
      */
     view () {
         const documents = core.cache.get( "artists" );
-        const viewData = {
+
+        this.viewData = {
             documents: documents,
-            noresults: false
+            noresults: false,
+            isgridview: this.isGridView
         };
 
-        refine.setData( viewData );
-        router.setView( this.template, viewData );
+        refine.setData( this.viewData );
+        router.setView( this.template, this.viewData );
+    },
+
+
+    /**
+     *
+     * @public
+     * @method toggleView
+     * @memberof index
+     * @description Toggle between list and grid views.
+     *
+     */
+    toggleView () {
+        this.isGridView = !this.isGridView;
+        this.viewData.isgridview = this.isGridView;
+
+        if ( this.viewData.isgridview ) {
+            core.dom.html.addClass( "is-grid-view" );
+
+        } else {
+            core.dom.html.removeClass( "is-grid-view" );
+        }
     },
 
 

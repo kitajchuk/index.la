@@ -1,6 +1,16 @@
 /******************************************************************************
  * Classes for things...
 *******************************************************************************/
+.fadeimage {
+    transition: opacity $base-duration $ease-out;
+
+    &:hover {
+        opacity: 0.8;
+        }
+    }
+
+
+
 .loader {
     bottom: 0;
     font-size: 0;
