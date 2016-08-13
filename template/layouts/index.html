@@ -169,8 +169,8 @@
                 <div v-if="noresults" class="index__list -wrap -exp -f-zero">
                     <div class="h4">No Artists</div>
                 </div>
-                <div v-if="isgridview" class="index__list -f-zero -text--center">
-                    <div v-for="artist in documents" class="squaregrid__item artist__related__col -column--1of3 -exp-b animate js-animate">
+                <div v-if="isgridview" class="index__list -f-zero -text--center -wrap">
+                    <div v-for="artist in documents" class="index__tile squaregrid__item artist__related__col -column--1of3 -exp-b animate js-animate">
                         <div class="squaregrid__photo">
                             <figure class="squaregrid__figure">
                                 <a href="/artist/{{artist.uri}}/">
