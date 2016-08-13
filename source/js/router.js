@@ -3,6 +3,7 @@ import nav from "./menus/nav";
 import * as core from "./core";
 import Animator from "./Animator";
 import Movies from "./Movies";
+// import loader from "./loader";
 import refine from "./index/refine";
 import templates from "./index/templates";
 import PageController from "properjs-pagecontroller";
@@ -188,7 +189,17 @@ const router = {
             data: data,
             compiled: () => {
                 // @this.imageController
-                this.imageController = core.images.handleImages();
+                this.imageController = new core.ImageController( core.dom.page.find( core.config.lazyImageSelector ) );
+                // this.imageController.on( "preload", ( obj ) => {
+                //     loader.update( obj.done / obj.total * 100 );
+                // });
+                this.imageController.on( "preloaded", () => {
+                    // loader.teardown();
+
+                    core.dom.html.removeClass( "is-page-inactive" );
+
+                    core.emitter.fire( "app--intro-teardown" );
+                });
 
                 // @this.animController
                 this.animController = new Animator( core.dom.page.find( core.config.animSelector ) );
@@ -196,11 +207,7 @@ const router = {
                 // @this.movieController
                 this.movieController = new Movies( core.dom.page.find( core.config.videoSelector ) );
             },
-            ready: () => {
-                core.dom.html.removeClass( "is-inactive" );
-
-                core.emitter.fire( "app--intro-teardown" );
-            },
+            // ready: () => {},
             replace: false,
             template: templates.get( tpl )
         });
@@ -231,7 +238,7 @@ const router = {
      *
      */
     changePageOut () {
-        core.dom.html.addClass( "is-inactive" );
+        core.dom.html.addClass( "is-page-inactive" );
 
         setTimeout( () => {
             nav.close();

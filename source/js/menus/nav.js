@@ -25,6 +25,9 @@ const nav = {
         this.element = core.dom.body.find( ".js-nav" );
         this.trigger = core.dom.header.find( ".js-controller--nav" );
         this.menu = new Menu( this.element );
+        this.isTipinAble = false;
+        this.isLeftBehind = false;
+        this.threshold = 500;
         this.initView();
 
         core.log( "nav initialized" );
@@ -42,18 +45,7 @@ const nav = {
     initView () {
         const data = core.cache.get( "data" );
         const viewData = {
-            navs: data.nav.sort(( navA, navB ) => {
-                let ret = 0;
-
-                if ( navA.data.order.value < navB.data.order.value ) {
-                    ret = -1;
-
-                } else {
-                    ret = 1;
-                }
-
-                return ret;
-            }),
+            navs: data.nav.sort( core.util.sortByOrder ),
             socials: data.social
         };
 
@@ -117,13 +109,9 @@ const nav = {
             this.open();
         });
 
-        core.emitter.on( "app--scrollup", () => {
-            core.dom.header.removeClass( "is-inactive" );
-        });
-
-        core.emitter.on( "app--scrolldown", () => {
-            core.dom.header.addClass( "is-inactive" );
-        });
+        core.emitter.on( "app--scroll", onScroll );
+        core.emitter.on( "app--scrollup", onScrollUp );
+        core.emitter.on( "app--scrolldown", onScrollDown );
     },
 
 
@@ -143,6 +131,69 @@ const nav = {
         if ( $navi.length ) {
             $navi.addClass( "is-active" );
         }
+    }
+};
+
+
+const transformHeader = function ( y ) {
+    core.util.translate3d(
+        core.dom.header[ 0 ],
+        0,
+        core.util.px( y ),
+        0
+    );
+};
+
+
+const onScroll = function ( pos ) {
+    const bounds = core.dom.header[ 0 ].getBoundingClientRect();
+    const height = bounds.height * 2;
+    const transformY = pos / 2;
+
+    // Exit clauses
+    if ( pos <= 0 && nav.isTipinAble ) {
+        nav.isTipinAble = false;
+
+        core.dom.header.removeClass( "is-tipinable" );
+
+        return;
+    }
+
+    if ( pos <= height && !nav.isTipinAble ) {
+        if ( nav.isLeftBehind ) {
+            nav.isLeftBehind = false;
+        }
+
+        core.dom.header.removeClass( "is-tipinable" );
+
+        transformHeader( -transformY );
+
+    } else if ( pos > height && !nav.isLeftBehind ) {
+        nav.isLeftBehind = true;
+
+        core.dom.header.addClass( "is-tipinable" );
+
+        transformHeader( -bounds.height );
+    }
+};
+
+
+const onScrollUp = function ( pos ) {
+    if ( nav.isLeftBehind && pos >= nav.threshold ) {
+        nav.isTipinAble = true;
+
+        transformHeader( 0 );
+    }
+};
+
+
+const onScrollDown = function ( pos ) {
+    const bounds = core.dom.header[ 0 ].getBoundingClientRect();
+
+    if ( nav.isLeftBehind && pos >= nav.threshold ) {
+        nav.isTipinAble = false;
+
+        transformHeader( -bounds.height );
     }
 };
 

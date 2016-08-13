@@ -17,6 +17,37 @@
 .refine-label {
     margin-left: 30px;
     transition: opacity $base-duration $ease;
+
+    span {
+        transition: color $base-duration $ease;
+        }
+    span:hover {
+        color: $black;
+        }
+    span:hover:before {
+        color: $grey-text;
+        }
+    span + span:before {
+        content: " + ";
+        color: $grey-text;
+        position: relative;
+        }
+    }
+.refine-clear {
+    background-color: $white;
+    border-right: 1px solid $grey-light;
+    bottom: 0;
+    cursor: pointer;
+    height: $header-height;
+    left: 0;
+    padding-left: $expander-two;
+    position: fixed;
+    transform: translate3d( -100%, 0, 0 );
+    transition: width $base-duration $ease-cubic-sharp,
+                transform $base-duration $ease-cubic-sharp,
+                padding-left $base-duration $ease-cubic-sharp;
+    width: $filter-width;
+    z-index: $z_layer_10;
     }
 
 
@@ -50,13 +81,20 @@
 
 // Filter / sort options...
 .filter {
+    padding-bottom: $expander-two;
     padding-left: $expander-two;
+    padding-top: $expander-one;
     transition: padding-left $base-duration $ease-cubic-sharp;
     }
 .filter__opt {
     cursor: pointer;
     line-height: 1.6;
     position: relative;
+    transition: color $base-duration $ease;
+
+    &:hover {
+        color: $black;
+        }
 
     &.is-active {
         color: $black;
