@@ -42,7 +42,7 @@
     left: 0;
     padding-left: $expander-two;
     position: fixed;
-    transform: translate3d( -100%, 0, 0 );
+    transform: translate3d( -100%, 100%, 0 );
     transition: width $base-duration $ease-cubic-sharp,
                 transform $base-duration $ease-cubic-sharp,
                 padding-left $base-duration $ease-cubic-sharp;
@@ -81,7 +81,7 @@
 
 // Filter / sort options...
 .filter {
-    padding-bottom: $expander-two;
+    padding-bottom: $expander-one;
     padding-left: $expander-two;
     padding-top: $expander-one;
     transition: padding-left $base-duration $ease-cubic-sharp;

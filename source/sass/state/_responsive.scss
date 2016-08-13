@@ -65,6 +65,11 @@
             padding-left: 320px;
             }
     }
+    .is-refine-clearable {
+        .filter {
+            padding-bottom: $expander-one + $header-height-small;
+            }
+    }
 }
 
 
@@ -79,7 +84,8 @@
 
 @media only screen and ( max-width: $break-tablet-medium ) {
     .index .p,
-    .refine .p {
+    .refine .p,
+    .refine-clear .p {
         font-size: $m-size;
         }
     .is-refine-open {
@@ -231,4 +237,9 @@
     .artist__gallery {
         padding-bottom: $expander-two;
         }
+    .is-index-page {
+        .target--grid {
+            display: none;
+            }
+    }
 }

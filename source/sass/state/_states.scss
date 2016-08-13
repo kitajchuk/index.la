@@ -24,9 +24,11 @@
 }
 
 .is-refine-open {
-    .refine,
-    .refine-clear {
+    .refine {
         transform: translate3d( 0, 0, 0 );
+        }
+    .refine-clear {
+        transform: translate3d( 0, 100%, 0 );
         }
     .refine-label {
         opacity: 0;
@@ -48,6 +50,20 @@
         }
 }
 
+.is-refine-clearable {
+    .filter {
+        padding-bottom: $expander-one + $header-height;
+        }
+    .refine-clear {
+        transform: translate3d( -100%, 0, 0 );
+        }
+}
+.is-refine-open.is-refine-clearable {
+    .refine-clear {
+        transform: translate3d( 0, 0, 0 );
+        }
+}
+
 .is-page-inactive {
     .page,
     .header {
@@ -55,7 +71,14 @@
         }
 }
 
+.is-grid-view {
+    .icon--grid:after {
+        display: none;
+        }
+}
+
 .is-index-page {
+    .target--grid,
     .target--refine {
         display: inline-block;
         }

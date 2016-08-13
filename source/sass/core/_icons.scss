@@ -90,9 +90,40 @@
         width: 24px;
         }
 }
+.icon--grid {
+    background-color: $black;
+    height: 18px;
+    position: relative;
+    width: 18px;
+
+    &:before,
+    &:after {
+        background-color: $white;
+        content: "";
+        position: absolute;
+        }
+    &:before {
+        height: 2px;
+        left: 0;
+        top: 50%;
+        transform: translateY( -1px );
+        width: 100%;
+        }
+    &:after {
+        height: 100%;
+        left: 50%;
+        top: 0;
+        transform: translateX( -1px );
+        width: 2px;
+        }
+}
 
 
 
+.target--grid {
+    margin-right: 1px;
+    }
+.target--grid,
 .target--back,
 .target--refine {
     display: none;

@@ -588,6 +588,13 @@ const onFilterOption = function ( e ) {
         filters.push( nodeData );
     });
 
+    if ( filters.length > 1 ) {
+        core.dom.html.addClass( "is-refine-clearable" );
+
+    } else {
+        core.dom.html.removeClass( "is-refine-clearable" );
+    }
+
     refine.resetSearch();
     refine.filterBy( filters );
     refine.resetScroll();
@@ -602,6 +609,8 @@ const onClearAll = function () {
     refine.resetScroll();
     refine.applyLabel();
     refine.applyNone();
+
+    core.dom.html.removeClass( "is-refine-clearable" );
 };
 
 
