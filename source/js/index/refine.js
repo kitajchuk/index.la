@@ -23,6 +23,7 @@ const refine = {
     init () {
         this.element = core.dom.body.find( ".js-refine" );
         this.label = core.dom.body.find( ".js-refine-label" );
+        this.clear = core.dom.body.find( ".js-refine-clear" );
         this.trigger = core.dom.header.find( ".js-controller--refine" );
         this.isOpen = false;
         this.initView();
@@ -45,7 +46,7 @@ const refine = {
             data: {
                 sorts: data.sort,
                 types: data.type,
-                regions: data.region,
+                regions: data.region.sort( core.util.sortByOrder ),
                 categories: data.category
             },
             replace: false,
@@ -137,14 +138,14 @@ const refine = {
 
         if ( this.active.filters ) {
             this.active.filters.forEach(( filterSet ) => {
-                label.push( filterSet.value );
+                label.push( `<span class="js-refinement" data-type="${filterSet.type}" data-custom-type="${filterSet.customType}" data-value="${filterSet.value}">${filterSet.value}</span>` );
             });
 
         } else if ( this.active.search ) {
-            label.push( this.active.search );
+            label.push( `<span>${this.active.search}</span>` );
         }
 
-        this.active.label = label.join( " / " );
+        this.active.label = label.join( "" );
     },
 
 
@@ -256,6 +257,22 @@ const refine = {
     /**
      *
      * @public
+     * @method remove
+     * @param {Hobo} $elem The refinement to remove
+     * @memberof refine
+     * @description Remove an active refinement filter like on Wake.io
+     *
+     */
+    remove ( $elem ) {
+        onFilterOption({
+            target: this.filters.filter( `[data-value='${$elem.data().value}']` )[ 0 ]
+        });
+    },
+
+
+    /**
+     *
+     * @public
      * @method bindEvents
      * @memberof refine
      * @description Initialize events
@@ -266,6 +283,7 @@ const refine = {
         this.element.on( "click", ".js-filter-option", onFilterOption );
         this.element.on( "click", ".js-sort-option", onSortOption );
         this.search.on( "keyup", onSearchKey );
+        this.clear.on( "click", onClearAll );
         core.dom.doc.on( "keydown", onEscKeydown );
     },
 
@@ -497,8 +515,13 @@ const refine = {
 };
 
 
-const onRefineTrigger = function () {
-    if ( refine.isOpen ) {
+const onRefineTrigger = function ( e ) {
+    const $target = $( e.target );
+
+    if ( $target.is( ".js-refinement" ) ) {
+        refine.remove( $target );
+
+    } else if ( refine.isOpen ) {
         refine.close();
 
     } else {
@@ -567,6 +590,15 @@ const onFilterOption = function ( e ) {
 
     refine.resetSearch();
     refine.filterBy( filters );
+    refine.resetScroll();
+    refine.applyLabel();
+    refine.applyNone();
+};
+
+
+const onClearAll = function () {
+    refine.resetSearch();
+    refine.resetFilters();
     refine.resetScroll();
     refine.applyLabel();
     refine.applyNone();

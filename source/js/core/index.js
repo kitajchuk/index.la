@@ -11,11 +11,11 @@ import log from "./log";
 import cache from "./cache";
 import config from "./config";
 import detect from "./detect";
-import images from "./images";
 import * as util from "./util";
 import emitter from "./emitter";
 import Waypoints from "./Waypoints";
 import Analytics from "./Analytics";
+import ImageController from "./ImageController";
 
 
 
@@ -26,9 +26,9 @@ export {
     util,
     cache,
     detect,
-    images,
     config,
     emitter,
     Waypoints,
-    Analytics
+    Analytics,
+    ImageController
 };

@@ -32,29 +32,30 @@
         max-width: 850px;
         }
     .intro__svg {
-        height: 60px;
+        width: 150px;
         }
 }
 
 
 
 @media only screen and ( max-width: ($break-laptop-medium + 1px) ) {
-    $header-height: 90px;
-
     .header,
-    .search {
-        height: $header-height;
+    .search,
+    .refine-clear {
+        height: $header-height-small;
         }
     .page {
-        padding-top: $header-height;
+        padding-top: $header-height-small;
         }
     .index__col:not( :first-child ) {
         padding-left: $expander-one;
         }
-    .refine {
+    .refine,
+    .refine-clear {
         width: 320px;
         }
     .filter,
+    .refine-clear,
     .search__field {
         padding-left: $expander-one;
         }
@@ -222,7 +223,7 @@
         padding-left: 0;
         }
     .intro__svg {
-        height: 40px;
+        width: 100px;
         }
     .nav__logo {
         display: none;

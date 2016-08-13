@@ -10,6 +10,37 @@ import $ from "properjs-hobo";
 import ImageLoader from "properjs-imageloader";
 import config from "./config";
 import emitter from "./emitter";
+import detect from "./detect";
+
+
+/**
+ *
+ * @description Add pixel units when inline styling
+ * @method px
+ * @param {string} str The value to pixel-ify
+ * @memberof core.util
+ * @returns {string}
+ *
+ */
+const px = function ( str ) {
+    return `${str}px`;
+};
+
+
+/**
+ *
+ * @description Apply a translate3d transform
+ * @method translate3d
+ * @param {object} el The element to transform
+ * @param {string|number} x The x value
+ * @param {string|number} y The y value
+ * @param {string|number} z The z value
+ * @memberof core.util
+ *
+ */
+const translate3d = function ( el, x, y, z ) {
+    el.style[ detect.getPrefixed( "transform" ) ] = `translate3d( ${x}, ${y}, ${z} )`;
+};
 
 
 /**
@@ -200,6 +231,31 @@ const slugify = function ( str ) {
 };
 
 
+/**
+ *
+ * @public
+ * @method sortByOrder
+ * @memberof util
+ * @param {object} objA The left object
+ * @param {object} objB The right object
+ * @description Use with a collection array as executor func for [].sort()
+ * @returns {number}
+ *
+ */
+const sortByOrder = function ( objA, objB ) {
+    let ret = 0;
+
+    if ( objA.data.order.value < objB.data.order.value ) {
+        ret = -1;
+
+    } else {
+        ret = 1;
+    }
+
+    return ret;
+};
+
+
 
 /******************************************************************************
  * Export
@@ -212,8 +268,11 @@ export {
     isElementVisible,
 
     // Random
+    px,
     noop,
     shuffle,
     slugify,
+    translate3d,
+    sortByOrder,
     getTransitionDuration
 };

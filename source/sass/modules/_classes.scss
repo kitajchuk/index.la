@@ -1,6 +1,33 @@
 /******************************************************************************
  * Classes for things...
 *******************************************************************************/
+.loader {
+    bottom: 0;
+    font-size: 0;
+    height: 8px;
+    left: 0;
+    pointer-events: none;
+    position: fixed;
+    text-align: left;
+    transform: translate3d( 0, 100%, 0 );
+    transition: transform $base-duration $ease;
+    width: 100%;
+    z-index: ($z_layer_infront + 1);
+
+    &.is-active {
+        transform: translate3d( 0, 0, 0 );
+        }
+    }
+.loader__fill {
+    background-color: $black;
+    display: inline-block;
+    height: 100%;
+    transition: width $fast-duration $ease;
+    width: 0;
+    }
+
+
+
 .diptych {
     font-size: 0;
     }

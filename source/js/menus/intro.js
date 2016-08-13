@@ -1,7 +1,5 @@
 import * as core from "../core";
-
-
-const _transTime = core.util.getTransitionDuration( core.dom.intro[ 0 ] );
+import loader from "../loader";
 
 
 /**
@@ -22,25 +20,14 @@ const intro = {
      *
      */
     init () {
-        this.fill = core.dom.intro.find( ".js-intro-fill" );
+        this.transTime = core.util.getTransitionDuration( core.dom.intro[ 0 ] );
+
+        loader.init();
+        loader.update( 5 );
 
         core.dom.intro.addClass( "is-initialized" );
 
         core.emitter.on( "app--intro-teardown", this.teardown.bind( this ) );
-    },
-
-
-    /**
-     *
-     * @public
-     * @method update
-     * @param {number} percent The amount that is loaded
-     * @memberof menus.intro
-     * @description Update how much has loaded.
-     *
-     */
-    update ( percent ) {
-        this.fill[ 0 ].style.width = `${percent}%`;
     },
 
 
@@ -58,11 +45,13 @@ const intro = {
         core.dom.intro.removeClass( "is-active is-initialized" );
 
         setTimeout( () => {
+            loader.teardown();
+
             core.dom.intro.remove();
 
             core.emitter.fire( "app--intro-art" );
 
-        }, _transTime );
+        }, this.transTime );
     }
 };
 

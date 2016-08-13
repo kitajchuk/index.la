@@ -24,7 +24,8 @@
 }
 
 .is-refine-open {
-    .refine {
+    .refine,
+    .refine-clear {
         transform: translate3d( 0, 0, 0 );
         }
     .refine-label {
@@ -44,6 +45,13 @@
         &:before {
             background-color: $grey-text;
             }
+        }
+}
+
+.is-page-inactive {
+    .page,
+    .header {
+        opacity: 0;
         }
 }
 

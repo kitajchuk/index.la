@@ -53,7 +53,7 @@
                     <span class="target--refine icon-wrap js-controller--refine">
                         <span class="icon icon--search"></span>
                         <span class="icon icon--arrow"></span>
-                        <span class="icon p -grey refine-label js-refine-label">{{label}}</span>
+                        <span class="icon p -grey refine-label js-refine-label">{{{label}}}</span>
                     </span>
                     <a href="/" class="target--back icon-wrap">
                         <span class="icon icon--back">
@@ -98,7 +98,7 @@
             <div class="search js-search">
                 <input class="search__field js-search-field p" placeholder="Search" type="text" />
             </div>
-            <div class="filter js-filter -exp">
+            <div class="filter js-filter">
                 <div class="filter__col">
                     <p class="p">Sort</p>
                     <ul class="filter__set">
@@ -126,20 +126,27 @@
             </div>
         </menu>
 
+        <!-- Refine clear button -->
+        <div class="refine-clear js-refine-clear ghost">
+            <div class="ghost__child p">Clear all</div>
+        </div>
+
         <!-- Page -->
         <main class="page js-page">
             <%= locals.body %>
         </main>
 
         <!-- Splash -->
-        <section class="intro js-intro screen ghost -text--center is-active">
+        <section class="intro js-intro screen screen--light ghost -text--center is-active">
             <h1 class="intro__text ghost__child animate animate--lift">
                 <svg class="intro__svg" xmlns="http://www.w3.org/2000/svg" version="1.1" x="0" y="0" viewBox="1522 -198 3684 1036" xml:space="preserve"><rect x="1531" y="91.8" width="168.2" height="719.2"/><path d="M5081.1 596.4c-63.4 0-115.3 51.9-115.3 116.7 0 63.4 51.9 115.3 115.3 115.3 64.8 0 116.7-51.9 116.7-115.3C5197.8 648.3 5145.9 596.4 5081.1 596.4zM2272 73.2c-106.5 0-193.3 53.5-234.6 102.8V91.8h-168.2V811h168.2V439c0-123.5 55.6-217.6 172.9-217.6 120.4 0 155.9 94.1 155.9 217.6v372h168.2V383.4c0-98.8-10.8-159-46.3-213C2448 110.2 2375.4 73.2 2272 73.2zM3245.6 173c-51.4-61.2-139-99.7-222.3-99.7 -219.2 0-368.9 174.4-368.9 378.1s149.7 378.1 368.9 378.1c83.4 0 174.8-41 222.3-99.7V811h168.2v-999h-168.2V173zM3032.6 679.8c-126.6 0-209.9-104.9-209.9-228.4S2906 223 3032.6 223c129.7 0 213 104.9 213 228.4S3162.2 679.8 3032.6 679.8z"/><polygon points="4901.2 91.8 4706.7 91.8 4574 317.1 4441.2 91.8 4246.7 91.8 4476.7 448.3 4242.1 811 4436.6 811 4574 579.5 4711.3 811 4905.8 811 4671.2 448.3 "/><path d="M3888.8 73.2c-226.9 0-355 162.1-355 378.1 0 211.5 117.3 378.2 359.6 378.2 183.7 0 293.8-99.6 322.6-234.6h-165.8c-20.1 51-61.1 87.9-156.8 87.9 -136.7 0-192.9-97.9-192.9-178.9H4219c1.7-19.5 2.5-38.7 2.5-56.8C4221.5 212.2 4083.5 73.2 3888.8 73.2zM3700.5 377c0-96 80.3-171.5 183.7-171.5 99.9 0 171.4 75.5 171.4 171.5H3700.5z"/></svg>
             </h1>
-            <div class="intro__load">
-                <div class="intro__load__fill js-intro-fill"></div>
-            </div>
         </section>
+
+        <!-- Loader -->
+        <div class="loader js-loader">
+            <div class="loader__fill js-loader-fill"></div>
+        </div>
 
         <!-- Submit -->
         <section class="submit js-submit screen ghost -text--center">
@@ -179,7 +186,7 @@
                         <a href="/?type=categories&customType=category&value={{category.category.value.data.name.value}}" class="p a -grey" v-for="category in artist.data.categories.value">{{category.category.value.data.name.value}}</a>
                     </div>
                     <div class="index__col index__location -column -text--left">
-                        <p class="p a -grey">{{artist.data.city.value.data.name.value}}</p>
+                        <p class="p -grey">{{artist.data.city.value.data.name.value}}</p>
                     </div>
                 </div>
             </section>

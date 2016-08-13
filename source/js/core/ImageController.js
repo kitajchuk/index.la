@@ -18,16 +18,20 @@ class ImageController extends Controller {
 
         this.$preload = util.getElementsInView( $images );
         this.$lazyload = $images.not( this.$preload );
+        this.loaders = {};
 
         if ( this.$preload.length ) {
-            this.handlePreload();
+            this.handleLoading( this.$preload, "preload" );
 
         } else {
-            this.fire( "preload" );
+            setTimeout(() => {
+                this.fire( "preload" );
+
+            }, 0 );
         }
 
         if ( this.$lazyload.length ) {
-            this.handleLazyload();
+            this.handleLoading( this.$lazyload, "lazyload" );
         }
     }
 
@@ -35,39 +39,32 @@ class ImageController extends Controller {
     /**
      *
      * @public
-     * @method handlePreload
+     * @method handleLoading
+     * @param {Hobo} $images The batch to load
+     * @param {string} event The event to fire
      * @memberof core.ImageController
-     * @description ImageLoader instance for preload batch.
+     * @description ImageLoader instance for loading a batch.
      *
      */
-    handlePreload () {
-        log( "ImageController preload queue:", this.$preload.length );
+    handleLoading ( $images, event ) {
+        log( `ImageController ${event} queue:`, $images.length );
 
-        this.preLoader = util.loadImages( this.$preload, util.noop );
-        this.preLoader.on( "done", () => {
-            log( "ImageController preloaded:", this.$preload.length );
+        let curr = 0;
 
-            this.fire( "preload" );
+        this.loaders[ event ] = util.loadImages( $images, util.noop );
+        this.loaders[ event ].on( "load", ( elem ) => {
+            curr++;
+
+            this.fire( event, {
+                done: curr,
+                total: $images.length,
+                element: elem
+            });
         });
-    }
+        this.loaders[ event ].on( "done", () => {
+            log( `ImageController ${event}ed:`, $images.length );
 
-
-    /**
-     *
-     * @public
-     * @method handleLazyload
-     * @memberof core.ImageController
-     * @description ImageLoader instance for lazyload batch.
-     *
-     */
-    handleLazyload () {
-        log( "ImageController lazyload queue:", this.$lazyload.length );
-
-        this.lazyLoader = util.loadImages( this.$lazyload, util.isElementVisible );
-        this.lazyLoader.on( "done", () => {
-            log( "ImageController lazyloaded:", this.$lazyload.length );
-
-            this.fire( "lazyload" );
+            this.fire( `${event}ed` );
         });
     }
 
@@ -81,14 +78,15 @@ class ImageController extends Controller {
      *
      */
     destroy () {
-        if ( this.preLoader ) {
-            this.preLoader.stop();
-            this.preLoader = null;
-        }
+        let loader = null;
 
-        if ( this.lazyLoader ) {
-            this.lazyLoader.stop();
-            this.lazyLoader = null;
+        for ( loader in this.loaders ) {
+            if ( this.loaders.hasOwnProperty( loader ) ) {
+                this.loaders[ loader ].stop();
+                this.loaders[ loader ] = null;
+
+                delete this.loaders[ loader ];
+            }
         }
     }
 }

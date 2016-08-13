@@ -8,7 +8,8 @@
     overflow: auto;
     padding-top: $header-height;
     top: 0;
-    transition: padding-left $base-duration $ease-cubic-sharp,
+    transition: opacity $base-duration $ease,
+                padding-left $base-duration $ease-cubic-sharp,
                 transform $base-duration $ease-cubic-sharp;
     width: 100%;
     -webkit-overflow-scrolling: touch;

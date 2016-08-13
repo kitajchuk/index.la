@@ -11,6 +11,7 @@ import Socket from "./Socket";
 import Scroller from "./Scroller";
 import router from "./router";
 import nav from "./menus/nav";
+import loader from "./loader";
 import * as core from "./core";
 import intro from "./menus/intro";
 import about from "./index/about";
@@ -37,6 +38,7 @@ class App {
         this.intro = intro;
         this.index = index;
         this.about = about;
+        this.loader = loader;
         this.submit = submit;
         this.refine = refine;
         this.router = router;
@@ -54,7 +56,6 @@ class App {
 
         // Intro splash screen
         this.intro.init();
-        this.intro.update( 5 );
 
         // Open websocket server connection
         this.openConnection();
@@ -100,7 +101,7 @@ class App {
             this.data[ data.type ] = this.data[ data.type ].concat( data.value );
         }
 
-        this.intro.update( data.stat );
+        this.loader.update( data.stat );
     }
 
 
