@@ -30,15 +30,17 @@
         <link rel="apple-touch-icon-precomposed" href="<%= locals.meta[ 0 ].data[ 'meta.touchicon' ].value.main.url %>" />
 
         <!-- Title -->
-        <title>
-            <% if ( locals.document ) { %>
-                <% if ( locals.document.type === 'artist' ) { %>
-                    <%= locals.document.data[ 'artist.name' ].value %> –
-                <% } %>
-                <% if ( locals.document.type === 'feature' ) { %>
-                    <%= locals.document.data[ 'feature.name' ].value %> –
-                <% } %>
+        <!--
+        <% if ( locals.document ) { %>
+            <% if ( locals.document.type === 'artist' ) { %>
+                <%= locals.document.data[ 'artist.name' ].value %> –
             <% } %>
+            <% if ( locals.document.type === 'feature' ) { %>
+                <%= locals.document.data[ 'feature.name' ].value %> –
+            <% } %>
+        <% } %>
+        -->
+        <title>
             <%= locals.meta[ 0 ].data[ 'meta.title' ].value %>
         </title>
 

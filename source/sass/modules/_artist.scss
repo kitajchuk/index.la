@@ -3,7 +3,7 @@
     position: fixed;
     top: 50%;
     transform: translateY( -50% );
-    transition: opacity $base-duration $ease;
+    transition: opacity $fast-duration $ease;
 
     &.is-inactive {
         opacity: 0;
@@ -17,9 +17,10 @@
     }
 .artist__gallery {
     width: 40%;
-    }
-.artist__gallery {
     padding-bottom: $expander-three;
+    }
+.artist__gallery__image {
+    cursor: pointer;
     }
 .artist__related {
     padding-bottom: $expander-two;

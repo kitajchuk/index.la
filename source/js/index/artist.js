@@ -1,6 +1,5 @@
 import router from "../router";
 import * as core from "../core";
-import Controller from "properjs-controller";
 
 
 /**
@@ -104,7 +103,7 @@ const artist = {
             relatedArtists: core.util.shuffle( documents )
                                     // Filter out only artists with matching categories
                                     .filter( this.filterRelatedArtists.bind( this, viewArtist ) )
-                                    // Slice the top dozen off the matched artists
+                                    // Slice the amount we want off the matched artists
                                     .slice( 0, this.relatedLimit )
         });
 
@@ -124,33 +123,16 @@ const artist = {
         const info = core.dom.page.find( ".js-artist-info" );
         const related = core.dom.page.find( ".js-artist-related" );
 
-        this.scroller = new Controller();
-        this.scroller.go(() => {
+        this._onScroller = () => {
             if ( core.util.isElementVisible( related[ 0 ] ) ) {
                 info.addClass( "is-inactive" );
 
             } else {
                 info.removeClass( "is-inactive" );
             }
-        });
-    },
+        };
 
-
-    /**
-     *
-     * @public
-     * @method unbindScroll
-     * @memberof artist
-     * @description Destroy the Controller instance on teardown.
-     *
-     */
-    unbindScroll () {
-        if ( this.scroller ) {
-            this.scroller.stop();
-            this.scroller = null;
-
-            delete this.scroller;
-        }
+        core.emitter.on( "app--scroll", this._onScroller );
     },
 
 
@@ -192,7 +174,8 @@ const artist = {
      *
      */
     teardown () {
-        this.unbindScroll();
+        this.gallery = null;
+        core.emitter.off( "app--scroll", this._onScroller );
     }
 };
 
