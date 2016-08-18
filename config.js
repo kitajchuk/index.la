@@ -16,8 +16,8 @@ module.exports = {
 
     "sitemap": {
         "baseUrl": "http://theindex.la",
+        "slugField": "name",
         "customTypes": [
-            "page",
             "artist",
             "feature"
         ],

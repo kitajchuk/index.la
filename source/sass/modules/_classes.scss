@@ -105,6 +105,7 @@
 
 .squaregrid__item {
     display: inline-block;
+    padding-bottom: $expander-two + $expander-one;
     position: relative;
     vertical-align: middle;
     }
@@ -127,12 +128,12 @@
         transform: translate3d( -50%, -50%, 0 );
         }
     .image--tall {
-        height: calc( 100% - #{$expander-one} * 2 );
+        height: calc( 100% - #{$expander-one} );
         width: auto;
         }
     .image--wide {
         height: auto;
-        width: calc( 100% - #{$expander-one} * 2 );
+        width: calc( 100% - #{$expander-one} );
         }
 }
 
