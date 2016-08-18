@@ -19,12 +19,6 @@
     width: 40%;
     padding-bottom: $expander-three;
     }
-.artist__gallery__image {
-    cursor: pointer;
-    }
-.artist__related {
-    padding-bottom: $expander-two;
-    }
 .artist__related__label {
     border-bottom: 1px solid $grey-light;
     padding-bottom: $expander-two;
@@ -32,7 +26,6 @@
     }
 .artist__related__meta {
     display: inline-block;
-    padding-top: $expander-mobile;
     }
 .artist__related__col {
     span + span {

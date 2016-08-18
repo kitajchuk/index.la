@@ -23,11 +23,45 @@
                 "placeholder": "Add artist..."
             }
         },
+        "grid": {
+            "type": "Group",
+            "fieldset": "Grid",
+            "config": {
+                "fields": {
+                    "style": {
+                        "type": "Select",
+                        "fieldset": "Grid style",
+                        "config": {
+                            "label": "Grid Style",
+                            "options": ["left", "center", "right"]
+                        }
+                    },
+                    "default-image": {
+                        "type": "Image",
+                        "fieldset": "Default Image",
+                        "placeholder": "Default Image"
+                    },
+                    "pinned-image": {
+                        "type": "Image",
+                        "fieldset": "Pinned Image",
+                        "placeholder": "Pinned Image"
+                    }
+                }
+            }
+        },
         "cover": {
             "type": "Group",
             "fieldset": "Cover",
             "config": {
                 "fields": {
+                    "style": {
+                        "type": "Select",
+                        "fieldset": "Cover style",
+                        "config": {
+                            "label": "Cover Style",
+                            "options": ["fullbleed", "stacked", "left", "center", "right"]
+                        }
+                    },
                     "image": {
                         "type": "Image"
                     },
