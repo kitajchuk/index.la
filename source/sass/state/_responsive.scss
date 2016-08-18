@@ -16,10 +16,10 @@
     }
     .squaregrid__photo {
         .image--tall {
-            height: calc( 100% - #{$expander-one} * 2 );
+            height: calc( 100% - #{$expander-two} );
             }
         .image--wide {
-            width: calc( 100% - #{$expander-one} * 2 );
+            width: calc( 100% - #{$expander-two} );
             }
     }
 }
