@@ -83,6 +83,12 @@
             padding-bottom: $expander-one + $header-height-small;
             }
     }
+    .features__item.-text--left {
+        padding-left: 0;
+        }
+    .features__item.-text--right {
+        padding-right: 0;
+        }
 }
 
 
@@ -94,6 +100,25 @@
     .squaregrid__item {
         padding-bottom: $expander-two;
         }
+    .feature__cover--split {
+        height: auto;
+        }
+    .split__left,
+    .split__right {
+        width: 100%;
+        }
+    .feature__split--left >  {
+        .split__left {
+            padding-bottom: $expander-two;
+            padding-top: 20vh;
+            }
+    }
+    .feature__split--right >  {
+        .split__left {
+            padding-bottom: $expander-two;
+            padding-top: 40vh;
+            }
+    }
 }
 
 
@@ -132,6 +157,16 @@
     .artist__gallery .image {
         width: 100%;
         }
+    .features__item,
+    .features__pinned {
+        margin-bottom: $expander-one;
+        }
+    .features__text {
+        .h1,
+        .h2 {
+            font-size: $h3-size;
+            }
+    }
 }
 
 
@@ -139,6 +174,9 @@
 @media only screen and ( max-width: $break-mobile-full ) {
     $header-height: 80px;
 
+    .caption {
+        font-size: 14px;
+        }
     .-col,
     .-wrap,
     .wide-landscape,
@@ -232,14 +270,17 @@
         }
     .diptych__image {
         display: block;
+        padding-left: $expander-mobile;
+        padding-right: $expander-mobile;
+        text-align: center;
         width: 100%;
-        }
+
+        .image {
+            width: 100%;
+            }
+    }
     .diptych__left {
         margin-bottom: $expander-mobile;
-        padding-right: 0;
-        }
-    .diptych__right {
-        padding-left: 0;
         }
     .intro__svg {
         width: 100px;
@@ -272,5 +313,21 @@
     }
     .artist__related__meta {
         padding-top: $expander-mobile;
+        }
+    .features__item,
+    .features__pinned {
+        margin-bottom: $expander-mobile;
+        }
+    .wide-landscape,
+    .tite-landscape,
+    .wide-vertical,
+    .tite-vertical {
+        .single-image {
+            margin: 0 !important;
+            max-width: 100%;
+            }
+    }
+    .feature__slice {
+        margin-top: $expander-one;
         }
 }

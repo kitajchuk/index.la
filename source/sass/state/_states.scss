@@ -85,12 +85,15 @@
 }
 
 .is-artist-page {
-    .target--back {
+    .target--back-index {
         display: inline-block;
         }
 }
 
 .is-feature-page {
+    .target--back-features {
+        display: inline-block;
+        }
     .page {
         padding-top: 0
         }

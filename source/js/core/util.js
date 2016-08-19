@@ -256,6 +256,31 @@ const sortByOrder = function ( objA, objB ) {
 };
 
 
+/**
+ *
+ * @public
+ * @method sortByTimestamp
+ * @memberof util
+ * @param {object} objA The left object
+ * @param {object} objB The right object
+ * @description Use with a collection array as executor func for [].sort()
+ * @returns {number}
+ *
+ */
+const sortByTimestamp = function ( objA, objB ) {
+    let ret = 0;
+
+    if ( objA.data.timestamp.value > objB.data.timestamp.value ) {
+        ret = -1;
+
+    } else {
+        ret = 1;
+    }
+
+    return ret;
+};
+
+
 
 /******************************************************************************
  * Export
@@ -274,5 +299,6 @@ export {
     slugify,
     translate3d,
     sortByOrder,
+    sortByTimestamp,
     getTransitionDuration
 };
