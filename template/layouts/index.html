@@ -4,7 +4,7 @@
         <!-- Meta -->
         <meta charset="utf-8" />
         <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1" />
-        <meta name="description" content="<%= locals.meta[ 0 ].data[ 'meta.description' ].value[ 0 ].text %>" />
+        <meta name="description" content="<%= locals.meta[ 0 ].data[ 'meta.description' ].value %>" />
         <meta name="format-detection" content="telephone=no" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
@@ -15,11 +15,11 @@
         <meta property="og:title" content="<%= locals.meta[ 0 ].data[ 'meta.title' ].value %>" />
         <meta property="og:url" content="<%= locals.meta[ 0 ].data[ 'meta.url' ].value %>" />
         <meta property="og:type" content="website" />
-        <meta property="og:description" content="<%= locals.meta[ 0 ].data[ 'meta.description' ].value[ 0 ].text %>" />
+        <meta property="og:description" content="<%= locals.meta[ 0 ].data[ 'meta.description' ].value %>" />
         <meta property="og:image" content="<%= locals.meta[ 0 ].data[ 'meta.image' ].value.main.url %>" />
 
         <meta itemprop="name" content="<%= locals.meta[ 0 ].data[ 'meta.title' ].value %>" />
-        <meta itemprop="description" content="<%= locals.meta[ 0 ].data[ 'meta.description' ].value[ 0 ].text %>" />
+        <meta itemprop="description" content="<%= locals.meta[ 0 ].data[ 'meta.description' ].value %>" />
         <meta itemprop="url" content="<%= locals.meta[ 0 ].data[ 'meta.url' ].value %>" />
         <meta itemprop="thumbnailUrl" content="<%= locals.meta[ 0 ].data[ 'meta.image' ].value.main.url %>" />
         <meta itemprop="image" content="<%= locals.meta[ 0 ].data[ 'meta.image' ].value.main.url %>" />
@@ -57,7 +57,12 @@
                         <span class="icon icon--arrow"></span>
                         <span class="icon p -grey refine-label js-refine-label">{{{label}}}</span>
                     </span>
-                    <a href="/" class="target--back icon-wrap">
+                    <a href="/" class="target--back-index icon-wrap">
+                        <span class="icon icon--back">
+                            <span></span>
+                        </span>
+                    </a>
+                    <a href="/features/" class="target--back-features icon-wrap">
                         <span class="icon icon--back">
                             <span></span>
                         </span>
@@ -280,28 +285,71 @@
             </article>
 
             <!-- Features -->
-            <section class="features js-features -wrap -text--center">
-                <div v-for="feature in features" class="features__item -expp">
-                    <a href="/feature/{{feature.uri}}/">
-                        <img class="image image--{{feature.data.featureImage.value.main.dimensions.width > feature.data.featureImage.value.main.dimensions.height ? 'wide' : 'tall'}} js-lazy-image" data-img-src="{{feature.data.featureImage.value.main.url}}" />
+            <section class="features js-features -wrap -text--center -f-zero">
+                <div class="features__pinned -text--center animate js-animate">
+                    <a class="features__link" href="/feature/{{pinned.uri}}/">
+                        <img class="features__image image image--{{pinned.data.grid.value[ 0 ][ 'default-image' ].value.main.dimensions.width > pinned.data.grid.value[ 0 ][ 'default-image' ].value.main.dimensions.height ? 'wide' : 'tall'}} js-lazy-image" data-img-src="{{pinned.data.grid.value[ 0 ][ 'default-image' ].value.main.url}}" />
+                        <div class="features__text -light">
+                            <div class="p">{{pinned.data.cover.value[ 0 ].credits.value}}</div>
+                            <div class="h1">{{pinned.data.cover.value[ 0 ].title.value}}</div>
+                        </div>
+                    </a>
+                </div>
+                <div v-for="feature in features" class="features__item -text--{{feature.data.grid.value[ 0 ].style.value}} animate js-animate">
+                    <a class="features__link" href="/feature/{{feature.uri}}/">
+                        <img class="features__image image image--{{feature.data.grid.value[ 0 ][ 'default-image' ].value.main.dimensions.width > feature.data.grid.value[ 0 ][ 'default-image' ].value.main.dimensions.height ? 'wide' : 'tall'}} js-lazy-image" data-img-src="{{feature.data.grid.value[ 0 ][ 'default-image' ].value.main.url}}" />
+                        <div class="features__text -light">
+                            <div class="p">{{feature.data.cover.value[ 0 ].credits.value}}</div>
+                            <div class="h2">{{feature.data.cover.value[ 0 ].title.value}}</div>
+                        </div>
                     </a>
                 </div>
             </section>
 
             <!-- Feature -->
             <article class="feature js-feature -text--center">
-                <div class="feature__cover cover cover--pull -cover js-lazy-image ghost -text--center" data-img-src="{{feature.data.cover.value[ 0 ].image.value.main.url}}">
-                    <div class="h1 ghost__child -light -col">
-                        <span v-for="block in feature.data.cover.value[ 0 ].title.value">
-                            {{block.text}}
-                        </span>
+                <div v-if="feature.data.cover.value[ 0 ].style.value === 'fullbleed'" class="feature__cover cover -cover js-lazy-image ghost -text--center" data-img-src="{{feature.data.cover.value[ 0 ].image.value.main.url}}">
+                    <div class="ghost__child -light">
+                        <div class="p">{{feature.data.cover.value[ 0 ].credits.value}}</div>
+                        <div class="h1">{{feature.data.cover.value[ 0 ].title.value}}</div>
                     </div>
                 </div>
-                <div v-for="slice in feature.data.body.value" class="feature__slice feature__{{slice.slice_type}} -expp animate js-animate">
+                <div v-if="feature.data.cover.value[ 0 ].style.value === 'stacked'" class="feature__cover">
+                    <div class="feature__stacked">
+                        <div class="p">{{feature.data.cover.value[ 0 ].credits.value}}</div>
+                        <div class="h2">{{feature.data.cover.value[ 0 ].title.value}}</div>
+                    </div>
+                    <div class="-wrap">
+                        <img class="image js-lazy-image" data-img-src="{{feature.data.cover.value[ 0 ].image.value.main.url}}" />
+                    </div>
+                </div>
+                <div v-if="feature.data.cover.value[ 0 ].style.value === 'split-left'" class="feature__cover feature__cover--split cover ghost -wrap -f-zero">
+                    <div class="feature__split feature__split--left ghost__child">
+                        <div class="split__left">
+                            <img class="image js-lazy-image" data-img-src="{{feature.data.cover.value[ 0 ].image.value.main.url}}" />
+                        </div>
+                        <div class="split__right">
+                            <div class="p">{{feature.data.cover.value[ 0 ].credits.value}}</div>
+                            <div class="h2">{{feature.data.cover.value[ 0 ].title.value}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div v-if="feature.data.cover.value[ 0 ].style.value === 'split-right'" class="feature__cover feature__cover--split cover ghost -wrap -f-zero">
+                    <div class="feature__split feature__split--right ghost__child">
+                        <div class="split__left">
+                            <div class="p">{{feature.data.cover.value[ 0 ].credits.value}}</div>
+                            <div class="h2">{{feature.data.cover.value[ 0 ].title.value}}</div>
+                        </div>
+                        <div class="split__right">
+                            <img class="image js-lazy-image" data-img-src="{{feature.data.cover.value[ 0 ].image.value.main.url}}" />
+                        </div>
+                    </div>
+                </div>
+                <div v-for="slice in feature.data.body.value" class="feature__slice feature__{{slice.slice_type}} animate js-animate">
                     <div v-if="slice.slice_type === 'text'" class="{{slice.slice_type}}">
                         <div class="-col -text--left">
                             <div v-for="block in slice.value.value" class="{{block.type.replace( 'eading', '' ).replace( 'aragraph', '' )}}">
-                                {{block.text}}
+                                {{{block | linkify}}}
                             </div>
                         </div>
                     </div>
@@ -314,34 +362,32 @@
                         </div>
                     </div>
                     <div v-if="slice.slice_type === 'diptych'" class="{{slice.slice_type}}">
-                        <div class="-wrap">
-                            <div class="diptych__image diptych__left">
-                                <img class="image js-lazy-image" data-img-src="{{slice.value.value[ 0 ][ 'left-image' ].value.main.url}}" />
-                            </div>
-                            <div class="diptych__image diptych__right">
-                                <img class="image js-lazy-image" data-img-src="{{slice.value.value[ 0 ][ 'right-image' ].value.main.url}}" />
-                            </div>
+                        <div class="diptych__image diptych__left -text--right">
+                            <img class="image js-lazy-image" data-img-src="{{slice.value.value[ 0 ][ 'left-image' ].value.main.url}}" />
+                        </div>
+                        <div class="diptych__image diptych__right -text--left">
+                            <img class="image js-lazy-image" data-img-src="{{slice.value.value[ 0 ][ 'right-image' ].value.main.url}}" />
                         </div>
                     </div>
-                    <div v-if="slice.slice_type === 'single-image'" class="{{slice.slice_type}}">
-                        <div class="{{slice.value.value[ 0 ].style.value}}">
+                    <div v-if="slice.slice_type === 'single-image'" class="{{slice.value.value[ 0 ].style.value}} {{slice.value.value[ 0 ].position ? '-text--' + slice.value.value[ 0 ].position.value : ''}}">
+                        <div class="{{slice.slice_type}}">
                             <img class="image js-lazy-image" data-img-src="{{slice.value.value[ 0 ].image.value.main.url}}" />
-                            <div v-if="slice.value.value[ 0 ].caption" class="caption">
-                                <div v-for="block in slice.value.value[ 0 ].caption.value" class="m -grey -text--left">
-                                    {{block.text}}
-                                </div>
-                            </div>
+                            <div v-if="slice.value.value[ 0 ].caption" class="caption m -grey -text--left">{{slice.value.value[ 0 ].caption.value}}</div>
                         </div>
                     </div>
                 </div>
+                <a v-if="next" class="feature__next -text--center" href="/feature/{{next.uri}}/">
+                    <div class="h3">Next Feature</div>
+                </a>
+                <a v-else class="feature__next -text--center" href="/features/">
+                    <div class="h3">All Features</div>
+                </a>
             </article>
 
             <!-- About -->
             <section class="about js-about -wrap ghost">
                 <div class="about__wrap ghost__child">
-                    <div class="h3">
-                        <span v-for="block in meta.data.description.value">{{block.text}}</span>
-                    </div>
+                    <div class="h3">{{meta.data.description.value}}</div>
                     <div class="p -bump">
                         <p>Say Hello</p>
                         <a href="mailto:{{meta.data.email.value}}" class="a -grey">{{meta.data.email.value}}</a>

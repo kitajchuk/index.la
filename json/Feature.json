@@ -7,20 +7,11 @@
                 "label": "Name"
             }
         },
-        "order": {
-            "type": "Number",
-            "fieldset": "Order",
+        "timestamp": {
+            "type": "Timestamp",
+            "fieldset": "Timestamp",
             "config": {
-                "label": "Order"
-            }
-        },
-        "artist": {
-            "type": "Link",
-            "fieldset": "Artist",
-            "config": {
-                "select": "document",
-                "customtypes": [ "artist" ],
-                "placeholder": "Add artist..."
+                "label": "Timestamp"
             }
         },
         "grid": {
@@ -28,6 +19,16 @@
             "fieldset": "Grid",
             "config": {
                 "fields": {
+                    "pinned-image": {
+                        "type": "Image",
+                        "fieldset": "Pinned Image",
+                        "placeholder": "Pinned Image"
+                    },
+                    "default-image": {
+                        "type": "Image",
+                        "fieldset": "Default Image",
+                        "placeholder": "Default Image"
+                    },
                     "style": {
                         "type": "Select",
                         "fieldset": "Grid style",
@@ -35,16 +36,6 @@
                             "label": "Grid Style",
                             "options": ["left", "center", "right"]
                         }
-                    },
-                    "default-image": {
-                        "type": "Image",
-                        "fieldset": "Default Image",
-                        "placeholder": "Default Image"
-                    },
-                    "pinned-image": {
-                        "type": "Image",
-                        "fieldset": "Pinned Image",
-                        "placeholder": "Pinned Image"
                     }
                 }
             }
@@ -54,24 +45,30 @@
             "fieldset": "Cover",
             "config": {
                 "fields": {
+                    "credits": {
+                        "type": "Text",
+                        "fieldset": "Credits",
+                        "config": {
+                            "label": "Credits"
+                        }
+                    },
+                    "title": {
+                        "type": "Text",
+                        "fieldset": "Title",
+                        "config": {
+                            "label": "Title"
+                        }
+                    },
                     "style": {
                         "type": "Select",
                         "fieldset": "Cover style",
                         "config": {
                             "label": "Cover Style",
-                            "options": ["fullbleed", "stacked", "left", "center", "right"]
+                            "options": ["fullbleed", "stacked", "split-left", "split-right"]
                         }
                     },
                     "image": {
                         "type": "Image"
-                    },
-                    "title": {
-                        "type": "StructuredText",
-                        "fieldset": "Text",
-                        "config": {
-                            "placeholder": "Add title...",
-                            "multi": "heading1,heading2,heading3,heading4,heading5,heading6,paragraph,strong,em"
-                        }
                     }
                 }
             }
@@ -86,7 +83,7 @@
                         "fieldset": "Text",
                         "config": {
                             "placeholder": "Add text...",
-                            "multi": "heading1,heading2,heading3,heading4,heading5,heading6,paragraph,strong,em,hyperlink,ulist,olist"
+                            "multi": "heading1,heading2,heading3,heading4,paragraph,hyperlink"
                         }
                     },
                     "single-image": {
@@ -102,15 +99,22 @@
                                         "options": ["fullwidth", "wide-landscape", "tite-landscape", "wide-vertical", "tite-vertical"]
                                     }
                                 },
+                                "position": {
+                                    "type": "Select",
+                                    "fieldset": "Image Position",
+                                    "config": {
+                                        "label": "Image Position",
+                                        "options": ["left", "center", "right"]
+                                    }
+                                },
                                 "image": {
                                     "type": "Image"
                                 },
                                 "caption": {
-                                    "type": "StructuredText",
-                                    "fieldset": "Text",
+                                    "type": "Text",
+                                    "fieldset": "Caption",
                                     "config": {
-                                        "placeholder": "Add caption...",
-                                        "multi": "paragraph,hyperlink"
+                                        "label": "Caption"
                                     }
                                 }
                             }

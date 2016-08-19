@@ -25,12 +25,12 @@
 *******************************************************************************/
 @mixin m() {
     font-size: $m-size;
-    line-height: 1.4;
+    line-height: 1.625;
     @include font-sans-text();
 }
 @mixin p() {
     font-size: $p-size;
-    line-height: 1.444444;
+    line-height: 2;
     @include font-sans-text();
 }
 @mixin a() {
@@ -40,33 +40,23 @@
     text-decoration: none;
     @include font-sans-text();
 }
-@mixin h() {
-    line-height: 1.6;
-    @include font-sans-text();
-}
 @mixin h1() {
     font-size: $h1-size;
-    @include h();
+    line-height: 1.333333;
+    @include font-sans-text();
 }
 @mixin h2() {
     font-size: $h2-size;
-    @include h();
+    line-height: 1.5;
+    @include font-sans-text();
 }
 @mixin h3() {
     font-size: $h3-size;
-    @include h();
+    line-height: 1.5625;
+    @include font-sans-text();
 }
 @mixin h4() {
     font-size: $h4-size;
-    @include h();
-}
-@mixin li() {
-    padding-left: 20px;
-    @include p();
-}
-@mixin ol-li() {
-    list-style: decimal;
-}
-@mixin ul-li() {
-    list-style: disc;
+    line-height: 1.4286;
+    @include font-sans-text();
 }

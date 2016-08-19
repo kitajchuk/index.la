@@ -38,27 +38,6 @@
 
 
 
-.diptych {
-    font-size: 0;
-    }
-.diptych__image {
-    display: inline-block;
-    vertical-align: middle;
-    width: 50%;
-
-    .image {
-        width: 100%;
-        }
-    }
-.diptych__left {
-    padding-right: $wrapper-padding / 2;
-    }
-.diptych__right {
-    padding-left: $wrapper-padding / 2;
-    }
-
-
-
 .video {
     position: relative;
 

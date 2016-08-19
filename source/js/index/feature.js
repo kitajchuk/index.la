@@ -75,12 +75,15 @@ const feature = {
      *
      */
     view ( uri ) {
-        const documents = core.cache.get( "features" );
+        const documents = core.cache.get( "features" ).sort( core.util.sortByTimestamp );
+        const featureDoc = documents.find(( el ) => {
+            return (el.uri === uri);
+        });
+        const nextDoc = documents[ documents.indexOf( featureDoc ) + 1 ];
 
         router.setView( this.template, {
-            feature: documents.find(( el ) => {
-                return (el.uri === uri);
-            })
+            feature: featureDoc,
+            next: nextDoc
         });
     },
 

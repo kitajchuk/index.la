@@ -15,11 +15,10 @@
             }
         },
         "description": {
-            "type": "StructuredText",
+            "type": "Text",
             "fieldset": "Description",
             "config": {
-                "placeholder": "Description...",
-                "multi": "paragraph,strong"
+                "label": "Description"
             }
         },
         "email": {

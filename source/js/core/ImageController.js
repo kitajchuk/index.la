@@ -21,7 +21,7 @@ class ImageController extends Controller {
         this.loaders = {};
 
         if ( this.$preload.length ) {
-            this.handleLoading( this.$preload, "preload" );
+            this.handleLoading( this.$preload, "preload", util.noop );
 
         } else {
             setTimeout(() => {
@@ -31,7 +31,7 @@ class ImageController extends Controller {
         }
 
         if ( this.$lazyload.length ) {
-            this.handleLoading( this.$lazyload, "lazyload" );
+            this.handleLoading( this.$lazyload, "lazyload", util.isElementLoadable );
         }
     }
 
@@ -42,16 +42,17 @@ class ImageController extends Controller {
      * @method handleLoading
      * @param {Hobo} $images The batch to load
      * @param {string} event The event to fire
+     * @param {function} handler The executor method to determine image loadability
      * @memberof core.ImageController
      * @description ImageLoader instance for loading a batch.
      *
      */
-    handleLoading ( $images, event ) {
+    handleLoading ( $images, event, handler ) {
         log( `ImageController ${event} queue:`, $images.length );
 
         let curr = 0;
 
-        this.loaders[ event ] = util.loadImages( $images, util.noop );
+        this.loaders[ event ] = util.loadImages( $images, handler );
         this.loaders[ event ].on( "load", ( elem ) => {
             curr++;
 

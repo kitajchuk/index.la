@@ -73,10 +73,13 @@ const features = {
      *
      */
     view () {
-        const documents = core.cache.get( "features" );
+        const documents = core.cache.get( "features" ).sort( core.util.sortByTimestamp );
+        const pinned = documents[ 0 ];
+        const gridwall = documents.slice( 1, documents.length );
 
         router.setView( this.template, {
-            features: documents
+            pinned: pinned,
+            features: gridwall
         });
     },
 

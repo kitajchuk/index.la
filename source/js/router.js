@@ -10,6 +10,37 @@ import PageController from "properjs-pagecontroller";
 
 /**
  *
+ * @description Handle linkify-ing StructuredText fields.
+ *
+ */
+Vue.filter( "linkify", ( block ) => {
+    let ret = block.text;
+    let sub = null;
+    const links = [];
+
+    if ( block.spans.length ) {
+        block.spans.forEach(( span ) => {
+            if ( span.type === "hyperlink" ) {
+                sub = block.text.substring( span.start, span.end );
+
+                links.push({
+                    text: sub,
+                    hype: `<a href="${span.data.value.url}" class="a -grey" target="_blank">${sub}</a>`
+                });
+            }
+        });
+
+        links.forEach(( link ) => {
+            ret = ret.replace( link.text, link.hype );
+        });
+    }
+
+    return ret;
+});
+
+
+/**
+ *
  * @public
  * @namespace router
  * @description Handles async web app routing for nice transitions.
