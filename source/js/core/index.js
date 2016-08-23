@@ -13,7 +13,7 @@ import config from "./config";
 import detect from "./detect";
 import * as util from "./util";
 import emitter from "./emitter";
-import Waypoints from "./Waypoints";
+//import Waypoints from "./Waypoints";
 import Analytics from "./Analytics";
 import ImageController from "./ImageController";
 
@@ -28,7 +28,7 @@ export {
     detect,
     config,
     emitter,
-    Waypoints,
+    //Waypoints,
     Analytics,
     ImageController
 };

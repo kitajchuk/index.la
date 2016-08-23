@@ -72,9 +72,14 @@
 }
 
 .is-grid-view {
-    .icon--grid:after {
-        display: none;
-        }
+    .icon--grid {
+        &:before,
+        &:after,
+        span:before,
+        span:after {
+            display: none;
+            }
+    }
 }
 
 .is-index-page {
@@ -97,7 +102,27 @@
     .page {
         padding-top: 0
         }
+}
+
+.is-cover {
     .header {
         background-color: transparent;
         }
+
+    .icon--list {
+        border-top-color: $white;
+
+        &:before,
+        &:after {
+            background-color: $white;
+            }
+    }
+
+    .icon--back {
+        span,
+        &:before,
+        &:after {
+            background-color: $white;
+            }
+    }
 }

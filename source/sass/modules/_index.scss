@@ -1,6 +1,6 @@
 .index {
     transition: opacity 600ms ease;
-    }
+}
 .index__row {
     border-top: 1px solid $grey-light;
     display: block;
@@ -40,12 +40,6 @@
         display: block;
         }
     }
-.index__name,
-.index__categories {
-    a {
-        display: block;
-        }
-}
 .index__col {
     width: 25%;
     }

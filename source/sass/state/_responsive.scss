@@ -13,15 +13,7 @@
     .index__row {
         padding-left: $wrapper-padding-big;
         padding-right: $wrapper-padding-big;
-    }
-    .squaregrid__photo {
-        .image--tall {
-            height: calc( 100% - #{$expander-two} );
-            }
-        .image--wide {
-            width: calc( 100% - #{$expander-two} );
-            }
-    }
+        }
 }
 @media only screen and ( max-width: $break-laptop-full ) {
     .artist__gallery {
@@ -49,6 +41,9 @@
         }
     .header__right {
         padding-right: $expander-two;
+        }
+    .artist__info {
+        padding-left: $expander-two;
         }
 }
 @media only screen and ( max-width: ($break-laptop-medium + 1px) ) {

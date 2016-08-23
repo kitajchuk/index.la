@@ -1,23 +1,25 @@
-import Controller from "properjs-controller";
 import * as core from "./core";
+import Controller from "properjs-controller";
 
 
 /**
  *
  * @public
  * @global
- * @class Animator
+ * @class Cover
  * @param {Element} element The dom element to work with.
- * @classdesc Handle scroll events for a DOMElement.
+ * @classdesc Handle fullbleed cover image moments.
  *
  */
-class Animator extends Controller {
-    constructor ( elements ) {
+class Cover extends Controller {
+    constructor ( element ) {
         super();
 
-        this._elements = elements;
+        this._element = element;
 
-        this.start();
+        if ( this._element.length ) {
+            this.start();
+        }
     }
 
 
@@ -25,21 +27,19 @@ class Animator extends Controller {
      *
      * @instance
      * @description Initialize the animation frame
-     * @memberof Animator
+     * @memberof Cover
      * @method start
      *
      */
     start () {
         // Call on parent cycle
         this.go(() => {
-            this._elements.forEach(( element, i ) => {
-                if ( core.util.isElementVisible( element ) ) {
-                    this._elements.eq( i ).addClass( "is-animate" );
+            if ( core.util.isElementVisible( this._element[ 0 ] ) ) {
+                core.dom.html.addClass( "is-cover" );
 
-                } else {
-                    this._elements.eq( i ).removeClass( "is-animate" );
-                }
-            });
+            } else {
+                core.dom.html.removeClass( "is-cover" );
+            }
         });
     }
 
@@ -48,7 +48,7 @@ class Animator extends Controller {
      *
      * @instance
      * @description Stop the animation frame
-     * @memberof Animator
+     * @memberof Cover
      * @method destroy
      *
      */
@@ -62,4 +62,4 @@ class Animator extends Controller {
 /******************************************************************************
  * Export
 *******************************************************************************/
-export default Animator;
+export default Cover;
