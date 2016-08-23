@@ -1,7 +1,7 @@
 theindex.la
 ===========
 
-> A curation of photographers and filmmakers.
+> Index is a directory of contemporary photographers and filmmakers — a tool for finding talent from around the world.
 
 
 
