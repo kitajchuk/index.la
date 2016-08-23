@@ -50,7 +50,8 @@ There are a handful of npm scripts as well.
 * `npm run jsdoc` - Generate jsdocs
 * `npm run sync` - Sync local data from prismic.io
 * `npm run build` - Generate static build of the site
-* `npm run node` - Run the node app server locally
+* `npm run node-fish` - Run the node app server locally for fish shell
+* `npm run node-bash` - Run the node app server locally for bash shell
 
 
 
