@@ -131,6 +131,24 @@ const nav = {
         if ( $navi.length ) {
             $navi.addClass( "is-active" );
         }
+    },
+
+
+    /**
+     *
+     * @public
+     * @method resetHeader
+     * @memberof menus.nav
+     * @description Reset all the header values.
+     *
+     */
+    resetHeader () {
+        this.isTipinAble = false;
+        this.isLeftBehind = false;
+
+        transformHeader( 0 );
+
+        core.dom.header.removeClass( "is-tipinable" );
     }
 };
 

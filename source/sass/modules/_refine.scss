@@ -15,8 +15,13 @@
     -webkit-overflow-scrolling: touch;
     }
 .refine-label {
-    margin-left: 30px;
+    overflow: hidden;
+    padding-left: 60px;
+    text-align: left;
+    text-overflow: ellipsis;
     transition: opacity $base-duration $ease;
+    white-space: nowrap;
+    width: 100%;
 
     span {
         transition: color $base-duration $ease;
@@ -88,7 +93,6 @@
     }
 .filter__opt {
     cursor: pointer;
-    line-height: 1.6;
     position: relative;
     transition: color $base-duration $ease;
 

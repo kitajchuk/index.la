@@ -51,7 +51,7 @@
         <!-- Header -->
         <header class="header js-header ghost -f-zero">
             <div class="header__wrap ghost__child">
-                <div class="header__left -wrap-l -column -column--2of4">
+                <div class="header__left -wrap-l -column -column--3of4">
                     <span class="target--refine icon-wrap js-controller--refine">
                         <span class="icon icon--search"></span>
                         <span class="icon icon--arrow"></span>
@@ -68,9 +68,11 @@
                         </span>
                     </a>
                 </div>
-                <div class="header__right -wrap-r -column -column--2of4 -text--right">
+                <div class="header__right -wrap-r -column -column--1of4 -text--right">
                     <span class="target--grid icon-wrap js-controller--grid">
-                        <span class="icon icon--grid"></span>
+                        <span class="icon icon--grid">
+                            <span></span>
+                        </span>
                     </span>
                     <span class="target--nav icon-wrap js-controller--nav">
                         <span class="icon icon--list"></span>
@@ -185,12 +187,12 @@
                                 </a>
                             </figure>
                         </div>
-                        <a class="artist__related__meta" href="/artist/{{artist.uri}}/">
-                            <p class="p">{{artist.data.name.value}}</p>
-                            <p class="p -grey">
-                                <span v-for="type in artist.data.types.value">{{type.type.value.data.name.value}}</span>
-                            </p>
-                        </a>
+                        <p class="p">
+                            <a class="artist__related__meta" href="/artist/{{artist.uri}}/">{{artist.data.name.value}}</a>
+                        </p>
+                        <p class="p -grey">
+                            <a v-for="type in artist.data.types.value" class="a -grey" href="/?type=types&customType=type&value={{type.type.value.data.name.value}}">{{type.type.value.data.name.value}}</a>
+                        </p>
                     </div>
                 </div>
                 <div v-else class="index__list -f-zero -text--center">
@@ -205,13 +207,17 @@
                             </div>
                         </div>
                         <div class="index__col index__name -column -text--left">
-                            <a href="/artist/{{artist.uri}}/">
-                                <p class="p">{{artist.data.name.value}}</p>
-                            </a>
-                            <a href="/?type=types&customType=type&value={{type.type.value.data.name.value}}" class="p a -grey" v-for="type in artist.data.types.value">{{type.type.value.data.name.value}}</a>
+                            <p class="p">
+                                <a href="/artist/{{artist.uri}}/">{{artist.data.name.value}}</a>
+                            </p>
+                            <p class="p" v-for="type in artist.data.types.value">
+                                <a class="a -grey" href="/?type=types&customType=type&value={{type.type.value.data.name.value}}">{{type.type.value.data.name.value}}</a>
+                            </p>
                         </div>
                         <div class="index__col index__categories -column -text--left">
-                            <a href="/?type=categories&customType=category&value={{category.category.value.data.name.value}}" class="p a -grey" v-for="category in artist.data.categories.value">{{category.category.value.data.name.value}}</a>
+                            <p class="p" v-for="category in artist.data.categories.value">
+                                <a class="a -grey" href="/?type=categories&customType=category&value={{category.category.value.data.name.value}}">{{category.category.value.data.name.value}}</a>
+                            <p>
                         </div>
                         <div class="index__col index__location -column -text--left">
                             <p class="p -grey">{{artist.data.city.value.data.name.value}}</p>
@@ -290,8 +296,8 @@
                     <a class="features__link" href="/feature/{{pinned.uri}}/">
                         <img class="features__image image image--{{pinned.data.grid.value[ 0 ][ 'default-image' ].value.main.dimensions.width > pinned.data.grid.value[ 0 ][ 'default-image' ].value.main.dimensions.height ? 'wide' : 'tall'}} js-lazy-image" data-img-src="{{pinned.data.grid.value[ 0 ][ 'default-image' ].value.main.url}}" />
                         <div class="features__text -light">
-                            <div class="p">{{pinned.data.cover.value[ 0 ].credits.value}}</div>
-                            <div class="h1">{{pinned.data.cover.value[ 0 ].title.value}}</div>
+                            <div class="feature__meta p">{{pinned.data.cover.value[ 0 ].credits.value}}</div>
+                            <div class="feature__title h1">{{{pinned.data.cover.value[ 0 ].title.value | breakify}}}</div>
                         </div>
                     </a>
                 </div>
@@ -299,8 +305,8 @@
                     <a class="features__link" href="/feature/{{feature.uri}}/">
                         <img class="features__image image image--{{feature.data.grid.value[ 0 ][ 'default-image' ].value.main.dimensions.width > feature.data.grid.value[ 0 ][ 'default-image' ].value.main.dimensions.height ? 'wide' : 'tall'}} js-lazy-image" data-img-src="{{feature.data.grid.value[ 0 ][ 'default-image' ].value.main.url}}" />
                         <div class="features__text -light">
-                            <div class="p">{{feature.data.cover.value[ 0 ].credits.value}}</div>
-                            <div class="h2">{{feature.data.cover.value[ 0 ].title.value}}</div>
+                            <div class="feature__meta p">{{feature.data.cover.value[ 0 ].credits.value}}</div>
+                            <div class="feature__title h2">{{{feature.data.cover.value[ 0 ].title.value | breakify}}}</div>
                         </div>
                     </a>
                 </div>
@@ -308,16 +314,19 @@
 
             <!-- Feature -->
             <article class="feature js-feature -text--center">
-                <div v-if="feature.data.cover.value[ 0 ].style.value === 'fullbleed'" class="feature__cover cover -cover js-lazy-image ghost -text--center" data-img-src="{{feature.data.cover.value[ 0 ].image.value.main.url}}">
+                <style v-if="feature.data.colors">
+                    {{{feature.data.colors.value[ 0 ] | colorize 'feature'}}}
+                </style>
+                <div v-if="feature.data.cover.value[ 0 ].style.value === 'fullbleed'" class="feature__cover cover -cover js-cover js-lazy-image ghost -text--center" data-img-src="{{feature.data.cover.value[ 0 ].image.value.main.url}}">
                     <div class="ghost__child -light">
-                        <div class="p">{{feature.data.cover.value[ 0 ].credits.value}}</div>
-                        <div class="h1">{{feature.data.cover.value[ 0 ].title.value}}</div>
+                        <div class="feature__meta p">{{feature.data.cover.value[ 0 ].credits.value}}</div>
+                        <div class="feature__title h1">{{{feature.data.cover.value[ 0 ].title.value | breakify}}}</div>
                     </div>
                 </div>
                 <div v-if="feature.data.cover.value[ 0 ].style.value === 'stacked'" class="feature__cover">
                     <div class="feature__stacked">
-                        <div class="p">{{feature.data.cover.value[ 0 ].credits.value}}</div>
-                        <div class="h2">{{feature.data.cover.value[ 0 ].title.value}}</div>
+                        <div class="feature__meta p">{{feature.data.cover.value[ 0 ].credits.value}}</div>
+                        <div class="feature__title h2">{{{feature.data.cover.value[ 0 ].title.value | breakify}}}</div>
                     </div>
                     <div class="-wrap">
                         <img class="image js-lazy-image" data-img-src="{{feature.data.cover.value[ 0 ].image.value.main.url}}" />
@@ -329,16 +338,16 @@
                             <img class="image js-lazy-image" data-img-src="{{feature.data.cover.value[ 0 ].image.value.main.url}}" />
                         </div>
                         <div class="split__right">
-                            <div class="p">{{feature.data.cover.value[ 0 ].credits.value}}</div>
-                            <div class="h2">{{feature.data.cover.value[ 0 ].title.value}}</div>
+                            <div class="feature__meta p">{{feature.data.cover.value[ 0 ].credits.value}}</div>
+                            <div class="feature__title h2">{{{feature.data.cover.value[ 0 ].title.value | breakify}}}</div>
                         </div>
                     </div>
                 </div>
                 <div v-if="feature.data.cover.value[ 0 ].style.value === 'split-right'" class="feature__cover feature__cover--split cover ghost -wrap -f-zero">
                     <div class="feature__split feature__split--right ghost__child">
                         <div class="split__left">
-                            <div class="p">{{feature.data.cover.value[ 0 ].credits.value}}</div>
-                            <div class="h2">{{feature.data.cover.value[ 0 ].title.value}}</div>
+                            <div class="feature__meta p">{{feature.data.cover.value[ 0 ].credits.value}}</div>
+                            <div class="feature__title h2">{{{feature.data.cover.value[ 0 ].title.value | breakify}}}</div>
                         </div>
                         <div class="split__right">
                             <img class="image js-lazy-image" data-img-src="{{feature.data.cover.value[ 0 ].image.value.main.url}}" />

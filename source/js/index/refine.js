@@ -102,6 +102,7 @@ const refine = {
             this.resetSearch();
             this.resetFilters();
             this.resetScroll();
+            this.sortBy( this.active.sort );
             this.filterBy( [params] );
             this.applyLabel();
             this.applyNone();

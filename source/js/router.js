@@ -3,40 +3,10 @@ import nav from "./menus/nav";
 import * as core from "./core";
 import Animator from "./Animator";
 import Movies from "./Movies";
+import Cover from "./Cover";
 import refine from "./index/refine";
 import templates from "./index/templates";
 import PageController from "properjs-pagecontroller";
-
-
-/**
- *
- * @description Handle linkify-ing StructuredText fields.
- *
- */
-Vue.filter( "linkify", ( block ) => {
-    let ret = block.text;
-    let sub = null;
-    const links = [];
-
-    if ( block.spans.length ) {
-        block.spans.forEach(( span ) => {
-            if ( span.type === "hyperlink" ) {
-                sub = block.text.substring( span.start, span.end );
-
-                links.push({
-                    text: sub,
-                    hype: `<a href="${span.data.value.url}" class="a -grey" target="_blank">${sub}</a>`
-                });
-            }
-        });
-
-        links.forEach(( link ) => {
-            ret = ret.replace( link.text, link.hype );
-        });
-    }
-
-    return ret;
-});
 
 
 /**
@@ -193,6 +163,12 @@ const router = {
             this.movieController = null;
         }
 
+        // @this.cover
+        if ( this.cover ) {
+            this.cover.destroy();
+            this.cover = null;
+        }
+
         // @this.template
         this.template = null;
     },
@@ -220,6 +196,9 @@ const router = {
 
         // @this.movieController
         this.movieController = new Movies( core.dom.page.find( core.config.videoSelector ) );
+
+        // @this.cover
+        this.cover = new Cover( core.dom.page.find( core.config.coverSelector ) );
     },
 
 
@@ -284,6 +263,7 @@ const router = {
         setTimeout( () => {
             nav.close();
             refine.close();
+            nav.resetHeader();
 
             core.dom.page[ 0 ].scrollTop = 0;
 

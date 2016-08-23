@@ -42,16 +42,21 @@ const intro = {
     teardown () {
         core.emitter.off( "app--intro-teardown" );
 
-        core.dom.intro.removeClass( "is-active is-initialized" );
+        core.dom.intro.removeClass( "is-initialized" );
 
         setTimeout( () => {
-            loader.teardown();
+            core.dom.intro.removeClass( "is-active" );
 
-            core.dom.intro.remove();
+            setTimeout( () => {
+                loader.teardown();
 
-            core.emitter.fire( "app--intro-art" );
+                core.dom.intro.remove();
 
-        }, this.transTime );
+                core.emitter.fire( "app--intro-art" );
+
+            }, this.transTime );
+
+        }, 600 );
     }
 };
 

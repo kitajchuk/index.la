@@ -175,7 +175,10 @@ const artist = {
      */
     teardown () {
         this.gallery = null;
-        core.emitter.off( "app--scroll", this._onScroller );
+
+        if ( this._onScroller ) {
+            core.emitter.off( "app--scroll", this._onScroller );
+        }
     }
 };
 

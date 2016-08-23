@@ -33,6 +33,14 @@
 
 
 // Feature detail
+.feature {
+    .p {
+        line-height: 2;
+        }
+}
+.feature__meta + .feature__title {
+    margin-top: 20px;
+    }
 .feature__cover {
     .image {
         width: 100%;

@@ -14,6 +14,35 @@
                 "label": "Timestamp"
             }
         },
+        "colors": {
+            "type": "Group",
+            "fieldset": "Colors",
+            "config": {
+                "fields": {
+                    "backgroundColor": {
+                        "type": "Color",
+                        "fieldset": "Background Color",
+                        "config": {
+                            "label": "Background Color"
+                        }
+                    },
+                    "textColor": {
+                        "type": "Color",
+                        "fieldset": "Text Color",
+                        "config": {
+                            "label": "Text Color"
+                        }
+                    },
+                    "borderColor": {
+                        "type": "Color",
+                        "fieldset": "Border Color",
+                        "config": {
+                            "label": "Border Color"
+                        }
+                    }
+                }
+            }
+        },
         "grid": {
             "type": "Group",
             "fieldset": "Grid",
@@ -53,10 +82,11 @@
                         }
                     },
                     "title": {
-                        "type": "Text",
+                        "type": "StructuredText",
                         "fieldset": "Title",
                         "config": {
-                            "label": "Title"
+                            "placeholder": "Add title...",
+                            "multi": "paragraph"
                         }
                     },
                     "style": {
