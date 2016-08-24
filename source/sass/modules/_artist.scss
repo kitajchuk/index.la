@@ -43,6 +43,9 @@
         display: block;
         }
 }
+.artist__mobile__image + .artist__info {
+    padding-top: $expander-mobile;
+    }
 .artist__mobile__image {
     padding-bottom: 0;
     }

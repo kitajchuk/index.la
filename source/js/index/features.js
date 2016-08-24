@@ -77,6 +77,10 @@ const features = {
         const pinned = documents[ 0 ];
         const gridwall = documents.slice( 1, documents.length );
 
+        if ( core.detect.isDevice() ) {
+            pinned.data.grid.value[ 0 ][ 'pinned-image' ] = pinned.data.grid.value[ 0 ][ 'default-image' ];
+        }
+
         router.setView( this.template, {
             pinned: pinned,
             features: gridwall

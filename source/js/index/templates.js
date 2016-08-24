@@ -78,13 +78,13 @@ Vue.filter( "colorize", ( colors, prefix ) => {
     const ret = [];
 
     // Background color
-    if ( colors.backgroundColor ) {
+    if ( colors && colors.backgroundColor ) {
         ret.push( `.${prefix} { background-color: ${colors.backgroundColor.value}; }` );
         ret.push( `.header { background-color: ${colors.backgroundColor.value}; }` );
     }
 
     // Typography color
-    if ( colors.textColor ) {
+    if ( colors && colors.textColor ) {
         ret.push( `.${prefix} .h1 { color: ${colors.textColor.value}; }` );
         ret.push( `.${prefix} .h2 { color: ${colors.textColor.value}; }` );
         ret.push( `.${prefix} .h3 { color: ${colors.textColor.value}; }` );
@@ -99,7 +99,7 @@ Vue.filter( "colorize", ( colors, prefix ) => {
     }
 
     // Border color
-    if ( colors.borderColor ) {
+    if ( colors && colors.borderColor ) {
         ret.push( `.${prefix}__next { border-top-color: ${colors.borderColor.value}; }` );
     }
 

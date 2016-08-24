@@ -228,7 +228,10 @@ const refine = {
      */
     open () {
         this.isOpen = true;
-        this.search[ 0 ].focus();
+
+        if ( !core.detect.isDevice() ) {
+            this.search[ 0 ].focus();
+        }
 
         core.dom.html.addClass( "is-refine-open" );
         core.dom.page.on( "click", ( e ) => {

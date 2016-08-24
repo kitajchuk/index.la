@@ -41,6 +41,10 @@
 .feature__meta + .feature__title {
     margin-top: 20px;
     }
+.feature__title--svg {
+    max-width: 445px;
+    width: 60%
+    }
 .feature__cover {
     .image {
         width: 100%;

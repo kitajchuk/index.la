@@ -85,10 +85,6 @@ websocketServer.on( "connect", function ( connection ) {
 });
 websocketServer.on( "close", function ( connection ) {
     console.log( "WebSocketServer: Closed" );
-
-    // connection.sockets = null;
-    // connection.prismic = null;
-    // connection = null;
 });
 
 
