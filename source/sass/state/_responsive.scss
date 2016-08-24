@@ -19,12 +19,6 @@
     .artist__gallery {
         margin-left: $wrapper-padding;
         }
-    .h3 {
-        font-size: 28px;
-        }
-    .h4 {
-        font-size: 24px;
-        }
     .about__wrap {
         max-width: 850px;
         }
@@ -89,6 +83,9 @@
 
 
 @media only screen and ( max-width: $break-ipad-pro-width ) {
+    .h1 {
+        font-size: $h2-size;
+        }
     .artist__related__col {
         width: 50%;
         }
@@ -119,12 +116,12 @@
 
 
 @media only screen and ( max-width: $break-tablet-medium ) {
-    .index .p,
-    .refine .p,
-    .refine-clear .p,
-    .artist__related__meta .p {
-        font-size: $m-size;
-        }
+    // .index .p,
+    // .refine .p,
+    // .refine-clear .p,
+    // .artist__related__meta .p {
+    //     font-size: $m-size;
+    //     }
     .is-refine-open {
         .page,
         .header {
@@ -156,12 +153,6 @@
     .features__pinned {
         margin-bottom: $expander-one;
         }
-    .features__text {
-        .h1,
-        .h2 {
-            font-size: $h3-size;
-            }
-    }
 }
 
 
@@ -169,8 +160,29 @@
 @media only screen and ( max-width: $break-mobile-full ) {
     $header-height: 80px;
 
+    .p {
+        font-size: $p-size-mobile;
+        }
+    .h1 {
+        font-size: $h1-size-mobile;
+        line-height: 1.2;
+        }
+    .h2,
+    .feature__title {
+        font-size: $h2-size-mobile;
+        line-height: 1.2;
+        }
+    .h3 {
+        font-size: $h3-size-mobile;
+        }
+    .h4 {
+        font-size: $h4-size-mobile;
+        }
     .caption {
-        font-size: 14px;
+        font-size: $m-size-mobile;
+        }
+    .text .p + .p {
+        margin-top: $expander-mobile;
         }
     .-col,
     .-wrap,
@@ -205,13 +217,18 @@
     .search {
         height: $header-height;
         }
-    .refine {
+    .refine,
+    .refine-clear {
         width: 80%;
-    }
+        }
     .filter {
-        padding-left: $expander-mobile;
         padding-top: $expander-mobile;
-    }
+        }
+    .filter,
+    .refine-clear,
+    .search__field {
+        padding-left: 50px;
+        }
     .page {
         padding-top: $header-height;
         }
@@ -233,9 +250,6 @@
             margin-left: 0;
             }
     }
-    .search__field {
-        padding-left: $expander-mobile;
-        }
     .is-refine-open {
         .index {
             opacity: 0.5;
@@ -248,12 +262,15 @@
             }
         .header {
             padding-left: 0;
-            transform: translateX( 80% );
+            transform: translateX( 80% ) !important;
+            transition: padding-left $base-duration $ease-cubic-sharp,
+                        transform $base-duration $ease-cubic-sharp !important;
             }
     }
     .about {
         height: auto;
-        padding-top: 10vh;
+        padding-right: 50px;
+        padding-top: $expander-one;
         }
     .about__footer {
         bottom: auto;
@@ -278,7 +295,7 @@
         margin-bottom: $expander-mobile;
         }
     .intro__svg {
-        width: 100px;
+        width: 150px;
         }
     .nav__logo {
         display: none;
@@ -323,6 +340,30 @@
             }
     }
     .feature__slice {
+        margin-top: $expander-mobile;
+        }
+    .feature__cover + .feature__slice {
         margin-top: $expander-one;
+        }
+    .feature__meta + .feature__title {
+        margin-top: 10px;
+        }
+    .features {
+        padding-left: 0;
+        padding-right: 0;
+        }
+    .feature__next {
+        padding-bottom: $expander-one;
+        padding-top: $expander-one;
+        margin-top: $expander-one;
+        }
+    .feature__stacked,
+    .feature__split--right > .split__left {
+        padding-bottom: $expander-one;
+        padding-top: 30vh;
+        }
+    .feature__split--left > .split__left {
+        padding-bottom: $expander-one;
+        padding-top: 20vh;
         }
 }

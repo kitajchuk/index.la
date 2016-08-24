@@ -20,6 +20,7 @@ import refine from "./index/refine";
 import submit from "./menus/submit";
 import feature from "./index/feature";
 import features from "./index/features";
+import subscribe from "./menus/subscribe";
 import templates from "./index/templates";
 
 
@@ -45,6 +46,7 @@ class App {
         this.artist = artist;
         this.feature = feature;
         this.features = features;
+        this.subscribe = subscribe;
         this.templates = templates;
 
         // Scroll handling
@@ -167,6 +169,7 @@ class App {
         this.nav.init();
         this.submit.init();
         this.refine.init();
+        this.subscribe.init();
         this.templates.init();
 
         // Views

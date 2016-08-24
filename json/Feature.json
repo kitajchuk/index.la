@@ -89,6 +89,10 @@
                             "multi": "paragraph"
                         }
                     },
+                    "svg-title": {
+                        "type": "Image",
+                        "fieldset": "SVG Image"
+                    },
                     "style": {
                         "type": "Select",
                         "fieldset": "Cover style",
@@ -98,7 +102,8 @@
                         }
                     },
                     "image": {
-                        "type": "Image"
+                        "type": "Image",
+                        "fieldset": "Cover Image"
                     }
                 }
             }
@@ -156,10 +161,12 @@
                         "config": {
                             "fields": {
                                 "left-image": {
-                                    "type": "Image"
+                                    "type": "Image",
+                                    "fieldset": "Left Image"
                                 },
                                 "right-image": {
-                                    "type": "Image"
+                                    "type": "Image",
+                                    "fieldset": "Right Image"
                                 }
                             }
                         }

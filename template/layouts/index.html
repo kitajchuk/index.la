@@ -72,6 +72,14 @@
                     <span class="target--grid icon-wrap js-controller--grid">
                         <span class="icon icon--grid">
                             <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
                         </span>
                     </span>
                     <span class="target--nav icon-wrap js-controller--nav">
@@ -96,6 +104,9 @@
                             <a v-else href="{{nav.data.state.value === 'coming-soon' ? '#' : nav.data.url.value}}" class="nav__menu__a js-nav-item -grey h4 {{nav.data.state.value === 'coming-soon' ? 'is-coming-soon' : ''}}">
                                 {{nav.data.title.value}}
                             </a>
+                        </li>
+                        <li class="nav__menu__li nav__menu__tertiary">
+                            <span class="nav__menu__a js-controller--subscribe -grey p">Subscibe</span>
                         </li>
                         <li v-for="social in socials" class="nav__menu__li nav__menu__tertiary">
                             <a href="{{social.data.url.value}}" class="nav__menu__a js-nav-item -grey p" target="_blank">{{social.data.title.value}}</a>
@@ -161,12 +172,23 @@
         </div>
 
         <!-- Submit -->
-        <section class="submit js-submit screen ghost -text--center">
-            <div class="submit__wrap ghost__child">
-                <div class="submit__message h4 -light animate animate--lift">Thanks!</div>
-                <div class="submit__form animate animate--lift">
-                    <input class="submit__field js-submit-field h4" type="text" placeholder="enter artist name or website" />
-                    <button class="submit__button js-submit-button p">Submit</button>
+        <section class="modal-form js-submit screen ghost -text--center">
+            <div class="modal-form__wrap ghost__child -wrap">
+                <div class="modal-form__message h4 -light animate animate--lift">Thanks!</div>
+                <div class="modal-form__form animate animate--lift">
+                    <input class="modal-form__field js-submit-field h4" type="text" placeholder="enter artist name or website" />
+                    <button class="modal-form__button js-submit-button p">Submit</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Subscribe -->
+        <section class="modal-form js-subscribe screen ghost -text--center">
+            <div class="modal-form__wrap ghost__child -wrap">
+                <div class="modal-form__message h4 -light animate animate--lift">Thanks!</div>
+                <div class="modal-form__form animate animate--lift">
+                    <input class="modal-form__field js-subscribe-field h4" type="text" placeholder="enter email address" />
+                    <button class="modal-form__button js-subscribe-button p">Subscribe</button>
                 </div>
             </div>
         </section>
@@ -294,10 +316,11 @@
             <section class="features js-features -wrap -text--center -f-zero">
                 <div class="features__pinned -text--center animate js-animate">
                     <a class="features__link" href="/feature/{{pinned.uri}}/">
-                        <img class="features__image image image--{{pinned.data.grid.value[ 0 ][ 'default-image' ].value.main.dimensions.width > pinned.data.grid.value[ 0 ][ 'default-image' ].value.main.dimensions.height ? 'wide' : 'tall'}} js-lazy-image" data-img-src="{{pinned.data.grid.value[ 0 ][ 'default-image' ].value.main.url}}" />
+                        <img class="features__image image image--{{pinned.data.grid.value[ 0 ][ 'pinned-image' ].value.main.dimensions.width > pinned.data.grid.value[ 0 ][ 'pinned-image' ].value.main.dimensions.height ? 'wide' : 'tall'}} js-lazy-image" data-img-src="{{pinned.data.grid.value[ 0 ][ 'pinned-image' ].value.main.url}}" />
                         <div class="features__text -light">
                             <div class="feature__meta p">{{pinned.data.cover.value[ 0 ].credits.value}}</div>
-                            <div class="feature__title h1">{{{pinned.data.cover.value[ 0 ].title.value | breakify}}}</div>
+                            <img v-if="pinned.data.cover.value[ 0 ][ 'svg-title' ]" class="feature__title feature__title--svg" v-bind:src="pinned.data.cover.value[ 0 ][ 'svg-title' ].value.main.url" />
+                            <div v-else class="feature__title h1">{{{pinned.data.cover.value[ 0 ].title.value | breakify}}}</div>
                         </div>
                     </a>
                 </div>
@@ -306,7 +329,8 @@
                         <img class="features__image image image--{{feature.data.grid.value[ 0 ][ 'default-image' ].value.main.dimensions.width > feature.data.grid.value[ 0 ][ 'default-image' ].value.main.dimensions.height ? 'wide' : 'tall'}} js-lazy-image" data-img-src="{{feature.data.grid.value[ 0 ][ 'default-image' ].value.main.url}}" />
                         <div class="features__text -light">
                             <div class="feature__meta p">{{feature.data.cover.value[ 0 ].credits.value}}</div>
-                            <div class="feature__title h2">{{{feature.data.cover.value[ 0 ].title.value | breakify}}}</div>
+                            <img v-if="feature.data.cover.value[ 0 ][ 'svg-title' ]" class="feature__title feature__title--svg" v-bind:src="feature.data.cover.value[ 0 ][ 'svg-title' ].value.main.url" />
+                            <div v-else class="feature__title h2">{{{feature.data.cover.value[ 0 ].title.value | breakify}}}</div>
                         </div>
                     </a>
                 </div>
@@ -318,17 +342,19 @@
                     {{{feature.data.colors.value[ 0 ] | colorize 'feature'}}}
                 </style>
                 <div v-if="feature.data.cover.value[ 0 ].style.value === 'fullbleed'" class="feature__cover cover -cover js-cover js-lazy-image ghost -text--center" data-img-src="{{feature.data.cover.value[ 0 ].image.value.main.url}}">
-                    <div class="ghost__child -light">
+                    <div class="ghost__child -light -hundo">
                         <div class="feature__meta p">{{feature.data.cover.value[ 0 ].credits.value}}</div>
-                        <div class="feature__title h1">{{{feature.data.cover.value[ 0 ].title.value | breakify}}}</div>
+                        <img v-if="feature.data.cover.value[ 0 ][ 'svg-title' ]" class="feature__title feature__title--svg" v-bind:src="feature.data.cover.value[ 0 ][ 'svg-title' ].value.main.url" />
+                        <div v-else class="feature__title h1">{{{feature.data.cover.value[ 0 ].title.value | breakify}}}</div>
                     </div>
                 </div>
                 <div v-if="feature.data.cover.value[ 0 ].style.value === 'stacked'" class="feature__cover">
                     <div class="feature__stacked">
                         <div class="feature__meta p">{{feature.data.cover.value[ 0 ].credits.value}}</div>
-                        <div class="feature__title h2">{{{feature.data.cover.value[ 0 ].title.value | breakify}}}</div>
+                        <img v-if="feature.data.cover.value[ 0 ][ 'svg-title' ]" class="feature__title feature__title--svg" v-bind:src="feature.data.cover.value[ 0 ][ 'svg-title' ].value.main.url" />
+                        <div v-else class="feature__title h2">{{{feature.data.cover.value[ 0 ].title.value | breakify}}}</div>
                     </div>
-                    <div class="-wrap">
+                    <div class="feature__image -wrap">
                         <img class="image js-lazy-image" data-img-src="{{feature.data.cover.value[ 0 ].image.value.main.url}}" />
                     </div>
                 </div>
@@ -339,7 +365,8 @@
                         </div>
                         <div class="split__right">
                             <div class="feature__meta p">{{feature.data.cover.value[ 0 ].credits.value}}</div>
-                            <div class="feature__title h2">{{{feature.data.cover.value[ 0 ].title.value | breakify}}}</div>
+                            <img v-if="feature.data.cover.value[ 0 ][ 'svg-title' ]" class="feature__title feature__title--svg" v-bind:src="feature.data.cover.value[ 0 ][ 'svg-title' ].value.main.url" />
+                            <div v-else class="feature__title h2">{{{feature.data.cover.value[ 0 ].title.value | breakify}}}</div>
                         </div>
                     </div>
                 </div>
@@ -347,7 +374,8 @@
                     <div class="feature__split feature__split--right ghost__child">
                         <div class="split__left">
                             <div class="feature__meta p">{{feature.data.cover.value[ 0 ].credits.value}}</div>
-                            <div class="feature__title h2">{{{feature.data.cover.value[ 0 ].title.value | breakify}}}</div>
+                            <img v-if="feature.data.cover.value[ 0 ][ 'svg-title' ]" class="feature__title feature__title--svg" v-bind:src="feature.data.cover.value[ 0 ][ 'svg-title' ].value.main.url" />
+                            <div v-else class="feature__title h2">{{{feature.data.cover.value[ 0 ].title.value | breakify}}}</div>
                         </div>
                         <div class="split__right">
                             <img class="image js-lazy-image" data-img-src="{{feature.data.cover.value[ 0 ].image.value.main.url}}" />
