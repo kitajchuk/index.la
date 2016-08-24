@@ -91,45 +91,96 @@
         width: 24px;
         }
 }
+// .icon--grid {
+//     background-color: $black;
+//     height: 18px;
+//     position: relative;
+//     width: 18px;
+//
+//     &:before,
+//     &:after,
+//     span:before,
+//     span:after {
+//         background-color: $white;
+//         content: "";
+//         position: absolute;
+//         }
+//
+//     &:before,
+//     &:after {
+//         height: 3px;
+//         left: 0;
+//         width: 100%;
+//         }
+//     &:before {
+//         top: 4px;
+//         }
+//     &:after {
+//         top: 11px;
+//         }
+//
+//     span:before,
+//     span:after {
+//         height: 100%;
+//         top: 0;
+//         width: 3px;
+//         }
+//     span:before {
+//         left: 4px;
+//         }
+//     span:after {
+//         left: 11px;
+//         }
+// }
 .icon--grid {
-    background-color: $black;
     height: 18px;
     position: relative;
     width: 18px;
 
-    &:before,
-    &:after,
-    span:before,
-    span:after {
-        background-color: $white;
-        content: "";
+    span {
+        background-color: $black;
+        border-radius: 4px;
+        height: 4px;
         position: absolute;
+        width: 4px;
         }
-
-    &:before,
-    &:after {
-        height: 3px;
+    span:nth-child( 1 ) {
         left: 0;
-        width: 100%;
         }
-    &:before {
-        top: 4px;
+    span:nth-child( 2 ) {
+        left: 50%;
+        transform: translateX( -50% );
         }
-    &:after {
-        top: 11px;
+    span:nth-child( 3 ) {
+        right: 0;
         }
-
-    span:before,
-    span:after {
-        height: 100%;
-        top: 0;
-        width: 3px;
+    span:nth-child( 4 ) {
+        left: 0;
+        top: 50%;
+        transform: translateY( -50% );
         }
-    span:before {
-        left: 4px;
+    span:nth-child( 5 ) {
+        left: 50%;
+        top: 50%;
+        transform: translateX( -50% ) translateY( -50% );
         }
-    span:after {
-        left: 11px;
+    span:nth-child( 6 ) {
+        right: 0;
+        top: 50%;
+        transform: translateY( -50% );
+        }
+    span:nth-child( 7 ) {
+        left: 0;
+        bottom: 0;
+        }
+    span:nth-child( 8 ) {
+        bottom: 0;
+        left: 50%;
+        transform: translateX( -50% );
+        }
+    span:nth-child( 9 ) {
+        bottom: 0;
+        right: 0;
         }
 }
 

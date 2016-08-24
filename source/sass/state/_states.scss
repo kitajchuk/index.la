@@ -73,10 +73,10 @@
 
 .is-grid-view {
     .icon--grid {
-        &:before,
-        &:after,
-        span:before,
-        span:after {
+        background-color: $black;
+        border-radius: 2px;
+
+        span {
             display: none;
             }
     }
