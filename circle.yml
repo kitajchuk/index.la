@@ -14,6 +14,7 @@ dependencies:
     - "node_modules"
   override:
     - npm install
+    - npm update prismic-express
     - npm rebuild node-sass
 
 test:
