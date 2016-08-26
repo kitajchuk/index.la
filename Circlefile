@@ -68,17 +68,20 @@ CIRCLEFILE_PRODUCTION_HOST := ec2-50-112-223-6.us-west-2.compute.amazonaws.com
 # Deploy to all AWS instances.
 
 
-deploy_node:
+push_node:
 		@rsync -av -e "ssh" --rsync-path "sudo rsync" server/ $(CIRCLEFILE_AWS_USER)@$(CIRCLEFILE_NODE_HOST):$(CIRCLEFILE_AWS_DEST)
 		@ssh $(CIRCLEFILE_AWS_USER)@$(CIRCLEFILE_NODE_HOST) 'cd $(CIRCLEFILE_AWS_DEST) ; sudo npm run stop ; sudo npm run start'
 
 
-deploy_staging:
+push_staging:
 		@rsync -av -e "ssh" --rsync-path "sudo rsync" build/ $(CIRCLEFILE_AWS_USER)@$(CIRCLEFILE_STAGING_HOST):$(CIRCLEFILE_AWS_DEST)
 
 
-deploy_production:
-		@rsync -av -e "ssh" --rsync-path "sudo rsync" splash/ $(CIRCLEFILE_AWS_USER)@$(CIRCLEFILE_PRODUCTION_HOST):$(CIRCLEFILE_AWS_DEST)
+push_production:
+		@rsync -av -e "ssh" --rsync-path "sudo rsync" build/ $(CIRCLEFILE_AWS_USER)@$(CIRCLEFILE_PRODUCTION_HOST):$(CIRCLEFILE_AWS_DEST)
 
 
-deploy_all: deploy_node deploy_staging deploy_production
+deploy_staging: push_node push_staging
+
+
+deploy_production: push_node push_production
