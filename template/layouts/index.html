@@ -320,7 +320,7 @@
                         <div class="features__text -light">
                             <div class="feature__meta p">{{pinned.data.cover.value[ 0 ].credits.value}}</div>
                             <img v-if="pinned.data.cover.value[ 0 ][ 'svg-title' ]" class="feature__title feature__title--svg" v-bind:src="pinned.data.cover.value[ 0 ][ 'svg-title' ].value.main.url" />
-                            <div v-else class="feature__title h1">{{{pinned.data.cover.value[ 0 ].title.value | breakify}}}</div>
+                            <div v-else class="feature__title -wrap h1">{{{pinned.data.cover.value[ 0 ].title.value | breakify}}}</div>
                         </div>
                     </a>
                 </div>
@@ -330,7 +330,7 @@
                         <div class="features__text -light">
                             <div class="feature__meta p">{{feature.data.cover.value[ 0 ].credits.value}}</div>
                             <img v-if="feature.data.cover.value[ 0 ][ 'svg-title' ]" class="feature__title feature__title--svg" v-bind:src="feature.data.cover.value[ 0 ][ 'svg-title' ].value.main.url" />
-                            <div v-else class="feature__title h2">{{{feature.data.cover.value[ 0 ].title.value | breakify}}}</div>
+                            <div v-else class="feature__title -wrap h2">{{{feature.data.cover.value[ 0 ].title.value | breakify}}}</div>
                         </div>
                     </a>
                 </div>
@@ -345,14 +345,14 @@
                     <div class="ghost__child -light -hundo">
                         <div class="feature__meta p">{{feature.data.cover.value[ 0 ].credits.value}}</div>
                         <img v-if="feature.data.cover.value[ 0 ][ 'svg-title' ]" class="feature__title feature__title--svg" v-bind:src="feature.data.cover.value[ 0 ][ 'svg-title' ].value.main.url" />
-                        <div v-else class="feature__title h1">{{{feature.data.cover.value[ 0 ].title.value | breakify}}}</div>
+                        <div v-else class="feature__title -wrap h1">{{{feature.data.cover.value[ 0 ].title.value | breakify}}}</div>
                     </div>
                 </div>
                 <div v-if="feature.data.cover.value[ 0 ].style.value === 'stacked'" class="feature__cover">
                     <div class="feature__stacked">
                         <div class="feature__meta p">{{feature.data.cover.value[ 0 ].credits.value}}</div>
                         <img v-if="feature.data.cover.value[ 0 ][ 'svg-title' ]" class="feature__title feature__title--svg" v-bind:src="feature.data.cover.value[ 0 ][ 'svg-title' ].value.main.url" />
-                        <div v-else class="feature__title h2">{{{feature.data.cover.value[ 0 ].title.value | breakify}}}</div>
+                        <div v-else class="feature__title -wrap h2">{{{feature.data.cover.value[ 0 ].title.value | breakify}}}</div>
                     </div>
                     <div class="feature__image -wrap">
                         <img class="image js-lazy-image" data-img-src="{{feature.data.cover.value[ 0 ].image.value.main.url}}" />
@@ -366,7 +366,7 @@
                         <div class="split__right">
                             <div class="feature__meta p">{{feature.data.cover.value[ 0 ].credits.value}}</div>
                             <img v-if="feature.data.cover.value[ 0 ][ 'svg-title' ]" class="feature__title feature__title--svg" v-bind:src="feature.data.cover.value[ 0 ][ 'svg-title' ].value.main.url" />
-                            <div v-else class="feature__title h2">{{{feature.data.cover.value[ 0 ].title.value | breakify}}}</div>
+                            <div v-else class="feature__title -wrap h2">{{{feature.data.cover.value[ 0 ].title.value | breakify}}}</div>
                         </div>
                     </div>
                 </div>
@@ -375,7 +375,7 @@
                         <div class="split__left">
                             <div class="feature__meta p">{{feature.data.cover.value[ 0 ].credits.value}}</div>
                             <img v-if="feature.data.cover.value[ 0 ][ 'svg-title' ]" class="feature__title feature__title--svg" v-bind:src="feature.data.cover.value[ 0 ][ 'svg-title' ].value.main.url" />
-                            <div v-else class="feature__title h2">{{{feature.data.cover.value[ 0 ].title.value | breakify}}}</div>
+                            <div v-else class="feature__title -wrap h2">{{{feature.data.cover.value[ 0 ].title.value | breakify}}}</div>
                         </div>
                         <div class="split__right">
                             <img class="image js-lazy-image" data-img-src="{{feature.data.cover.value[ 0 ].image.value.main.url}}" />
@@ -435,7 +435,9 @@
                             <a href="{{social.data.url.value}}" class="a -grey" target="_blank">{{social.data.title.value}}</a>
                         </p>
                     </div>
-                    <div class="about__footer m -exp-t -grey">&copy; Index {{new Date().getFullYear()}} / All Images &copy; of their respective owners</div>
+                    <div class="about__footer m -exp-t -grey">
+                        <span>&copy; Index {{new Date().getFullYear()}}</span><span>All Images &copy; of their respective owners</span>
+                    </div>
                 </div>
             </section>
         </div>
