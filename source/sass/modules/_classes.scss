@@ -122,16 +122,18 @@
     height: 100%;
     position: relative;
     }
-
-
-
 .about__wrap {
-    max-width: 880px;
+    max-width: 850px;
     width: 100%;
     }
 .about__footer {
     bottom: $expander-one;
     position: absolute;
+
+    span + span:before {
+        content: " / ";
+        display: inline;
+        }
     }
 
 

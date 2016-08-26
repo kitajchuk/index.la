@@ -40,7 +40,10 @@
         padding-left: $expander-two;
         }
 }
-@media only screen and ( max-width: ($break-laptop-medium + 1px) ) {
+@media only screen and ( max-width: $break-laptop-medium ) {
+    .h1 {
+        font-size: $h2-size;
+        }
     .header,
     .search,
     .refine-clear {
@@ -83,9 +86,6 @@
 
 
 @media only screen and ( max-width: $break-ipad-pro-width ) {
-    .h1 {
-        font-size: $h2-size;
-        }
     .artist__related__col {
         width: 50%;
         }
@@ -116,12 +116,6 @@
 
 
 @media only screen and ( max-width: $break-tablet-medium ) {
-    // .index .p,
-    // .refine .p,
-    // .refine-clear .p,
-    // .artist__related__meta .p {
-    //     font-size: $m-size;
-    //     }
     .is-refine-open {
         .page,
         .header {
@@ -157,12 +151,7 @@
 
 
 
-@media only screen and ( max-width: $break-mobile-full ) {
-    $header-height: 80px;
-
-    .p {
-        font-size: $p-size-mobile;
-        }
+@media only screen and ( max-width: $break-tablet-small ) {
     .h1 {
         font-size: $h1-size-mobile;
         line-height: 1.2;
@@ -178,11 +167,24 @@
     .h4 {
         font-size: $h4-size-mobile;
         }
+}
+
+
+
+@media only screen and ( max-width: $break-mobile-full ) {
+    $header-height: 80px;
+
+    .p {
+        font-size: $p-size-mobile;
+        }
     .caption {
         font-size: $m-size-mobile;
         }
     .text .p + .p {
         margin-top: $expander-mobile;
+        }
+    .nav__menu__primary .h4 {
+        font-size: $h3-size-mobile;
         }
     .-col,
     .-wrap,
@@ -220,6 +222,9 @@
     .refine,
     .refine-clear {
         width: 80%;
+        }
+    .refine-label {
+        padding-left: 20px;
         }
     .filter {
         padding-top: $expander-mobile;
@@ -328,7 +333,7 @@
         }
     .features__item,
     .features__pinned {
-        margin-bottom: $expander-mobile;
+        margin-bottom: $expander-mobile / 2;
         }
     .wide-landscape,
     .tite-landscape,
@@ -349,6 +354,7 @@
         margin-top: 10px;
         }
     .features {
+        padding-bottom: 0;
         padding-left: 0;
         padding-right: 0;
         }
@@ -365,5 +371,11 @@
     .feature__split--left > .split__left {
         padding-bottom: $expander-one;
         padding-top: 20vh;
+        }
+    .about__footer span {
+        display: block;
+        }
+    .about__footer span + span:before {
+        display: none;
         }
 }

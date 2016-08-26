@@ -70,7 +70,7 @@ CIRCLEFILE_PRODUCTION_HOST := ec2-50-112-223-6.us-west-2.compute.amazonaws.com
 
 deploy_node:
 		@rsync -av -e "ssh" --rsync-path "sudo rsync" server/ $(CIRCLEFILE_AWS_USER)@$(CIRCLEFILE_NODE_HOST):$(CIRCLEFILE_AWS_DEST)
-		@ssh $(CIRCLEFILE_AWS_USER)@$(CIRCLEFILE_NODE_HOST) 'cd $(CIRCLEFILE_AWS_DEST) ; sudo npm install ; sudo npm run stop ; sudo npm run start'
+		@ssh $(CIRCLEFILE_AWS_USER)@$(CIRCLEFILE_NODE_HOST) 'cd $(CIRCLEFILE_AWS_DEST) ; sudo npm run stop ; sudo npm run start'
 
 
 deploy_staging:
