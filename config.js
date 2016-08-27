@@ -36,7 +36,6 @@ module.exports = {
         "sort",
         "type",
         "city",
-        "page",
         "meta",
         "region",
         "artist",
