@@ -28,14 +28,11 @@
     display: inline-block;
     }
 .artist__related__col {
-    a + a {
+    span + span {
         &:before {
             color: $grey-text;
             content: " / ";
             }
-        }
-    a:hover:before {
-        color: $grey-text;
         }
 }
 .artist__info {
