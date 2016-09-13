@@ -28,6 +28,7 @@
     display: inline-block;
     }
 .artist__related__col {
+    a + a,
     span + span {
         &:before {
             color: $grey-text;
