@@ -42,7 +42,6 @@
     "properjs-easing": "~0.2",
     "properjs-hobo": "^0.3.10",
     "properjs-imageloader": ">=0.3.1",
-    "properjs-matchelement": "~0.2",
     "properjs-mediabox": "~0.3",
     "properjs-pagecontroller": "~0.3",
     "properjs-resizecontroller": "~0.2",
