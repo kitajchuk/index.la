@@ -73,7 +73,9 @@ const features = {
      *
      */
     view () {
-        const documents = core.cache.get( "features" ).sort( core.util.sortByTimestamp );
+        const documents = core.cache.get( "features" ).sort( core.util.sortByTimestamp ).filter(( doc ) => {
+            return !doc.data.hidden;
+        });
         const pinned = documents[ 0 ];
         const gridwall = documents.slice( 1, documents.length );
 
