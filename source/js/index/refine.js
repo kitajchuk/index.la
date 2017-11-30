@@ -55,7 +55,7 @@ const refine = {
                 this.search = this.element.find( ".js-search-field" );
                 this.sorts = this.element.find( ".js-sort-option" );
                 this.active = {
-                    sort: this.sorts.eq( 0 ).data(),
+                    sort: this.sorts.filter( ".is-active" ).data(),
                     label: "",
                     search: null,
                     filters: null
