@@ -1,0 +1,82 @@
+version: 2
+
+jobs:
+    build:
+        working_directory: ~/index
+        machine:
+            enabled: true
+        node:
+            version: 8.10.0
+        timezone:
+            America/Los_Angeles
+        steps:
+            - checkout
+            - run:
+                name: Node version
+                command: node --version
+            - run:
+                name: NPM version
+                command: npm --version
+            - run:
+                name: Install node_modules
+                command: npm install
+            - run:
+                name: Update prismic-express
+                command: npm update prismic-express
+            - run:
+                name: Rebuild node-sass
+                command: npm rebuild node-sass
+            - run:
+                name: Make DB
+                command: mkdir db
+            - run:
+                name: Webpack
+                command: npm run webpack
+            - run:
+                name: prismic-express Sync
+                command: npm run sync
+            - run:
+                name: prismic-express Build
+                command: npm run build
+            - persist_to_workspace:
+                root: ~/index
+                paths:
+                    - .
+    deploy-staging:
+        working_directory: ~/index
+        machine:
+            enabled: true
+        steps:
+            - attach_workspace:
+                at: ~/index
+            - run:
+                name: Staging Deploy ( dev branch )
+                command: make -ef Circlefile deploy_staging
+    deploy-production:
+        working_directory: ~/index
+        machine:
+            enabled: true
+        steps:
+            - attach_workspace:
+                at: ~/index
+            - run:
+                name: Production Deploy ( master branch )
+                command: make -ef Circlefile deploy_production
+
+workflows:
+    version: 2
+    build-deploy:
+        jobs:
+            - build
+            - deploy-staging:
+                requires:
+                    - build
+                filters:
+                    branches:
+                        only: dev
+            - deploy-production:
+                requires:
+                    - build
+                filters:
+                    branches:
+                        only: master
