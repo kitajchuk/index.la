@@ -27,7 +27,7 @@
 # make tasks in this file to execute properly. Most of these are
 # already defined by Circle CI during each build.
 #
-# CIRCLEFILE_GITHUB_ACCESS_TOKEN
+# GITHUB_ACCESS_TOKEN
 # An access token for this projects repository that has permission
 # to get/post to the Github Status API. Set this value in the Circle
 # CI admin under Project Settings > Tweaks > Environment Variables
@@ -56,12 +56,6 @@
 # Note: Run make with the "-e" flag to ensure environment variables
 # take precedence over these definitions.
 
-CIRCLEFILE_AWS_DEST := /var/www/html/
-CIRCLEFILE_AWS_USER := ec2-user
-CIRCLEFILE_NODE_HOST := ec2-52-42-9-166.us-west-2.compute.amazonaws.com
-CIRCLEFILE_STAGING_HOST := ec2-52-24-186-137.us-west-2.compute.amazonaws.com
-CIRCLEFILE_PRODUCTION_HOST := ec2-50-112-223-6.us-west-2.compute.amazonaws.com
-
 
 # TARGETS
 #
@@ -69,16 +63,16 @@ CIRCLEFILE_PRODUCTION_HOST := ec2-50-112-223-6.us-west-2.compute.amazonaws.com
 
 
 push_node:
-		@rsync -av -e "ssh" --rsync-path "sudo rsync" server/ $(CIRCLEFILE_AWS_USER)@$(CIRCLEFILE_NODE_HOST):$(CIRCLEFILE_AWS_DEST)
-		@ssh $(CIRCLEFILE_AWS_USER)@$(CIRCLEFILE_NODE_HOST) 'cd $(CIRCLEFILE_AWS_DEST) ; sudo npm run stop ; sudo npm run start'
+		@rsync -av -e "ssh" --rsync-path "sudo rsync" server/ $(AWS_USER)@$(NODE_HOST):$(AWS_DEST)
+		@ssh $(AWS_USER)@$(NODE_HOST) 'cd $(AWS_DEST) ; sudo npm run stop ; sudo npm run start'
 
 
 push_staging:
-		@rsync -av -e "ssh" --rsync-path "sudo rsync" build/ $(CIRCLEFILE_AWS_USER)@$(CIRCLEFILE_STAGING_HOST):$(CIRCLEFILE_AWS_DEST)
+		@rsync -av -e "ssh" --rsync-path "sudo rsync" build/ $(AWS_USER)@$(STAGING_HOST):$(AWS_DEST)
 
 
 push_production:
-		@rsync -av -e "ssh" --rsync-path "sudo rsync" build/ $(CIRCLEFILE_AWS_USER)@$(CIRCLEFILE_PRODUCTION_HOST):$(CIRCLEFILE_AWS_DEST)
+		@rsync -av -e "ssh" --rsync-path "sudo rsync" build/ $(AWS_USER)@$(PRODUCTION_HOST):$(AWS_DEST)
 
 
 deploy_staging: push_node push_staging
