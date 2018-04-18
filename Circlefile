@@ -64,7 +64,7 @@
 
 push_node:
 		@rsync -av -e "ssh" --rsync-path "sudo rsync" server/ $(AWS_USER)@$(NODE_HOST):$(AWS_DEST)
-		@ssh $(AWS_USER)@$(NODE_HOST) 'cd $(AWS_DEST) ; sudo npm run stop ; sudo npm run start'
+		@ssh $(AWS_USER)@$(NODE_HOST) 'cd $(AWS_DEST) ; sudo npm run stop ; sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 8000 ; sudo npm run start'
 
 
 push_staging:

@@ -31,7 +31,7 @@ var express = require( "express" );
 var bodyParser = require( "body-parser" );
 var expressApp = express();
 var serverApp = http.Server( expressApp );
-var expressPort = (process.env.NODE_ENV === "development" ? 8000 : 80);
+var expressPort = 8000;
 var prismicSecret = "Sheena is a punk rocker";
 var WebSocketServer = require( "websocket" ).server;
 var websocketServer = new WebSocketServer({
