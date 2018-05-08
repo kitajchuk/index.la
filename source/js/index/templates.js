@@ -104,7 +104,7 @@ Vue.filter( "colorize", ( colors, prefix ) => {
         ret.push( `.header .icon--back span { background-color: ${colors.textColor.value}; }` );
         ret.push( `.header .icon--back:before { background-color: ${colors.textColor.value}; }` );
         ret.push( `.header .icon--back:after { background-color: ${colors.textColor.value}; }` );
-        ret.push( `.${prefix} .a, .a:hover { color: color: ${colors.textColor.value}; }` );
+        ret.push( `.${prefix} .a:hover { color: ${colors.textColor.value}; }` );
     }
 
     // Border color

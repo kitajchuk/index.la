@@ -13,7 +13,7 @@
     @include p();
 
     em {
-        @include em();
+        @include font-sans-medium-oblique();
     }
     strong {
         @include strong();
