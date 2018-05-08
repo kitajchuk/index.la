@@ -18,6 +18,14 @@
     font-family: $sans-text-medium;
     @include font-normal();
 }
+@mixin font-sans-oblique() {
+    font-family: $sans-text-regular-oblique;
+    @include font-normal();
+}
+@mixin font-sans-medium-oblique() {
+    font-family: $sans-text-medium-oblique;
+    @include font-normal();
+}
 
 
 /******************************************************************************
@@ -39,6 +47,12 @@
     font-size: $p-size;
     text-decoration: none;
     @include font-sans-text();
+}
+@mixin em() {
+    @include font-sans-oblique();
+}
+@mixin strong() {
+    @include font-sans-medium();
 }
 @mixin h1() {
     font-size: $h1-size;

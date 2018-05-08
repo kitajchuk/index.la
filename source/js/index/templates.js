@@ -24,10 +24,10 @@ const templates = {
 
 /**
  *
- * @description Handle linkify-ing StructuredText fields.
+ * @description Handle linkify-ing StructuredText fields, etc...
  *
  */
-Vue.filter( "linkify", ( block ) => {
+Vue.filter( "textify", ( block ) => {
     let ret = block.text;
     let sub = null;
     const links = [];
@@ -40,6 +40,14 @@ Vue.filter( "linkify", ( block ) => {
                 links.push({
                     text: sub,
                     hype: `<a href="${span.data.value.url}" class="a -grey" target="_blank">${sub}</a>`
+                });
+
+            } else if ( span.type === "strong" || span.type === "em" ) {
+                sub = block.text.substring( span.start, span.end );
+
+                links.push({
+                    text: sub,
+                    hype: `<${span.type}>${sub}</${span.type}>`
                 });
             }
         });
@@ -96,6 +104,7 @@ Vue.filter( "colorize", ( colors, prefix ) => {
         ret.push( `.header .icon--back span { background-color: ${colors.textColor.value}; }` );
         ret.push( `.header .icon--back:before { background-color: ${colors.textColor.value}; }` );
         ret.push( `.header .icon--back:after { background-color: ${colors.textColor.value}; }` );
+        ret.push( `.${prefix} .a, .a:hover { color: color: ${colors.textColor.value}; }` );
     }
 
     // Border color
