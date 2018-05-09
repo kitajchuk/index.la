@@ -383,7 +383,7 @@
                     <div v-if="slice.slice_type === 'text'" class="{{slice.slice_type}}">
                         <div class="-col -text--left">
                             <div v-for="block in slice.value.value" class="{{block.type.replace( 'eading', '' ).replace( 'aragraph', '' )}}">
-                                {{{block | linkify}}}
+                                {{{block | textify}}}
                             </div>
                         </div>
                     </div>

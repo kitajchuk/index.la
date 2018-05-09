@@ -11,7 +11,14 @@
 *******************************************************************************/
 .p {
     @include p();
+
+    em {
+        @include font-sans-medium-oblique();
     }
+    strong {
+        @include strong();
+    }
+}
 .pup {
     margin-top: 20px;
     }
